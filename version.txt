@@ -1,0 +1,4 @@
+1.0
+---
+-Gestion des themes
+-Gestion de la langue
