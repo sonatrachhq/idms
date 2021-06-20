@@ -1,0 +1,19 @@
+.example-card {
+    width: 400px;
+    position: absolute;
+ 
+    left: 50%;
+    top:50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+   /* box-shadow: rgba(238, 147, 28, 0.4) 5px 5px, rgba(238, 147, 28, 0.4) 10px 10px, rgba(238, 147, 28, 0.4) 15px 15px, rgba(238, 147, 28, 0.4) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+ */
+}
+  
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    margin: 00px;
+  }

@@ -31,10 +31,10 @@ export class I18nModule {
     translateCacheService: TranslateCacheService
   ) {
     translateCacheService.init();
-    translate.addLangs(['en', 'fr','ar']);
+    translate.addLangs(['en', 'fr']);
 
     const browserLang = translateCacheService.getCachedLanguage() || translate.getBrowserLang();
-    translate.use(browserLang.match(/en|ar|fr/) ? browserLang:'fr');
+    translate.use(browserLang.match(/en|fr/) ? browserLang:'fr');///en|ar|fr/
     
   }
 }

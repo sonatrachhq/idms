@@ -1,4 +1,24 @@
 {
     "compA": "Composant A marche",
-    "compB": "Composant B marche"
+    "compB": "Composant B marche",
+    "descApp":"Application Exploitation Paie",
+    "titleApp":"Payroll",
+    "detailApp":"Payroll est une application qui permet de générer les états paie pour toutes les structures de Sonatrach ainsi que les fichiers paie et de les envoyer aux gestionnaires.",
+    "btn_detail_flip_card":"Plus de détails",
+    "btn_retour_flip_card":"Retour",
+    "t3":"testApp",
+    "desc3":"desc app test",
+    "detail3":"détail app test",
+    "connect_header":"Se connecter",
+    "param_header":"paramètres",
+    "disco_header":"Se déconnecter",
+    "auth_login":"Authentification",
+    "son_login":"SON Utilisateur",
+    "titleAlert_login":"Champ obligatoire",
+    "psw_login":"Mot de passe",
+    "subscribe_login":"Créer un compte",
+    "account_login":"Vous n'avez pas de compte?",
+    "inscription_register":"Inscription",
+    "lang_register":"Sélectionnez une langue"
+    
   }

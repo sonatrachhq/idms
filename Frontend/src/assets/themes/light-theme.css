@@ -971,8 +971,8 @@
   }
   
   .mat-autocomplete-panel {
-    background: #424242;
-    color: #fff
+    background: #fff;
+    color: rgba(0, 0, 0, .87)
   }
   
   .mat-autocomplete-panel:not([class*=mat-elevation-z]) {
@@ -980,7 +980,7 @@
   }
   
   .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover) {
-    background: #424242
+    background: #D6D5D3
   }
   
   .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
@@ -1499,6 +1499,7 @@
   }
   .container{
     background-color: #ECF0F1;
+    width: 100%;
   }
   
   .mat-card:not([class*=mat-elevation-z]) {
@@ -2209,7 +2210,7 @@
   }
   
   .mat-menu-panel {
-    background: #424242
+    background: white
   }
   
   .mat-menu-panel:not([class*=mat-elevation-z]) {
@@ -2429,12 +2430,12 @@
   }
   
   .mat-drawer-container {
-    background-color: #303030;
-    color: #fff
+    background-color: #ECF0F1;
+    color: rgba(0, 0, 0, .87)
   }
   
   .mat-drawer {
-    background-color: #424242;
+    background-color: #DADCDD;
     color: #fff
   }
   

@@ -1,4 +1,23 @@
 {
     "compA": "Component A works",
-    "compB": "Component B works"
+    "compB": "Component B works",
+    "descApp":"payroll operation application",
+    "titleApp":"Payroll",
+    "detailApp":"Payroll is an application that allows you to generate payroll statements for all Sonatrach structures as well as payroll files and send them to managers.",
+    "btn_detail_flip_card":"more details",
+    "btn_retour_flip_card":"go back",
+    "t3":"testApp",
+    "desc3":"desc app test",
+    "detail3":"detail app test",
+    "connect_header":"Sign in",
+    "param_header":"Settings",
+    "disco_header":"Sign out",
+    "auth_login":"Authentication",
+    "son_login":"SON User",
+    "titleAlert_login":"Required Field",
+    "psw_login":"Password",
+    "subscribe_login":"Create an account",
+    "account_login":"You do not have an account?",
+    "inscription_register":"Registration",
+    "lang_register":"Select a language"
   }

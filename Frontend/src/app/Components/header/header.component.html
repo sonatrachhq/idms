@@ -1,30 +1,50 @@
-<div class="container">
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>
-            <span style="letter-spacing: 2px;
-        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        font-weight: bold;"
-      
-        
-        >
-          Acces Management System</span>
-            <span class="spacer"></span>
-        <app-theme-menu *ngIf="options$ | async as options" 
-          [options]="options"
-          (themeChange)="themeChangeHandler($event)">
-        </app-theme-menu>
-        <app-select-language></app-select-language>
-        </mat-toolbar-row>
-        
-    </mat-toolbar>
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <img  class="avatar" src="./assets/img/logo.png"
+      alt="">
+      <span style="letter-spacing: 2px;
+          font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+          font-weight: bold;">
+        Acces Management System</span>
+       
+        <button mat-icon-button  (click)="drawer.toggle()" [disabled]="connected==0"><mat-icon>menu</mat-icon></button>
+      <span class="spacer"></span>
+      <app-select-language></app-select-language>
+      <app-theme-menu *ngIf="options$ | async as options" [options]="options" (themeChange)="themeChangeHandler($event)">
+      </app-theme-menu>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="login()" [disabled]="connected==1">
+          <mat-icon>input</mat-icon>
+          <span>{{'connect_header' | translate}}</span>
+        </button>
+        <button mat-menu-item  [disabled]="connected==0">
+          <mat-icon>settings</mat-icon>
+          <span>{{'param_header' | translate}}</span>
+        </button>
+        <button mat-menu-item [disabled]="connected==0" (click)="logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          <span>{{'disco_header' | translate}}</span>
+        </button>
+      </mat-menu>
+     
   
-    <br>
-    <br>
-    <p  dir="auto" > {{'compA' | translate}}</p>
- 
-
-<p  dir="auto"> {{'compB' | translate}}</p>
+    </mat-toolbar-row>
+  
+  </mat-toolbar>
 
 
-
-</div>
+  <mat-sidenav-container  autosize>
+    <mat-sidenav #drawer mode="side"  role="navigation">
+      <mat-nav-list>
+        <a mat-list-item routerLink='hh'>First Component</a>
+        
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

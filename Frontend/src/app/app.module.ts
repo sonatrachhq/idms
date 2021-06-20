@@ -1,8 +1,9 @@
+import { CommunService, initConfig } from './IdmsServices/commun.service';
 import { ThemeService } from './Theme/Services/theme.service';
 import { StyleManagerService } from './Theme/Services/style-manager.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http'
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AppRoutingModule } from './Routing/app-routing.module';
 import { MbscModule, MbscFormsModule} from '@mobiscroll/angular-lite';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -62,6 +63,14 @@ import { HeaderComponent } from './Components/header/header.component';
 import { I18nModule } from './i18n/i18n.module';
 import { SelectLanguageComponent } from './Languages/select-language/select-language.component';
 import {BidiModule} from '@angular/cdk/bidi';
+import { FlipCardComponent } from './Components/flip-card/flip-card.component';
+import { HomePageComponent } from './Pages/home-page/home-page.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { ROUTING } from './Routing/app-routing';
+import { GuestPageComponent } from './Pages/guest-page/guest-page.component';
+import { LoginPageComponent } from './Pages/login-page/login-page.component';
+import { RegisterPageComponent } from './Pages/register-page/register-page.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 
 @NgModule({
@@ -69,10 +78,17 @@ import {BidiModule} from '@angular/cdk/bidi';
     AppComponent,
     ThemeMenuComponent,
     HeaderComponent,
-    SelectLanguageComponent
+    SelectLanguageComponent,
+    FlipCardComponent,
+    HomePageComponent,
+    GuestPageComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserAnimationsModule ,
+    ROUTING,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -134,7 +150,13 @@ import {BidiModule} from '@angular/cdk/bidi';
   exports: [
     I18nModule
   ],
-  providers: [StyleManagerService, ThemeService],
+  providers: [
+    StyleManagerService,
+    ThemeService,
+    CommunService,
+    {provide: APP_INITIALIZER, useFactory: initConfig,deps: [CommunService],multi: true},
+    { provide: HTTP_INTERCEPTORS,    useClass: AuthInterceptor,    multi: true  },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

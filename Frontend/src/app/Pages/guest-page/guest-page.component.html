@@ -1,0 +1,4 @@
+
+<div  *ngFor="let app of apps$ | async as apps; let i = index"  style="display: inline-block;margin: auto; margin-top: 15px;">
+    <app-flip-card *ngIf="apps$ | async as apps"  [app]="apps[i]"></app-flip-card>
+</div>

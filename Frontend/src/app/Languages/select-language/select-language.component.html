@@ -1,4 +1,18 @@
-<select  
+
+<button mat-icon-button [matMenuTriggerFor]="menu" #langSelect >
+  <mat-icon >language</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor="let lang of translate.getLangs()"
+  [value]="lang"
+  [attr.selected]="lang === translate.currentLang ? '' : null"
+  (click)="translate.use(lang)">
+  <div style="font-weight: bold; "><img mat-card-avatar [style.backgroundImage]="'url(../../../assets/img/' + lang + '.png)'" style="background-size: cover;width:30px;height: 30px; " ><span >{{ lang | uppercase }}</span></div>
+    
+  </button>
+  
+</mat-menu>
+<!--<select  
 #langSelect (change)="translate.use(langSelect.value)">
 <option 
       *ngFor="let lang of translate.getLangs()"
@@ -7,5 +21,5 @@
     > 	{{lang}}
 </option>
     
-  </select>
+  </select>!-->
   

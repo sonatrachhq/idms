@@ -1,0 +1,49 @@
+<mat-card class="example-card">
+    <mat-card-header>
+     
+      <mat-card-title style="text-transform: uppercase;text-align: center; margin-left: 120px;">IDMS</mat-card-title>
+      <mat-card-subtitle style="text-align: center; margin-left: 120px;font-family:serif;font-size: 20;">{{'inscription_register' | translate}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="../../../assets/img/back_login.jpg" >
+    <mat-card-content>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" novalidate>
+            <div class="table-container">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'son_login' | translate}}</mat-label>
+                <input matInput placeholder="{{'son_login' | translate}}" formControlName="sonuser" >
+                <mat-icon matSuffix> person_outline</mat-icon>
+                <mat-error
+                  *ngIf="!formGroup.controls['sonuser'].valid && formGroup.controls['sonuser'].touched">
+                  {{ 'titleAlert_login'| translate}}
+                </mat-error>
+              </mat-form-field>
+    
+              <mat-form-field appearance="outline"> 
+                <mat-label>{{'psw_login' | translate}}</mat-label>
+                <input matInput placeholder="{{'psw_login' | translate}}" formControlName="password"  [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix> lock</mat-icon>
+                <mat-error
+                  *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+                  {{ 'titleAlert_login'| translate }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field  appearance="outline">
+                <mat-label> {{ 'lang_register'| translate }}</mat-label>
+                <input type="text" placeholder="{{ 'lang_register'| translate }}"  matInput 
+                  formControlName="idlang" [matAutocomplete]="auto">
+                  <mat-icon matSuffix> short_text</mat-icon>
+                <mat-error *ngIf="!formGroup.controls['idlang'].valid && formGroup.controls['idlang'].touched">
+                    {{ 'titleAlert_login'| translate }}
+                </mat-error>
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let lang of langs" [value]="lang.idlang">
+                    {{lang.desclang}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <button [disabled]="!formGroup.valid"   mat-raised-button color="primary">{{'subscribe_login'| translate}}</button>
+              </div>
+              </form>
+    </mat-card-content>
+   
+  </mat-card>

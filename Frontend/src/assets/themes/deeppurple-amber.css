@@ -565,6 +565,10 @@ input.mat-input-element {
   display: block;
   box-sizing: border-box
 }
+.container{
+  background-color: #ECF0F1;
+  width: 100%;
+}
 
 .mat-list-base[dense] .mat-list-option .mat-line:nth-child(n+2) {
   font-size: 12px
@@ -2395,7 +2399,7 @@ td.mat-footer-cell {
 }
 
 .mat-drawer-container {
-  background-color: #fafafa;
+  background-color: #ECF0F1;
   color: rgba(0, 0, 0, .87)
 }
 
