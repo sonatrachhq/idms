@@ -1,6 +1,7 @@
 package com.sonatrach.dz.languages.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -23,5 +24,15 @@ LanguagesRepo languageRepo;
 
 public List<Languages> getAllLangs(){
 	return languageRepo.findByStatus(1);
+}
+
+
+public Languages getLangById(Integer langId) {
+	Optional<Languages> currentLang= languageRepo.findById(langId);
+	if(currentLang.get()!=null) {
+		return currentLang.get();
+	}else {
+		return null;
+	}
 }
 }

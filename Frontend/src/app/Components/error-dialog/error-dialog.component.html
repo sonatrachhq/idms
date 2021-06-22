@@ -1,0 +1,12 @@
+<div class="overlay">
+    <mat-dialog-content  > 
+        <strong> <p style="text-align: center; font-size: 28px; margin:8px;color:white;" >Erreur</p></strong>
+        <hr/>
+       <p style="font-size: 22px; margin: 10px;color: white"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" style="color: white;"></span>{{data.message}}</p>
+       <hr/>
+    </mat-dialog-content>
+    <mat-dialog-actions  align="center" >
+      <button class="btn btn" mat-dialog-close (click)="redirectToLogin()">{{ 'close_alert'| translate}}</button>
+    </mat-dialog-actions >
+</div>
+

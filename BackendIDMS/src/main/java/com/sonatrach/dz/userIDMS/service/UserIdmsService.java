@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.intellij.lang.annotations.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sonatrach.dz.languages.domain.Languages;
 import com.sonatrach.dz.message.request.LoginForm;
 import com.sonatrach.dz.message.request.SignUpForm;
 import com.sonatrach.dz.message.response.JwtResponse;
@@ -46,7 +48,7 @@ public class UserIdmsService {
 	 *********************************************************************************************************/
 
 	// Connexion
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+	public ResponseEntity<?> authenticateUser(LoginForm loginRequest) {
 
 		Optional<UserIDMS> currentUser = userRepository.findBySonuser(loginRequest.getSonuser());
 
@@ -67,7 +69,7 @@ public class UserIdmsService {
 	}
 
 	// Inscription
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+	public ResponseEntity<?> registerUser( SignUpForm signUpRequest) {
 		if (userRepository.existsBySonuser(signUpRequest.getSonuser())) {
 			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 					HttpStatus.BAD_REQUEST);
@@ -82,5 +84,16 @@ public class UserIdmsService {
 		userRepository.save(user);
 
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
+	}
+	
+	public UserIDMS findUserById(UserIDMS user) {
+		Optional<UserIDMS> currentUser=userRepository.findBySonuser(user.getSonuser());
+		
+		if(currentUser.get() != null) {
+			return currentUser.get();
+		}else {
+			return null;
+		}
+		
 	}
 }

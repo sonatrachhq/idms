@@ -19,5 +19,6 @@
     "subscribe_login":"Create an account",
     "account_login":"You do not have an account?",
     "inscription_register":"Registration",
-    "lang_register":"Select a language"
+    "lang_register":"Select a language",
+    "close_alert":"Close"
   }

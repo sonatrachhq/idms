@@ -1,3 +1,5 @@
+import { AlertDialogComponent } from './../../Components/alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { SignUpInfo } from './../../auth/signup-info';
 import { Languages } from './../../Models/Languages';
 import { RegisterPageService } from './../../Services/register-page.service';
@@ -17,7 +19,7 @@ export class RegisterPageComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({});
   signupInfo: SignUpInfo=new SignUpInfo(0,"","",0,0,new Date);
   langs:Languages[]=[];
-  constructor( private router:Router,private authService: AuthService,private registerService: RegisterPageService ) { 
+  constructor( private router:Router,private authService: AuthService,private registerService: RegisterPageService ,public dialog: MatDialog) { 
     this.formGroup = new FormGroup({
       sonuser: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -57,13 +59,29 @@ export class RegisterPageComponent implements OnInit {
         this.router.navigateByUrl("login")
       },
       error => {
+        console.log(error);
         if(error=="son"){
           console.log("yes");//il faut afficher que le son est déja utilisé
+          this.openDialog("Vous avez déjà un compte avec ce Son! Veuillez vous connecter.")
+        }else{
+          this.openDialog(error);
         }
-        console.log(error);
+       
         
       }
     );
   
   }
+   //***********************************************Error ******************************************************************************************************************/
+   openDialog(msg:String) {
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      width: '500px',
+      data: {message:msg }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
+    });
+  }
+
 }

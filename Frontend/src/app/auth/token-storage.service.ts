@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'AuthToken';
 const SONUSER_KEY = 'AuthSonuser';
 const AUTHORITIES_KEY = 'AuthAuthorities';
+const HOST_KEY = 'HostKey';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,16 @@ export class TokenStorageService {
   public getToken(): string {
     let token=sessionStorage.getItem(TOKEN_KEY);
     return token !==null? token :"";
+  }
+
+  public saveHost(host: string) {
+    window.sessionStorage.removeItem(HOST_KEY);
+    window.sessionStorage.setItem(HOST_KEY, host);
+  }
+
+  public getHost(): string {
+    let host=sessionStorage.getItem(HOST_KEY);
+    return host !==null? host :"";
   }
 
   public saveSonuser(sonuser: string) {

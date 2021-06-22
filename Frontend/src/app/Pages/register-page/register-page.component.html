@@ -36,8 +36,8 @@
                     {{ 'titleAlert_login'| translate }}
                 </mat-error>
                 <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let lang of langs" [value]="lang.idlang">
-                    {{lang.desclang}}
+                  <mat-option *ngFor="let lang of langs" [value]="lang.idlang+'-'+lang.desclang">
+                    {{lang.idlang}}-{{lang.desclang}}
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>

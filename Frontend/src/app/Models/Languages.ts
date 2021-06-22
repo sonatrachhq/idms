@@ -7,5 +7,5 @@ export interface Languages{
 	
  flagicon:String;
 
- symbollang:String;
+ symbollang:string;
 }

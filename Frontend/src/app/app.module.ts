@@ -1,8 +1,9 @@
+import { GlobalErrorHandlerService } from './IdmsServices/global-error-handler.service';
 import { CommunService, initConfig } from './IdmsServices/commun.service';
 import { ThemeService } from './Theme/Services/theme.service';
 import { StyleManagerService } from './Theme/Services/style-manager.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AppRoutingModule } from './Routing/app-routing.module';
 import { MbscModule, MbscFormsModule} from '@mobiscroll/angular-lite';
@@ -61,7 +62,7 @@ import { ThemeMenuComponent } from './Theme/Components/theme-menu/theme-menu.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './Components/header/header.component';
 import { I18nModule } from './i18n/i18n.module';
-import { SelectLanguageComponent } from './Languages/select-language/select-language.component';
+import { SelectLanguageComponent } from './Languages/component/select-language/select-language.component';
 import {BidiModule} from '@angular/cdk/bidi';
 import { FlipCardComponent } from './Components/flip-card/flip-card.component';
 import { HomePageComponent } from './Pages/home-page/home-page.component';
@@ -71,6 +72,8 @@ import { GuestPageComponent } from './Pages/guest-page/guest-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { RegisterPageComponent } from './Pages/register-page/register-page.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { AlertDialogComponent } from './Components/alert-dialog/alert-dialog.component';
+import { ErrorDialogComponent } from './Components/error-dialog/error-dialog.component';
 
 
 @NgModule({
@@ -84,8 +87,11 @@ import { FooterComponent } from './Components/footer/footer.component';
     GuestPageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    FooterComponent
+    FooterComponent,
+    AlertDialogComponent,
+    ErrorDialogComponent
   ],
+  entryComponents: [AlertDialogComponent,ErrorDialogComponent],
   imports: [
     BrowserAnimationsModule ,
     ROUTING,
@@ -156,6 +162,7 @@ import { FooterComponent } from './Components/footer/footer.component';
     CommunService,
     {provide: APP_INITIALIZER, useFactory: initConfig,deps: [CommunService],multi: true},
     { provide: HTTP_INTERCEPTORS,    useClass: AuthInterceptor,    multi: true  },
+    { provide: ErrorHandler, useClass:GlobalErrorHandlerService}
   ],
   bootstrap: [AppComponent]
 })

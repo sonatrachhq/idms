@@ -1,0 +1,25 @@
+
+<button mat-icon-button [matMenuTriggerFor]="menu" #langSelect >
+  <mat-icon >language</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor="let lang of langs"
+  [value]="lang.symbollang"
+  [attr.selected]="lang.symbollang === translate.currentLang ? '' : null"
+  (click)="idmsTranslate(lang.symbollang)">
+  <div style="font-weight: bold; "><img mat-card-avatar [style.backgroundImage]="'url(../../../assets/img/' + lang.flagicon + ')'" style="background-size: cover;width:30px;height: 30px;vertical-align: middle; " ><span style="margin-left: 5px;">{{ lang.symbollang | uppercase }}</span></div>
+    
+  </button>
+  
+</mat-menu>
+<!--<select  
+#langSelect (change)="translate.use(langSelect.value)">
+<option 
+      *ngFor="let lang of translate.getLangs()"
+      [value]="lang"
+      [attr.selected]="lang === translate.currentLang ? '' : null"
+    > 	{{lang}}
+</option>
+    
+  </select>!-->
+  

@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../auth/token-storage.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,8 +14,8 @@ interface Config {
 
 
 export class CommunService {
-  public host:String="";
-  constructor(private http: HttpClient) { 
+  public host:string="";
+  constructor(private http: HttpClient,private tokenStorage: TokenStorageService) { 
  
   }
 
@@ -30,7 +31,7 @@ public load(): Promise<void> {
       .toPromise()
       .then(config => {
         this.host = config.url;
-
+        this.tokenStorage.saveHost(this.host);
         });
 
     }
