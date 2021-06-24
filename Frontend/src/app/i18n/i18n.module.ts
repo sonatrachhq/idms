@@ -1,3 +1,8 @@
+import { CommunService } from './../IdmsServices/commun.service';
+import { Languages } from './../Models/Languages';
+import { Option } from './../Theme/Models/Option';
+import { Profil } from './../Models/Profil';
+import { GlobalAppService } from './../IdmsServices/global-app.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from './../Components/error-dialog/error-dialog.component';
 import { UserIDMS } from './../Models/UserIDMS';
@@ -32,49 +37,104 @@ import { TranslateCacheModule, TranslateCacheService, TranslateCacheSettings } f
 })
 export class I18nModule {
    browserLang:string="";
+   currentUser:UserIDMS={
+    "idlang":0,
+    "iduser":0,
+    "iduseridms":0,
+    "pswuser":"",
+    "sonuser":"",
+    "sysdate":new Date,
+    "userstatus":0
+  };
+  langs:Languages[]=[];
   constructor(
-    translate: TranslateService,
+    private translate: TranslateService,
     translateCacheService: TranslateCacheService,
     private tokenStorage: TokenStorageService,
     private langsService:LangsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private globalService:GlobalAppService,
+    private communService:CommunService
   ) {
     translateCacheService.init();
     translate.addLangs(['en', 'fr']);
-    if (this.tokenStorage.getToken()!="") {
-      let user:UserIDMS={
-        "idlang":0,
-        "iduser":0,
-        "iduseridms":0,
-        "pswuser":"",
-        "sonuser":"",
-        "sysdate":new Date,
-        "userstatus":0
-      };
-      console.log(this.tokenStorage.getSonuser())
-      user.sonuser=this.tokenStorage.getSonuser();
-      this.langsService.getCurrentUserLang(user).subscribe(
+    this.communService.load().then(
+      (value) => {
+         if (this.tokenStorage.getToken()!="") {
+        //get all languages
+     this.langsService.getAllLanguages().subscribe(
+       data => {  
+         console.log(data);
+        this.langs=data;
+        this.getUsersProfil();
+     },
+     error => {
+      console.log(error);
+      this.openDialogError(error);
+      
+      
+       
+     }
+     )
+       
+       }else{
+         this.browserLang = translateCacheService.getCachedLanguage() || translate.getBrowserLang();
+         translate.use(this.browserLang.match(/en|fr/) ? this.browserLang:'fr');///en|ar|fr/
+       }
+      }
+    );
+    
+
+    
+  }
+  getUsersProfil(){
+  
+    this.currentUser.sonuser=this.tokenStorage.getSonuser();
+      this.globalService.getCurrentUser(this.currentUser).subscribe(
         data => {  
           console.log(data);
-          if(data!=null){
-            this.browserLang=data.symbollang;
-            translate.use(this.browserLang);
-          }
-         
+         this.currentUser=data;
+        this.getProfil();
+       
       },
       error => {
        console.log(error);
        this.openDialogError(error);
        
+       
         
       }
       )
-    }else{
-      this.browserLang = translateCacheService.getCachedLanguage() || translate.getBrowserLang();
-      translate.use(this.browserLang.match(/en|fr/) ? this.browserLang:'fr');///en|ar|fr/
-    }
 
     
+  }
+
+  getProfil(){
+    let profil:Profil={
+      "iduseridms":this.currentUser.iduseridms,
+      "idapplication":1,
+      "idtheme":0,
+      "idlanguage":0 ,
+      "iduser":0,
+      "systemdate":new Date
+    }
+    this.globalService.getUsersProfil(profil).subscribe(
+      data => {  
+        console.log(data);
+       if(data!=null){
+        let  currentLang:Languages=this.langs.find(lang =>lang.idlang==data.idlanguage);
+        this.browserLang=currentLang.symbollang;
+        this.translate.use(this.browserLang);
+       }
+    },
+    error => {
+     console.log(error);
+     this.openDialogError(error);
+     
+     
+      
+    }
+    )
   }
   openDialogError(error:String): void {
     const dialogRef = this.dialog.open(ErrorDialogComponent, {

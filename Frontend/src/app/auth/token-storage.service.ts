@@ -4,6 +4,8 @@ const TOKEN_KEY = 'AuthToken';
 const SONUSER_KEY = 'AuthSonuser';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const HOST_KEY = 'HostKey';
+const THEME_KEY='themeKey';
+const LANG_KEY='langKey';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,26 @@ export class TokenStorageService {
   public saveHost(host: string) {
     window.sessionStorage.removeItem(HOST_KEY);
     window.sessionStorage.setItem(HOST_KEY, host);
+  }
+
+  public getLang(): string {
+    let lang=sessionStorage.getItem(LANG_KEY);
+    return lang !==null? lang :"";
+  }
+
+  public saveLang(lang: number) {
+    window.sessionStorage.removeItem(LANG_KEY);
+    window.sessionStorage.setItem(LANG_KEY, lang.toString());
+  }
+
+  public getTheme(): string {
+    let theme=sessionStorage.getItem(THEME_KEY);
+    return theme !==null? theme :"";
+  }
+
+  public saveTheme(theme: number) {
+    window.sessionStorage.removeItem(THEME_KEY);
+    window.sessionStorage.setItem(THEME_KEY, theme.toString());
   }
 
   public getHost(): string {

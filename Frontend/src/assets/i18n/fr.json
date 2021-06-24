@@ -15,11 +15,13 @@
     "auth_login":"Authentification",
     "son_login":"SON Utilisateur",
     "titleAlert_login":"Champ obligatoire",
+    "pswAlert_login":"Le mot de passe doit avoir au moins 6 caractères",
     "psw_login":"Mot de passe",
     "subscribe_login":"Créer un compte",
     "account_login":"Vous n'avez pas de compte?",
     "inscription_register":"Inscription",
     "lang_register":"Sélectionnez une langue",
-    "close_alert":"Fermer"
+    "close_alert":"Fermer",
+    "error_alert":"Erreur"
     
   }

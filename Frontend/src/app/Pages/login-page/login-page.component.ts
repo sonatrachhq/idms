@@ -1,6 +1,6 @@
 import { AlertDialogComponent } from './../../Components/alert-dialog/alert-dialog.component';
 import { AuthService } from './../../auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from './../../auth/token-storage.service';
 import { AuthLoginInfo } from './../../auth/login-info';
 import { Component, OnInit } from '@angular/core';
@@ -15,8 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 export class LoginPageComponent implements OnInit {
   hide = true;
   formGroup: FormGroup = new FormGroup({});
+  langId:number=0;
   private loginInfo: AuthLoginInfo=new AuthLoginInfo("","");
-  constructor( private tokenStorage: TokenStorageService,private router:Router,private authService: AuthService,public dialog: MatDialog ) { 
+  constructor( private tokenStorage: TokenStorageService,private activatedRoute:ActivatedRoute,private authService: AuthService,public dialog: MatDialog,private router:Router ) { 
     this.formGroup = new FormGroup({
       sonuser: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -24,10 +25,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
   }
 
   onSubmit(post: any) {
-    console.log(post)
+    console.log(this.langId )
     this.loginInfo.sonuser=post.sonuser;
     this.loginInfo.password=post.password;
     this.authService.attemptAuth(this.loginInfo).subscribe(
@@ -36,8 +38,13 @@ export class LoginPageComponent implements OnInit {
           if(data!=null){
             this.tokenStorage.saveToken(data.accessToken);
           this.tokenStorage.saveSonuser(data.sonuser);
-          this.router.navigateByUrl("homePage");
-          window.location.reload();
+          this.tokenStorage.saveTheme(2);
+          this.tokenStorage.saveLang(1);
+          this.router.navigate(["homePage"]).then(() => {
+            window.location.reload();
+          });
+          
+          
           }else{
             this.openDialog("Nom d'utilisateur ou mot de passe incorrect");
             console.log(data);

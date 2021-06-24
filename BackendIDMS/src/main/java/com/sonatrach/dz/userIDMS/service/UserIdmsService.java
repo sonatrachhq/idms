@@ -71,7 +71,7 @@ public class UserIdmsService {
 	// Inscription
 	public ResponseEntity<?> registerUser( SignUpForm signUpRequest) {
 		if (userRepository.existsBySonuser(signUpRequest.getSonuser())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+			return new ResponseEntity<>(new ResponseMessage("Fail -> SonUser is already taken!",0),
 					HttpStatus.BAD_REQUEST);
 		}
 
@@ -81,12 +81,12 @@ public class UserIdmsService {
 		UserIDMS user = new UserIDMS(signUpRequest.getIdlang(),signUpRequest.getSonuser(), encoder.encode(signUpRequest.getPswuser()), signUpRequest.getUserstatus(),
 				signUpRequest.getIduser(),signUpRequest.getSysdate());
 
-		userRepository.save(user);
-
-		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
+		UserIDMS registeredUser=userRepository.save(user);
+		
+		return new ResponseEntity<>(new ResponseMessage("User registered successfully!",registeredUser.getIduseridms()), HttpStatus.OK);
 	}
 	
-	public UserIDMS findUserById(UserIDMS user) {
+	public UserIDMS findUserBySon(UserIDMS user) {
 		Optional<UserIDMS> currentUser=userRepository.findBySonuser(user.getSonuser());
 		
 		if(currentUser.get() != null) {
@@ -96,4 +96,5 @@ public class UserIdmsService {
 		}
 		
 	}
+	
 }

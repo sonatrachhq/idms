@@ -24,10 +24,10 @@
                 <mat-icon matSuffix> lock</mat-icon>
                 <mat-error
                   *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
-                  {{ 'titleAlert_login'| translate }}
+                  {{ 'pswAlert_login'| translate }}
                 </mat-error>
               </mat-form-field>
-              <mat-form-field  appearance="outline">
+              <!--<mat-form-field  appearance="outline">
                 <mat-label> {{ 'lang_register'| translate }}</mat-label>
                 <input type="text" placeholder="{{ 'lang_register'| translate }}"  matInput 
                   formControlName="idlang" [matAutocomplete]="auto">
@@ -40,7 +40,7 @@
                     {{lang.idlang}}-{{lang.desclang}}
                   </mat-option>
                 </mat-autocomplete>
-              </mat-form-field>
+              </mat-form-field>!-->
               <button [disabled]="!formGroup.valid"   mat-raised-button color="primary">{{'subscribe_login'| translate}}</button>
               </div>
               </form>

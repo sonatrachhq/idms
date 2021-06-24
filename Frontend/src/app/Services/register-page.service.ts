@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError  } from 'rxjs/operators';
+import { Profil } from '../Models/Profil';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,10 @@ export class RegisterPageService {
     this.host=communService.getHost();
    }
 
-   public getAllLanguages(): Observable<Array<Languages>>{
-    return this.http.get<Array<Languages>>(this.host+"api/auth/getAllLanguages").pipe(
+  
+
+   public saveProfil(profil:Profil): Observable<Profil>{
+    return this.http.post<Profil>(this.host+"api/auth/saveProfil",profil).pipe(
       catchError((err) => {
          //console.log('error caught in service')
         console.error(err);

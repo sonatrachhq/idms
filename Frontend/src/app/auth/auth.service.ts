@@ -1,3 +1,4 @@
+import { ResponseMessage } from './response-message';
 import { CommunService } from './../IdmsServices/commun.service';
 
 import { Injectable } from '@angular/core';
@@ -40,7 +41,7 @@ export class AuthService {
     return this.http.post<JwtResponse>(this.loginUrl, credentials,httpOptions);
   }
 
-  signUp(info: SignUpInfo): Observable<string> {
-    return this.http.post<string>(this.signupUrl, info, httpOptions);
+  signUp(info: SignUpInfo): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(this.signupUrl, info, httpOptions);
   }
 }

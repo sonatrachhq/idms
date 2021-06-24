@@ -10,14 +10,14 @@ import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 export class ThemeMenuComponent implements OnInit {
 
   @Input() options: Array<Option>=[];
-  @Output() themeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() themeChange: EventEmitter<Option> = new EventEmitter<Option>();
 
   constructor(private themeService: ThemeService) {}
   ngOnInit(): void {
    
   }
 
-  changeTheme(themeToSet:string) {
+  changeTheme(themeToSet:Option) {
     this.themeChange.emit(themeToSet);
   }
 

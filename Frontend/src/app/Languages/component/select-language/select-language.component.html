@@ -6,7 +6,7 @@
   <button mat-menu-item *ngFor="let lang of langs"
   [value]="lang.symbollang"
   [attr.selected]="lang.symbollang === translate.currentLang ? '' : null"
-  (click)="idmsTranslate(lang.symbollang)">
+  (click)="idmsTranslate(lang)">
   <div style="font-weight: bold; "><img mat-card-avatar [style.backgroundImage]="'url(../../../assets/img/' + lang.flagicon + ')'" style="background-size: cover;width:30px;height: 30px;vertical-align: middle; " ><span style="margin-left: 5px;">{{ lang.symbollang | uppercase }}</span></div>
     
   </button>
