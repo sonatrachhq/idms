@@ -26,11 +26,9 @@ export class AuthInterceptor implements HttpInterceptor {
                //console.log('error in intercept')
               console.error(error);
              
-              if(error.status==200){
-                return throwError("Erreur lors de la génération des fichiers.\nAssurez vous que les fichiers sont fermés\n");
-              }else{
+            
                   if(error.status==401||error.status==403){
-                    this.router.navigateByUrl('Error');
+                  
                     return throwError("Erreur d'authentification.Veuillez vous reconnecter");
                     
                   }else{
@@ -45,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         }
                        
                        
-                      }
+                      
                   
                   }
               

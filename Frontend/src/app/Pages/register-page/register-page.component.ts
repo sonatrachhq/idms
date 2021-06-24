@@ -1,3 +1,4 @@
+import { ErrorDialogComponent } from './../../Components/error-dialog/error-dialog.component';
 import { AlertDialogComponent } from './../../Components/alert-dialog/alert-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SignUpInfo } from './../../auth/signup-info';
@@ -6,9 +7,10 @@ import { RegisterPageService } from './../../Services/register-page.service';
 import { AuthService } from './../../auth/auth.service';
 import { Router } from '@angular/router';
 import { AuthLoginInfo } from './../../auth/login-info';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Profil } from 'src/app/Models/Profil';
+import { MustMatch } from 'src/app/helpers/must-match-validator';
 
 @Component({
   selector: 'app-register-page',
@@ -21,11 +23,14 @@ export class RegisterPageComponent implements OnInit {
   signupInfo: SignUpInfo=new SignUpInfo(0,"","",0,0,new Date);
   langs:Languages[]=[];
   //selectedLang:number=0;
-  constructor( private router:Router,private authService: AuthService,private registerService: RegisterPageService ,public dialog: MatDialog) { 
-    this.formGroup = new FormGroup({
+  constructor( private router:Router,private authService: AuthService,private registerService: RegisterPageService ,public dialog: MatDialog,private _formBuilder: FormBuilder) { 
+    this.formGroup =  this._formBuilder.group({
       sonuser: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required,Validators.minLength(6)]),
+      confirmPsw:new FormControl('', [Validators.required,Validators.minLength(6)])
       //idlang:new FormControl('', [Validators.required])
+    }, {
+      validator: MustMatch('password', 'confirmPsw')
     });
   }
 
@@ -63,9 +68,9 @@ export class RegisterPageComponent implements OnInit {
         console.log(error);
         if(error=="son"){
           
-          this.openDialog("Vous avez déjà un compte avec ce Son! Veuillez vous connecter.")
+          this.openDialog("son_exist_error")
         }else{
-          this.openDialog(error);
+          this.openDialogError("global_error_msg");
         }
        
         
@@ -84,7 +89,7 @@ export class RegisterPageComponent implements OnInit {
         error => {
           console.log(error);
          
-            this.openDialog(error);
+            this.openDialogError("global_error_msg");
           
          
           
@@ -102,5 +107,14 @@ export class RegisterPageComponent implements OnInit {
       window.location.reload();
     });
   }
-
+  openDialogError(error:String): void {
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      width: '650px',
+      data: {message: error}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
+    });
+  }
 }

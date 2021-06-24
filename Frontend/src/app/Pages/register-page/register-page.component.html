@@ -18,12 +18,21 @@
                 </mat-error>
               </mat-form-field>
     
-              <mat-form-field appearance="outline"> 
+              <mat-form-field appearance="outline" style="margin-top: 7px;"> 
                 <mat-label>{{'psw_login' | translate}}</mat-label>
                 <input matInput placeholder="{{'psw_login' | translate}}" formControlName="password"  [type]="hide ? 'password' : 'text'">
                 <mat-icon matSuffix> lock</mat-icon>
-                <mat-error
+                <mat-error 
                   *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+                  {{ 'pswAlert_login'| translate }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="margin-top: 7px;"> 
+                <mat-label>{{'confirmPsw_login' | translate}}</mat-label>
+                <input matInput placeholder="{{'confirmPsw_login' | translate}}" formControlName="confirmPsw"  [type]="hide ? 'password' : 'text'">
+                <mat-icon matSuffix> lock</mat-icon>
+                <mat-error 
+                  *ngIf="!formGroup.controls['confirmPsw'].valid && formGroup.controls['confirmPsw'].touched">
                   {{ 'pswAlert_login'| translate }}
                 </mat-error>
               </mat-form-field>
@@ -41,7 +50,7 @@
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>!-->
-              <button [disabled]="!formGroup.valid"   mat-raised-button color="primary">{{'subscribe_login'| translate}}</button>
+              <button style="margin-top: 8px;"  [disabled]="!formGroup.valid"   mat-raised-button color="primary">{{'subscribe_login'| translate}}</button>
               </div>
               </form>
     </mat-card-content>

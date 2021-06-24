@@ -1,3 +1,4 @@
+import { ErrorDialogComponent } from './../../Components/error-dialog/error-dialog.component';
 import { AlertDialogComponent } from './../../Components/alert-dialog/alert-dialog.component';
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,14 +47,14 @@ export class LoginPageComponent implements OnInit {
           
           
           }else{
-            this.openDialog("Nom d'utilisateur ou mot de passe incorrect");
+            this.openDialog("son_psw_error");
             console.log(data);
           }
           
       },
       error => {
        console.log(error);
-       this.openDialog(error)
+       this.openDialogError("global_error_msg")
        //this.showAlert('Alerte de connexion',"Nom d'utilisateur ou mot de passe incorrect");
        
         
@@ -77,5 +78,14 @@ export class LoginPageComponent implements OnInit {
       window.location.reload();
     });
   }
-
+  openDialogError(error:String): void {
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      width: '650px',
+      data: {message: error}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
+    });
+  }
 }

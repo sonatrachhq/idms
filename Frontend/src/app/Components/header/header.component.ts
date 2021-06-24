@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
         },
         error => {
          console.log(error);
-         this.openDialogError(error);
+         this.openDialogError("global_error_msg");
          
          
           
@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit {
           },
           error => {
            console.log(error);
-           this.openDialogError(error);
+           this.openDialogError("global_error_msg");
            
            
             
@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit {
     },
     error => {
      console.log(error);
-     this.openDialogError(error);
+     this.openDialogError("global_error_msg");
      
      
       
@@ -137,7 +137,7 @@ export class HeaderComponent implements OnInit {
       },
       error => {
        console.log(error);
-       this.openDialogError(error);
+       this.openDialogError("global_error_msg");
        
        
         

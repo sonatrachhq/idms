@@ -44,7 +44,7 @@ ngOnInit(): void {
   },
   error => {
    console.log(error);
-   this.openDialogError(error);
+   this.openDialogError("global_error_msg");
    
    
     
@@ -80,7 +80,7 @@ idmsTranslate(lang:Languages){
     },
     error => {
      console.log(error);
-     this.openDialogError(error);
+     this.openDialogError("global_error_msg");
      
      
       
@@ -99,7 +99,7 @@ updateLang(profil:Profil){
   },
   error => {
    console.log(error);
-   this.openDialogError(error);
+   this.openDialogError("global_error_msg");
    
    
     

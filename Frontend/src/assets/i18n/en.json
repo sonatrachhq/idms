@@ -15,12 +15,16 @@
     "auth_login":"Authentication",
     "son_login":"SON User",
     "titleAlert_login":"Required Field",
-    "pswAlert_login":"Password must have at least 6 characters",
+    "pswAlert_login":"Password must have at least 6 characters(passwords are not the same)",
     "psw_login":"Password",
     "subscribe_login":"Create an account",
     "account_login":"You do not have an account?",
     "inscription_register":"Registration",
     "lang_register":"Select a language",
     "close_alert":"Close",
-    "error_alert":"Erreur"
+    "error_alert":"Error",
+    "global_error_msg":"The server is not responding.Please refresh the page or contact the administrator.",
+    "son_psw_error":"Username or password incorrect",
+    "son_exist_error":"You already have an account with this Son! Please login.",
+    "confirmPsw_login":"Confirm password"
   }
