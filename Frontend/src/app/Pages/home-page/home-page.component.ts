@@ -33,13 +33,14 @@ export class HomePageComponent implements OnInit {
     "userstatus":0
   };
   tooltipMsg="btn_detail_flip_card";
+  public density = 'comfortable';
   columns: number = 1;
   position:string="below";
   modes=["prod","pre_prod","dev"];
   public searchApp: string;
   apps$:Observable<Array<UserAppPrivs>>;
   applications:UserAppPrivs[]=[];
-  @ViewChild('box', {static: false}) box: ElementRef;
+
   constructor(private tokenStorage: TokenStorageService,private homePageService:HomePageService,public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
     
   }
