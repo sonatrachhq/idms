@@ -4,13 +4,15 @@ import { GlobalAppService } from './../../../IdmsServices/global-app.service';
 import { TokenStorageService } from './../../../auth/token-storage.service';
 import { UserIDMS } from './../../../Models/UserIDMS';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from './../../../Components/error-dialog/error-dialog.component';
+
 import { Languages } from '../../../Models/Languages';
 import { RegisterPageService } from '../../../Services/register-page.service';
 import { Observable } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ErrorDialogComponent } from 'src/app/Modals/error-dialog/error-dialog.component';
+
 
 @Component({
   selector: 'app-select-language',
@@ -39,7 +41,7 @@ ngOnInit(): void {
   //get all languages
   this.langService.getAllLanguages().subscribe(
     data => {  
-      console.log(data);
+     // console.log(data);
      this.langs=data;
   },
   error => {
@@ -65,7 +67,7 @@ idmsTranslate(lang:Languages){
     this.currentUser.sonuser=this.tokenStorage.getSonuser();
     this.globalService.getCurrentUser(this.currentUser).subscribe(
       data => {  
-        console.log(data);
+       
        this.currentUser=data;
        let profil:Profil={
         "iduseridms":this.currentUser.iduseridms,
@@ -94,7 +96,7 @@ idmsTranslate(lang:Languages){
 updateLang(profil:Profil){
   this.langService.updateLangUser(profil).subscribe(
     data => {  
-      console.log(data);
+     // console.log(data);
      
   },
   error => {

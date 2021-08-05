@@ -1,6 +1,8 @@
+import { AuthLoginInfo } from './../../auth/login-info';
+import { AuthService } from './../../auth/auth.service';
 import { CommunService } from './../../IdmsServices/commun.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from './../error-dialog/error-dialog.component';
+
 import { Profil } from './../../Models/Profil';
 import { GlobalAppService } from './../../IdmsServices/global-app.service';
 import { UserIDMS } from './../../Models/UserIDMS';
@@ -14,6 +16,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { ErrorDialogComponent } from 'src/app/Modals/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +28,7 @@ export class HeaderComponent implements OnInit {
   options$: Observable<Array<Option>> = this.themeService.getThemeOptions();
   connected=0;
   themes:Option[]=[];
+  isExpired:Boolean=false;
   currentUser:UserIDMS={
     "idlang":0,
     "iduser":0,
@@ -40,7 +44,8 @@ export class HeaderComponent implements OnInit {
     private globalThemeService:GlobalThemeService,
     private globalService:GlobalAppService,
     public dialog: MatDialog,
-    private communService:CommunService) {
+    private communService:CommunService,
+    private authService: AuthService) {
         this.options$.subscribe(
           data => {  
             //console.log(data);
@@ -58,16 +63,45 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()!="") {
+      let info:AuthLoginInfo={
+        sonuser:this.tokenStorage.getToken(),
+        password:""
+      }
+      this.communService.load().then(
+        (value) => {
+          
+        this.authService.checkToken(info).subscribe(
+        (data)=>{
+          //console.log(data)
+            if(data.password=="true"){
+                this.getCurrentUser();
+            }else{
+              this.login();
+            }
+        },
+        (error)=>{
+          console.log(error)
+        }
+      )}
+      )
+    }
+    
+   
+  }
+
+  getCurrentUser(){
     this.communService.load().then(
       (value) => {
-
-        if (this.tokenStorage.getToken()!="") {
+        
+       
+         
           this.connected=1;
           
           this.currentUser.sonuser=this.tokenStorage.getSonuser();
           this.globalService.getCurrentUser(this.currentUser).subscribe(
             data => {  
-              console.log(data);
+            //  console.log(data);
              this.currentUser=data;
             this.getUsersProfil();
            
@@ -82,9 +116,7 @@ export class HeaderComponent implements OnInit {
           )
     
           
-        }else{
-          this.themeService.setTheme("light-theme");
-        }
+        
       });
 
   }
@@ -99,7 +131,7 @@ export class HeaderComponent implements OnInit {
     }
     this.globalService.getUsersProfil(profil).subscribe(
       data => {  
-        console.log(data);
+       // console.log(data);
         let  usersTheme:Option=this.themes.find(theme =>theme.id==data.idtheme);
         this.themeService.setTheme(usersTheme.value);
     },
@@ -132,7 +164,7 @@ export class HeaderComponent implements OnInit {
   updateTheme(profil:Profil ){
       this.globalThemeService.updateThemeUser(profil).subscribe(
         data => {  
-          console.log(data);
+         // console.log(data);
     
       },
       error => {
@@ -145,7 +177,7 @@ export class HeaderComponent implements OnInit {
       )
   }
   login(){
-    this.connected=1;
+    //this.connected=1;
       this.router.navigateByUrl("login")
   }
  
@@ -163,7 +195,8 @@ export class HeaderComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      window.location.reload();
+      this.router.navigateByUrl("login");
+      //window.location.reload();
     });
   }
 }

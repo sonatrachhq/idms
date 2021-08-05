@@ -14,7 +14,6 @@ export class GuestPageComponent implements OnInit {
   constructor(private guestPageService:GuestPageService) { }
 
   ngOnInit(): void {
-      console.log(this.apps$)
-      console.log(new Date)
+
   }
 }

@@ -1,5 +1,4 @@
-import { ErrorDialogComponent } from './../../Components/error-dialog/error-dialog.component';
-import { AlertDialogComponent } from './../../Components/alert-dialog/alert-dialog.component';
+
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from './../../auth/token-storage.service';
@@ -7,6 +6,9 @@ import { AuthLoginInfo } from './../../auth/login-info';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from 'src/app/Modals/alert-dialog/alert-dialog.component';
+import { ErrorDialogComponent } from 'src/app/Modals/error-dialog/error-dialog.component';
+
 
 @Component({
   selector: 'app-login-page',
@@ -17,6 +19,7 @@ export class LoginPageComponent implements OnInit {
   hide = true;
   formGroup: FormGroup = new FormGroup({});
   langId:number=0;
+  sonUser:String=this.tokenStorage.getSonuser();
   private loginInfo: AuthLoginInfo=new AuthLoginInfo("","");
   constructor( private tokenStorage: TokenStorageService,private activatedRoute:ActivatedRoute,private authService: AuthService,public dialog: MatDialog,private router:Router ) { 
     this.formGroup = new FormGroup({

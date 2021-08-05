@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { DialogData } from './../alert-dialog/alert-dialog.component';
+import { DialogData } from '../alert-dialog/alert-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 

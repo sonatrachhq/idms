@@ -1,0 +1,101 @@
+
+
+    
+<div class='card-container' >
+
+    <div class='flippable-card' [ngClass]="{'flipped':flipped}"  *ngIf="type==0">
+
+        <mat-card class=" " style="margin-left: 15px;" *ngIf="app.roles.length!=0">
+            <mat-card-header >
+               
+              <div mat-card-avatar [style.backgroundImage]="'url(' + app.iconurl + ')'" style="background-size: cover;"></div>
+              <mat-card-title style="margin-top: 8px;">{{app.applicationtitle | translate}}</mat-card-title>
+             
+            </mat-card-header>
+        
+            <mat-card-content>
+                <br>
+              <p style="text-align: center;">
+                {{app.applicationdesc | translate}}
+                
+              </p>
+              
+            </mat-card-content>
+           
+            <mat-divider *ngIf="!flipped"></mat-divider>
+            <mat-card-actions>
+              <button  mat-flat-button color="accent" *ngIf="!flipped" (click)='flipped = !flipped' style=" float: left;">{{'btn_detail_flip_card'| translate}}</button>
+              <button  mat-flat-button color="accent" *ngIf="!flipped" style=" float: right;" (click)="openRoleSelect()" >{{btn_text | translate}}</button>
+            </mat-card-actions>
+          </mat-card>
+
+          <mat-card class="back" >
+           
+            <img mat-card-image src="../../../assets/img/back.png" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                {{app.applicationdetail | translate}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-flat-button color="accent" *ngIf="flipped" (click)='flipped = !flipped'>{{'btn_retour_flip_card'| translate}}</button>
+            
+            </mat-card-actions>
+          </mat-card>
+    </div>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+    <div class='flippable-card' [ngClass]="{'flipped':flipped}"  *ngIf="type==1">
+
+        <mat-card class=" " style="margin-left: 15px;" *ngIf="app.roles.length==0">
+            <mat-card-header >
+               
+              <div mat-card-avatar [style.backgroundImage]="'url(' + app.iconurl + ')'" style="background-size: cover;"></div>
+              <mat-card-title style="margin-top: 8px;">{{app.applicationtitle | translate}}</mat-card-title>
+             
+            </mat-card-header>
+        
+            <mat-card-content>
+                <br>
+              <p style="text-align: center;">
+                {{app.applicationdesc | translate}}
+                
+              </p>
+              
+            </mat-card-content>
+           
+            <mat-divider *ngIf="!flipped"></mat-divider>
+            <mat-card-actions>
+              <button  mat-flat-button color="accent" *ngIf="!flipped" (click)='flipped = !flipped' style=" float: left;">{{'btn_detail_flip_card'| translate}}</button>
+              <button  mat-flat-button color="accent" *ngIf="!flipped" style=" float: right;" >{{btn_text | translate}}</button>
+            </mat-card-actions>
+          </mat-card>
+
+          <mat-card class="back" >
+           
+            <img mat-card-image src="../../../assets/img/back.png" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                {{app.applicationdetail | translate}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-flat-button color="accent" *ngIf="flipped" (click)='flipped = !flipped'>{{'btn_retour_flip_card'| translate}}</button>
+            
+            </mat-card-actions>
+          </mat-card>
+    </div>
+  </div>

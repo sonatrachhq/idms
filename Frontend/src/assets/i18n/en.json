@@ -26,5 +26,18 @@
     "global_error_msg":"The server is not responding.Please refresh the page or contact the administrator.",
     "son_psw_error":"Username or password incorrect",
     "son_exist_error":"You already have an account with this Son! Please login.",
-    "confirmPsw_login":"Confirm password"
+    "confirmPsw_login":"Confirm password",
+    "my_apps":"My applications",
+    "other_apps":"Other applications",
+    "prod":"Production",
+    "pre_prod":"Pre-production",
+    "dev":"Development",
+    "access":"Access",
+    "request":"Request access",
+    "role_select_title":"Please select a role",
+    "btn_role_select_valid":"Confirm",
+    "btn_role_select_cancel":"Cancel",
+    "copy_link_title":"This application must be running on Internet Explorer",
+    "copy_link_btn":"copy link",
+    "empty_list":"No application in :"
   }

@@ -1,5 +1,4 @@
-import { ErrorDialogComponent } from './../../Components/error-dialog/error-dialog.component';
-import { AlertDialogComponent } from './../../Components/alert-dialog/alert-dialog.component';
+
 import { MatDialog } from '@angular/material/dialog';
 import { SignUpInfo } from './../../auth/signup-info';
 import { Languages } from './../../Models/Languages';
@@ -11,6 +10,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Component, OnInit } from '@angular/core';
 import { Profil } from 'src/app/Models/Profil';
 import { MustMatch } from 'src/app/helpers/must-match-validator';
+import { ErrorDialogComponent } from 'src/app/Modals/error-dialog/error-dialog.component';
+import { AlertDialogComponent } from 'src/app/Modals/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-register-page',

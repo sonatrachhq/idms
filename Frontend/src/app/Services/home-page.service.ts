@@ -1,7 +1,8 @@
+import { UserIDMS } from './../Models/UserIDMS';
+import { UserAppPrivs } from './../Models/UserAppPrivs';
 import { Observable } from 'rxjs';
-import { Applications } from './../Models/Applications';
 import { CommunService } from './../IdmsServices/commun.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError  } from 'rxjs/operators';
@@ -17,6 +18,24 @@ export class HomePageService {
   constructor(private http: HttpClient,communService:CommunService) {
     this.host=communService.getHost();
    }
+   public getUsersAppPrivs(user:UserIDMS):Observable<Array<UserAppPrivs>>{
+    return this.http.post<Array<UserAppPrivs>>(this.host+"getUsersAppPrivs",user).pipe(
+     catchError((err) => {
+        //console.log('error caught in service')
+       console.error(err);
+       return throwError(err);
+     })
+   );
+  }
 
 
+  public getAppsByMode(journal:Array<UserAppPrivs>,mode:String):Observable<Array<UserAppPrivs>>{
+    return this.http.post<Array<UserAppPrivs>>(this.host+"getAppsByMode",journal,{params:new HttpParams().set('mode', mode.toString())}).pipe(
+      catchError((err) => {
+         //console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
 }

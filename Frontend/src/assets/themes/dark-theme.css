@@ -1540,7 +1540,7 @@ textarea.cdk-textarea-autosize-measuring-firefox {
 
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-  background-color: #b0bec5
+  background-color: #FF8500
 }
 
 .mat-checkbox-indeterminate.mat-warn .mat-checkbox-background,
@@ -3069,11 +3069,11 @@ td.mat-footer-cell {
 }
 
 .mat-snack-bar-container {
-  color: rgba(0, 0, 0, .87);
-  background: #fafafa;
+  color: rgba(255, 255, 255, .7);
+  background: #323232;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12)
 }
 
 .mat-simple-snackbar-action {
-  color: inherit
+  color: #FF8500
 }

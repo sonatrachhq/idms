@@ -11,7 +11,7 @@
                 <div class="table-container">
                   <mat-form-field appearance="outline">
                     <mat-label>{{'son_login' | translate}}</mat-label>
-                    <input matInput placeholder="son" formControlName="sonuser" >
+                    <input matInput placeholder="son" formControlName="sonuser" value="sonUser">
                     <mat-icon matSuffix> person_outline</mat-icon>
                     <mat-error
                       *ngIf="!formGroup.controls['sonuser'].valid && formGroup.controls['sonuser'].touched">

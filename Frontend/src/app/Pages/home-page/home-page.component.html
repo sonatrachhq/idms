@@ -1,4 +1,154 @@
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+ <mat-tab-group mat-align-tabs="center" style="margin-left: 45px;margin-right: 45px; margin-top: 25px;"
+    (selectedTabChange)=" updateData($event)">
+    <mat-tab *ngFor="let mode of modes; let i = index" >
+        <ng-template mat-tab-label>
+            {{modes[i]|translate}}
+          </ng-template>
+          <igx-input-group type="search" class="search" style="background-color: aqua;">
+            <igx-prefix>
+                <igx-icon>search</igx-icon>
+            </igx-prefix>
+            <input #search igxInput placeholder="Search application" [(ngModel)]="searchApp">
+            <igx-suffix *ngIf="search.value.length > 0" (click)="searchApp = null">
+                <igx-icon>clear</igx-icon>
+            </igx-suffix>
+        </igx-input-group>
+      <div style="display: flex; justify-content: space-around; ">
+          <h1 style="margin-top: 8px;font-weight: bold;">{{'my_apps'| translate}}</h1>
+          <h1 style="margin-top: 8px;font-weight: bold;">{{'other_apps'| translate}}</h1>
+      </div>
+     
 
+    
+
+      <div style="display: flex; ">
+        <div class="list-sample" style="flex: 1 1 auto;width: 50%;" >
+            <igx-list [displayDensity]="density" style="flex: 1 1 auto;" *ngIf="apps$ |  async as apps">
+                <ng-template igxEmptyList>
+                    <p class="empty">{{'empty_list'|translate}} {{modes[i]|translate}}</p>
+                </ng-template>
+                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+                *ngFor="let app of apps| igxFilter: filterApps ;">
+                    <igx-avatar igxListThumbnail [src]="app.iconurl" roundShape="true" *ngIf="app.roles.length!=0"></igx-avatar>
+                    <span igxListLineTitle *ngIf="app.roles.length!=0">{{ app.applicationtitle | translate }}</span>
+                    <span igxListLineSubTitle *ngIf="app.roles.length!=0">{{app.applicationdesc  | translate}}</span>
+                    <igx-icon igxListAction style=" margin: 5px;" *ngIf="app.roles.length!=0"
+                    #tooltip="matTooltip"
+                    [matTooltip]="tooltipMsg|translate"
+                    [matTooltipPosition]="position"
+                    matTooltipHideDelay="1000"
+                    (click)="openSnackBar(app)">
+                    more_vert
+                </igx-icon>
+                
+              <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openRoleSelect(app)" *ngIf="app.roles.length!=0">{{'access' | translate}}</button>
+                </igx-list-item>
+            </igx-list>
+        </div>
+        <div style="width:20px"></div>
+
+        <div class="list-sample" style="flex: 1 1 auto; width: 50%;">
+            <igx-list [displayDensity]="density" style="flex: 1 1 auto;" *ngIf="apps$ |  async as apps">
+                <ng-template igxEmptyList>
+                    <p class="empty">{{'empty_list'|translate}} {{modes[i]|translate}}</p>
+                </ng-template>
+                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+                *ngFor="let app of apps | igxFilter: filterApps;let j = index">
+                    <igx-avatar igxListThumbnail [src]="app.iconurl" roundShape="true" *ngIf="app.roles.length==0"></igx-avatar>
+                    <span igxListLineTitle *ngIf="app.roles.length==0">{{ app.applicationtitle  | translate}}</span>
+                    <span igxListLineSubTitle *ngIf="app.roles.length==0">{{app.applicationdesc  | translate}}</span>
+                    <igx-icon igxListAction style=" margin: 5px;" *ngIf="app.roles.length==0"
+                    #tooltip="matTooltip"
+                    [matTooltip]="tooltipMsg|translate"
+                    [matTooltipPosition]="position"
+                    matTooltipHideDelay="1000"
+                    (click)="openSnackBar(app)">
+                    more_vert
+                </igx-icon>
+                    <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openRoleSelect()" *ngIf="app.roles.length==0">{{'request' | translate}}</button>
+                </igx-list-item>
+            </igx-list>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+  
+       </mat-tab>
+  
+  </mat-tab-group>
+
+ 
+
+
+
+
+<!-- <div style="display: flex; height: 100%; ">
+        
+        <div class="cardList" style="flex: 1 1 auto;min-height:1000px ;height:auto !important; " >
+  
+          <div *ngFor="let app of apps$ | async as apps; let j = index">
+            <app-flip-app-card *ngIf="apps$ | async as apps " [app]="apps[j]" [type]="0" >
+            </app-flip-app-card>
+          </div>
+  
+  
+        </div>
+  
+        <div class="cardList" style="flex: 1 1 auto;min-height: 1000px; height:auto !important ;  " >
+          <div *ngFor="let app of apps$ | async as apps; let j = index">
+            <app-flip-app-card *ngIf="apps$ | async as apps " [app]="apps[j]" [type]="1" >
+            </app-flip-app-card>
+          </div>
+  
+  
+        </div>
+      </div>
+    
+    
+    
+    <div style="display: flex; ">
+    <div   class="cardList"> 
+        <mat-grid-list [cols]="columns" rowHeight="400px" width="100%" gutterSize="15px">
+          <mat-grid-tile *ngFor="let app of apps$ | async as apps; let j = index" style="width: 100px;background-color: #BEBDBC;">
+            <app-flip-app-card *ngIf="apps$ | async as apps " [app]="apps[j]" [type]="0" >
+            </app-flip-app-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div class="cardList"> 
+        <mat-grid-list [cols]="columns" rowHeight="400px" width="100%" gutterSize="15px" >
+          <mat-grid-tile *ngFor="let app of apps$ | async as apps; let j = index" style="width: 100px;background-color: #BEBDBC;">
+            <app-flip-app-card *ngIf="apps$ | async as apps " [app]="apps[j]" [type]="1" >
+            </app-flip-app-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    -->
+     
+     
+  
+ 
+  
+
+   
+   
+    
 

@@ -42,7 +42,7 @@ export class LangsService {
     if(this.host==""){
       this.host=this.tokenStorage.getHost();
     }
-    return this.http.get<Array<Languages>>(this.host+"getAllLanguages").pipe(
+    return this.http.get<Array<Languages>>(this.host+"api/auth/getAllLanguages").pipe(
       catchError((err) => {
          //console.log('error caught in service')
         console.error(err);

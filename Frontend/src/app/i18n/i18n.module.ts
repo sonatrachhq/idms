@@ -1,10 +1,13 @@
+import { Router } from '@angular/router';
+import { AuthLoginInfo } from './../auth/login-info';
+import { AuthService } from './../auth/auth.service';
 import { CommunService } from './../IdmsServices/commun.service';
 import { Languages } from './../Models/Languages';
 import { Option } from './../Theme/Models/Option';
 import { Profil } from './../Models/Profil';
 import { GlobalAppService } from './../IdmsServices/global-app.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from './../Components/error-dialog/error-dialog.component';
+
 import { UserIDMS } from './../Models/UserIDMS';
 import { LangsService } from './../Languages/service/langs.service';
 import { TokenStorageService } from './../auth/token-storage.service';
@@ -13,6 +16,8 @@ import { NgModule } from '@angular/core';
 import { TranslateDirective, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateCacheModule, TranslateCacheService, TranslateCacheSettings } from 'ngx-translate-cache';
+import { ErrorDialogComponent } from '../Modals/error-dialog/error-dialog.component';
+
 
 @NgModule({
   imports: [
@@ -54,7 +59,9 @@ export class I18nModule {
     private langsService:LangsService,
     public dialog: MatDialog,
     private globalService:GlobalAppService,
-    private communService:CommunService
+    private communService:CommunService,
+    private authService: AuthService,
+    private router: Router
   ) {
     translateCacheService.init();
     translate.addLangs(['en', 'fr']);
@@ -64,9 +71,9 @@ export class I18nModule {
         //get all languages
      this.langsService.getAllLanguages().subscribe(
        data => {  
-         console.log(data);
+         
         this.langs=data;
-        this.getUsersProfil();
+        this.checkToken();
      },
      error => {
       console.log(error);
@@ -87,12 +94,39 @@ export class I18nModule {
 
     
   }
+
+//check if token is epired or not before  getting user's profile
+  checkToken(){
+    let info:AuthLoginInfo={
+      sonuser:this.tokenStorage.getToken(),
+      password:""
+    }
+   
+      this.authService.checkToken(info).subscribe(
+      (data)=>{
+      
+          if(data.password=="true"){
+              this.getUsersProfil();
+          }else{
+           this.login();
+          }
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
+  }
+
+  login(){
+   
+      this.router.navigateByUrl("login")
+  }
   getUsersProfil(){
   
     this.currentUser.sonuser=this.tokenStorage.getSonuser();
       this.globalService.getCurrentUser(this.currentUser).subscribe(
         data => {  
-          console.log(data);
+         
          this.currentUser=data;
         this.getProfil();
        
@@ -120,7 +154,7 @@ export class I18nModule {
     }
     this.globalService.getUsersProfil(profil).subscribe(
       data => {  
-        console.log(data);
+       
        if(data!=null){
         let  currentLang:Languages=this.langs.find(lang =>lang.idlang==data.idlanguage);
         this.browserLang=currentLang.symbollang;

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "APPLICATIONS")
-@NamedQueries({@NamedQuery(name = "Applications.findVisible", query = "SELECT p FROM Applications p WHERE dashbvisibility=1"),
+@NamedQueries({@NamedQuery(name = "Applications.findVisible", query = "SELECT p FROM Applications p WHERE dashbvisibility=1 and publicflag=0"),
 
 	})
 public class Applications {
@@ -24,6 +24,8 @@ public class Applications {
 	String iconurl;
 	Integer iduser;
 	Date systemdate;
+	Integer publicflag;
+	Integer ieflag;
 
 	public Applications() {
 
@@ -101,4 +103,21 @@ public class Applications {
 		this.systemdate = systemdate;
 	}
 
+	public Integer getPublicflag() {
+		return publicflag;
+	}
+
+	public void setPublicflag(Integer publicflag) {
+		this.publicflag = publicflag;
+	}
+
+	public Integer getIeflag() {
+		return ieflag;
+	}
+
+	public void setIeflag(Integer ieflag) {
+		this.ieflag = ieflag;
+	}
+
+	
 }

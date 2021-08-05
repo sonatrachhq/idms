@@ -1,3 +1,4 @@
+import { TokenStorageService } from './token-storage.service';
 import { ResponseMessage } from './response-message';
 import { CommunService } from './../IdmsServices/commun.service';
 
@@ -31,17 +32,31 @@ export class AuthService {
 
   private loginUrl ;
   private signupUrl ;
+  private url;
 
-  constructor(private http: HttpClient,communService:CommunService) {
-    this.loginUrl = communService.getHost()+'api/auth/signin';
-    this.signupUrl=communService.getHost()+'api/auth/signup';
+  constructor(private http: HttpClient,communService:CommunService,private tokenStorage:TokenStorageService) {
+   
+    this.url=communService.getHost();
   }
 
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(this.loginUrl, credentials,httpOptions);
+    if(this.url==""){
+      this.url=this.tokenStorage.getHost();
+    }
+    return this.http.post<JwtResponse>(this.url+'api/auth/signin', credentials,httpOptions);
   }
 
   signUp(info: SignUpInfo): Observable<ResponseMessage> {
-    return this.http.post<ResponseMessage>(this.signupUrl, info, httpOptions);
+    if(this.url==""){
+      this.url=this.tokenStorage.getHost();
+    }
+    return this.http.post<ResponseMessage>(this.url+'api/auth/signup', info, httpOptions);
+  }
+
+  checkToken(info:AuthLoginInfo):Observable<AuthLoginInfo>{
+    if(this.url==""){
+      this.url=this.tokenStorage.getHost();
+    }
+    return this.http.post<AuthLoginInfo>(this.url+'api/auth/checkToken',info);
   }
 }

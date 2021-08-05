@@ -22,9 +22,12 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 export class FlipCardComponent implements OnInit {
   flipped=false;
   @Input('app') app:Applications;
-  constructor() { }
+  constructor() {
+   
+   }
 
   ngOnInit(): void {
+    console.log(this.app)
   }
   
 

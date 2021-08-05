@@ -26,6 +26,19 @@
     "global_error_msg":"Le serveur ne repond pas.Veuillez actualiser la page ou bien contacter l'administrateur.",
     "son_psw_error":"Nom d'utilisateur ou mot de passe incorrecte",
     "son_exist_error":"Vous avez déjà un compte avec ce Son! Veuillez vous connecter.",
-    "confirmPsw_login":"Confirmer le mot de passe"
+    "confirmPsw_login":"Confirmer le mot de passe",
+    "my_apps":"Mes applications",
+    "other_apps":"Autres applications",
+    "prod":"Production",
+    "pre_prod":"Pré-production",
+    "dev":"Développement",
+    "access":"Accéder",
+    "request":"Demander accès",
+    "role_select_title":"Veuillez sélectionner un rôle",
+    "btn_role_select_valid":"Valider",
+    "btn_role_select_cancel":"Annuler",
+    "copy_link_title":"Cette application doit s'exécuter sur Internet Explorer",
+    "copy_link_btn":"copier le lien",
+    "empty_list":"Aucune application dans :"
     
   }

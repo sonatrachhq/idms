@@ -1,0 +1,20 @@
+
+    <h1 mat-dialog-title>{{'role_select_title'|translate}}</h1>
+    <div mat-dialog-content>
+      
+        <ul >
+          <li  *ngFor="let role of data.roles; let i = index">
+              <mat-checkbox   [checked]="selected === i" (change)="updateData(i)" >
+              {{data.roles[i].descrole}}
+              </mat-checkbox>
+          </li>
+      </ul> 
+    
+    
+    
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button class="btn btn-success"(click)="onNoClick()" style="background-color: #C41E07; color: white;">{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button class="btn btn-success"  (click)="accessApp()"  style="background-color: #138D75; color: white;">{{'btn_role_select_valid'|translate}}</button>
+    </div>
+
