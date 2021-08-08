@@ -1,3 +1,4 @@
+import { ThemeService } from './../../Theme/Services/theme.service';
 
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,7 +22,12 @@ export class LoginPageComponent implements OnInit {
   langId:number=0;
   sonUser:String=this.tokenStorage.getSonuser();
   private loginInfo: AuthLoginInfo=new AuthLoginInfo("","");
-  constructor( private tokenStorage: TokenStorageService,private activatedRoute:ActivatedRoute,private authService: AuthService,public dialog: MatDialog,private router:Router ) { 
+  constructor( private tokenStorage: TokenStorageService,
+    private activatedRoute:ActivatedRoute,
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private router:Router,
+    private readonly themeService: ThemeService) { 
     this.formGroup = new FormGroup({
       sonuser: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -29,7 +35,23 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+    if (this.tokenStorage.getToken()!="") {
+      let info:AuthLoginInfo={
+        sonuser:this.tokenStorage.getToken(),
+        password:""
+      }
+     
+        this.authService.checkToken(info).subscribe(
+        (data)=>{
+          //console.log(data)
+            if(data.password!="true"){
+              this.themeService.setTheme("light-theme");
+            }
+        }
+      )
+    }else{
+      this.themeService.setTheme("light-theme");
+    }
   }
 
   onSubmit(post: any) {

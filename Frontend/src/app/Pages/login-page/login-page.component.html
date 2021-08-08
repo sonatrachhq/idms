@@ -5,7 +5,7 @@
           <mat-card-title style="text-transform: uppercase;text-align: center; margin-left: 120px;">IDMS</mat-card-title>
           <mat-card-subtitle style="text-align: center; margin-left: 120px;font-family:serif;font-size: 20;">{{'auth_login' | translate}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="../../../assets/img/back_login.jpg" >
+        <img src="../../../assets/img/back_login.jpg" style="background-size: cover;margin-bottom: 8px;">
         <mat-card-content>
             <form [formGroup]="formGroup" novalidate>
                 <div class="table-container">
@@ -37,7 +37,7 @@
         <mat-card-actions>
         <mat-divider></mat-divider>
             <p style="text-align: center ;margin-top: 10px; ">{{'account_login'| translate}}</p>
-            <button   mat-raised-button color="accent" style="width: 400px;" (click)="register()">{{'subscribe_login'| translate}}</button>
+            <button   mat-raised-button color="accent" style="width: 370px;margin-right: 10px;" (click)="register()">{{'subscribe_login'| translate}}</button>
 
             </mat-card-actions>
       </mat-card>

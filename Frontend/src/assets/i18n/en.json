@@ -1,6 +1,4 @@
 {
-    "compA": "Component A works",
-    "compB": "Component B works",
     "descApp":"payroll operation application",
     "titleApp":"Payroll",
     "detailApp":"Payroll is an application that allows you to generate payroll statements for all Sonatrach structures as well as payroll files and send them to managers.",
@@ -39,5 +37,6 @@
     "btn_role_select_cancel":"Cancel",
     "copy_link_title":"This application must be running on Internet Explorer",
     "copy_link_btn":"copy link",
-    "empty_list":"No application in :"
+    "empty_list":"No application in :",
+    "menu_home":"Home"
   }

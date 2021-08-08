@@ -14,7 +14,7 @@
     
     </div>
     <div mat-dialog-actions>
-      <button mat-raised-button class="btn btn-success"(click)="onNoClick()" style="background-color: #C41E07; color: white;">{{'btn_role_select_cancel'|translate}}</button>
-      <button mat-raised-button class="btn btn-success"  (click)="accessApp()"  style="background-color: #138D75; color: white;">{{'btn_role_select_valid'|translate}}</button>
+      <button mat-raised-button color="accent" (click)="onNoClick()" >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary" (click)="accessApp()" [disabled]="selected==-1">{{'btn_role_select_valid'|translate}}</button>
     </div>
 

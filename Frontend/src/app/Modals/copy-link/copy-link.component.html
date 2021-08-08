@@ -1,5 +1,5 @@
 <div mat-dialog-content> 
-<h1 for="clipboard-example-textarea">{{'copy_link_title'|translate}}</h1>
+<h2 for="clipboard-example-textarea">{{'copy_link_title'|translate}}</h2>
 <p id="clipboard-example-textarea"  [(ngModel)]="value" style="text-decoration: underline;">{{value}}</p>
-<button [cdkCopyToClipboard]="value"><mat-icon matSuffix aria-hidden="false">file_copy</mat-icon>{{'copy_link_btn'|translate}}</button>
+<button mat-raised-button [cdkCopyToClipboard]="value" color="accent"><mat-icon matSuffix aria-hidden="false">file_copy</mat-icon>{{'copy_link_btn'|translate}}</button>
 </div>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -61,6 +62,7 @@ private JwtProvider tokenProvider;
 @GetMapping( "/api/auth/getVisibleApps" )
 public List<Applications> getVisibleApps(){
 	List<Applications> visibleApps=appService.getVisibleApp();
+
 	if(visibleApps.isEmpty()) {
 		return null;
 	}else {
@@ -72,6 +74,10 @@ public List<Applications> getVisibleApps(){
 
 public LoginForm checkToken(@RequestBody LoginForm loginRequest) {
 	try {
+		/*Properties p = System.getProperties();
+		p.list(System.out);
+		System.out.println(System.getProperty("user.name"));*/
+	
 		if(tokenProvider.validateJwtToken(loginRequest.getSonuser())) {
 			loginRequest.setPassword("true");
 		}else {

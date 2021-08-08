@@ -1,20 +1,5 @@
 [
-    {
-      "id":3,
-      "backgroundColor": "#fff",
-      "buttonColor": "#ffc107",
-      "headingColor": "#673ab7",
-      "label": "Deep Purple & Amber",
-      "value": "deeppurple-amber"
-    },
-    {
-      "id":4,
-      "backgroundColor": "#fff",
-      "buttonColor": "#ff4081",
-      "headingColor": "#3f51b5",
-      "label": "Indigo & Pink",
-      "value": "indigo-pink"
-    },
+ 
     {
       "id":1,
       "backgroundColor": "#4B4C4E",
@@ -23,14 +8,7 @@
       "label": "Dark Theme",
       "value": "dark-theme"
     },
-    {
-      "id":5,
-      "backgroundColor": "#4B4C4E",
-      "buttonColor": "#4caf50",
-      "headingColor": "#9c27b0",
-      "label": "Purple & Green",
-      "value": "purple-green"
-    },
+
     {
       "id":2,
       "backgroundColor": "#ECF0F1",

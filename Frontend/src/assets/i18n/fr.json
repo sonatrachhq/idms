@@ -1,6 +1,4 @@
 {
-    "compA": "Composant A marche",
-    "compB": "Composant B marche",
     "descApp":"Application Exploitation Paie",
     "titleApp":"Payroll",
     "detailApp":"Payroll est une application qui permet de générer les états paie pour toutes les structures de Sonatrach ainsi que les fichiers paie et de les envoyer aux gestionnaires.",
@@ -39,6 +37,7 @@
     "btn_role_select_cancel":"Annuler",
     "copy_link_title":"Cette application doit s'exécuter sur Internet Explorer",
     "copy_link_btn":"copier le lien",
-    "empty_list":"Aucune application dans :"
+    "empty_list":"Aucune application dans :",
+    "menu_home":"Accueil"
     
   }

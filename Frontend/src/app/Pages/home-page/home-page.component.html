@@ -34,6 +34,7 @@
                     <igx-avatar igxListThumbnail [src]="app.iconurl" roundShape="true" *ngIf="app.roles.length!=0"></igx-avatar>
                     <span igxListLineTitle *ngIf="app.roles.length!=0">{{ app.applicationtitle | translate }}</span>
                     <span igxListLineSubTitle *ngIf="app.roles.length!=0">{{app.applicationdesc  | translate}}</span>
+                    <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openRoleSelect(app)" *ngIf="app.roles.length!=0">{{'access' | translate}}</button>
                     <igx-icon igxListAction style=" margin: 5px;" *ngIf="app.roles.length!=0"
                     #tooltip="matTooltip"
                     [matTooltip]="tooltipMsg|translate"
@@ -43,7 +44,7 @@
                     more_vert
                 </igx-icon>
                 
-              <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openRoleSelect(app)" *ngIf="app.roles.length!=0">{{'access' | translate}}</button>
+              
                 </igx-list-item>
             </igx-list>
         </div>
@@ -59,6 +60,7 @@
                     <igx-avatar igxListThumbnail [src]="app.iconurl" roundShape="true" *ngIf="app.roles.length==0"></igx-avatar>
                     <span igxListLineTitle *ngIf="app.roles.length==0">{{ app.applicationtitle  | translate}}</span>
                     <span igxListLineSubTitle *ngIf="app.roles.length==0">{{app.applicationdesc  | translate}}</span>
+                    <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openRoleSelect()" *ngIf="app.roles.length==0">{{'request' | translate}}</button>
                     <igx-icon igxListAction style=" margin: 5px;" *ngIf="app.roles.length==0"
                     #tooltip="matTooltip"
                     [matTooltip]="tooltipMsg|translate"
@@ -67,7 +69,7 @@
                     (click)="openSnackBar(app)">
                     more_vert
                 </igx-icon>
-                    <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openRoleSelect()" *ngIf="app.roles.length==0">{{'request' | translate}}</button>
+                    
                 </igx-list-item>
             </igx-list>
         </div>

@@ -85,6 +85,8 @@ export class HeaderComponent implements OnInit {
         }
       )}
       )
+    }else{
+      this.themeService.setTheme("light-theme");
     }
     
    
