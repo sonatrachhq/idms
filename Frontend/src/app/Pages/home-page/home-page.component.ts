@@ -50,7 +50,7 @@ export class HomePageComponent implements OnInit {
     //console.log(this.currentUser)
     this.homePageService.getUsersAppPrivs(this.currentUser).subscribe(
       (data)=>{
-       
+       //console.log(data)
         this.applications=data;
        
         //get apps by mode default mode:0 prod

@@ -134,8 +134,13 @@ export class HeaderComponent implements OnInit {
     this.globalService.getUsersProfil(profil).subscribe(
       data => {  
        // console.log(data);
+       if(data!=null){
         let  usersTheme:Option=this.themes.find(theme =>theme.id==data.idtheme);
         this.themeService.setTheme(usersTheme.value);
+       }else{
+        this.themeService.setTheme("light-theme");
+       }
+        
     },
     error => {
      console.log(error);

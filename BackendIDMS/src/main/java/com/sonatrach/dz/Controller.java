@@ -173,7 +173,8 @@ public ArrayList<UserAppPrivs>  getUsersAppPrivs(@RequestBody UserIDMS user) {
 			jsonResponse.setICONURL(procResults.get(i).getICONURL());
 			jsonResponse.setPUBLICFLAG(procResults.get(i).getPUBLICFLAG());
 			jsonResponse.setIEFLAG(procResults.get(i).getIEFLAG());
-			if(procResults.get(i).getIDROLE()==null  ) {
+			if(procResults.get(i).getIDROLE()==null ) {
+				
 				jsonResponse.setROLES(roles);
 				listToReturn.add(jsonResponse);
 			}else {
@@ -197,8 +198,12 @@ public ArrayList<UserAppPrivs>  getUsersAppPrivs(@RequestBody UserIDMS user) {
 						procResults.remove(j);
 					}
 				}
+				if(user.getIduseridms()!=procResults.get(i).getIDUSERIDMS()) {
+					jsonResponse.setROLES(new ArrayList());
+				}else {
+					jsonResponse.setROLES(roles);
+				}
 				
-				jsonResponse.setROLES(roles);
 				listToReturn.add(jsonResponse);
 			}
 			
