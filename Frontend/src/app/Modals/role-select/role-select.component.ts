@@ -32,7 +32,13 @@ export class RoleSelectComponent implements OnInit {
     this.dialogRef.close();
   }
   updateData(i:number){
-    this.selected=i
+    if(this.selected!=i){
+      this.selected=i
+    }else{
+      this.selected=-1
+    }
+   
+   // console.log(this.selected)
   }
  
 }
