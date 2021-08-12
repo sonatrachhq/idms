@@ -87,6 +87,7 @@ export class I18nModule {
        }else{
          this.browserLang = translateCacheService.getCachedLanguage() || translate.getBrowserLang();
          translate.use(this.browserLang.match(/en|fr/) ? this.browserLang:'fr');///en|ar|fr/
+         
        }
       }
     );

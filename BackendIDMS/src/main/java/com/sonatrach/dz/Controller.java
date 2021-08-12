@@ -3,11 +3,8 @@ package com.sonatrach.dz;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -26,10 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.sonatrach.dz.applanguages.domain.AppLanguage;
+import com.sonatrach.dz.applanguages.service.AppLanguageService;
 import com.sonatrach.dz.applications.domain.Applications;
 import com.sonatrach.dz.applications.service.ApplicationsService;
-
+import com.sonatrach.dz.approles.domain.AppRoles;
+import com.sonatrach.dz.approles.service.AppRolesService;
 import com.sonatrach.dz.languages.domain.Languages;
 import com.sonatrach.dz.languages.service.LanguageService;
 import com.sonatrach.dz.message.request.LoginForm;
@@ -43,13 +44,17 @@ import com.sonatrach.dz.utils.ProcResult;
 import com.sonatrach.dz.utils.Role;
 import com.sonatrach.dz.utils.UserAppPrivs;
 
+
+
+
+
 @RestController
 @CrossOrigin(origins = "*")
 public class Controller {
 @Autowired
 ApplicationsService appService;
 @Autowired
-UserIdmsService userIdmsService;
+UserIdmsService userIdmsService;	
 @Autowired
 LanguageService langService;
 @Autowired
@@ -58,6 +63,11 @@ ProfilService profilService;
 private JdbcTemplate jdbcTemplate;
 @Autowired
 private JwtProvider tokenProvider;
+@Autowired
+private AppLanguageService appLangService;
+@Autowired
+private AppRolesService appRoleService;
+
 /********************************************************GUEST PAGE *******************************************************************/
 @GetMapping( "/api/auth/getVisibleApps" )
 public List<Applications> getVisibleApps(){
@@ -285,5 +295,31 @@ public Profil getUsersProfil(@RequestBody Profil profil) {
 	}
 	return null;
 }
+
+
+/**************************************************Settings app management************************************************/
+//******Add app**********************//
+@PostMapping({"addApplication"})
+public Applications addApplication(@RequestBody Applications app) {
+	try {
+		app=appService.addApplication(app);
+		AppLanguage appLang= new AppLanguage();
+		appLang.setIdapplication(app.getIdapplication());
+		appLang.setIdlanguage(1);
+		appLangService.saveAppLang(appLang);
+		AppRoles appRole1=new AppRoles(app.getIdapplication(), 1, "Admin");
+		AppRoles appRole2=new AppRoles(app.getIdapplication(), 1, "Admin Fonctionnel");
+		appRole1=appRoleService.saveAppRole(appRole1);
+		//System.out.println(appRole1.getIdrole());
+		appRole2=appRoleService.saveAppRole(appRole2);
+		//System.out.println(appRole2.getIdrole());
+		return app;
+	}catch(Exception e) {
+		System.out.println("Exception  {addApplication controller}==>" + e.getMessage());
+	}
+	return null;
+}
+
+
 
 }

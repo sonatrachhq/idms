@@ -5,8 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Id;
 
 public class ProfilId implements Serializable{
-	Integer iduseridms;
-	Integer idapplication;
+	private Integer iduseridms;
+	private Integer idapplication;
 
 	
 	public ProfilId() {

@@ -38,5 +38,18 @@
     "copy_link_title":"This application must be running on Internet Explorer",
     "copy_link_btn":"copy link",
     "empty_list":"No application in :",
-    "menu_home":"Home"
+    "menu_home":"Home",
+    "menu_apps":"Application management",
+    "add_app":"Add application",
+    "add_app_success":"This application has been successfully added.",
+    "add_role":"Add role",
+    "app_title":"Application title*",
+    "app_desc":"Application description*",
+    "app_detail":"Application detail*",
+    "icon_url":"Icon url*",
+    "app_mode":"Application mode*",
+    "app_url":"Application url*",
+    "nav_app":"Browser*",
+    "browser_0":"Opens with any browser",
+    "browser_1":"Opens only with internet explorer"
   }

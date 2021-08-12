@@ -8,8 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sonatrach.dz.applications.repo.ApplicationsRepo;
 import com.sonatrach.dz.applications.domain.Applications;
+import com.sonatrach.dz.applications.repo.ApplicationsRepo;
+
+
 
 @Service
 @Transactional
@@ -25,5 +27,16 @@ public List<Applications> getVisibleApp(){
 		System.out.println("Exception  getVisibleApp() in ApplicationsService==>" + e.getMessage());
 	}
 	return apps;
+}
+
+public Applications addApplication(Applications app) {
+	try {
+		app=appRepo.save(app);
+		//System.out.println(app.getIdapplication());
+		return app;
+	}catch(Exception e) {
+		System.out.println("Exception  addApplication() in ApplicationsService==>" + e.getMessage());
+	}
+	return null;
 }
 }

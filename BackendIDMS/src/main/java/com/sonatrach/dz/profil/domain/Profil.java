@@ -18,13 +18,13 @@ import javax.persistence.Table;
 @NamedQuery(name = "Profil.findByIdPrf", query = "SELECT p FROM Profil  p WHERE iduseridms=?1 and idapplication=?2 and idtheme=?3 and idlanguage=?4")
 public class Profil {
 	@Id
-	Integer iduseridms;
+	private Integer iduseridms;
 	@Id
-	Integer idapplication;
-	Integer idtheme;
-	Integer idlanguage;
-	Integer iduser;
-	Date systemdate;
+	private Integer idapplication;
+	private Integer idtheme;
+	private Integer idlanguage;
+	private Integer iduser;
+	private Date systemdate;
 	
 	public Profil() {
 		

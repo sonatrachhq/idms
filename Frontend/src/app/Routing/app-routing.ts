@@ -1,3 +1,4 @@
+import { AppManagementComponent } from './../Pages/app-management/app-management.component';
 import { RegisterPageComponent } from './../Pages/register-page/register-page.component';
 import { LoginPageComponent } from './../Pages/login-page/login-page.component';
 import { GuestPageComponent } from './../Pages/guest-page/guest-page.component';
@@ -10,7 +11,7 @@ const APP_ROUTING : Routes =[
     {path :"", component :GuestPageComponent},
     {path :"login", component :LoginPageComponent},
     {path :"register", component :RegisterPageComponent},
-    
+    {path:"appManagement",component:AppManagementComponent}
 
    
     

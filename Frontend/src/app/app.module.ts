@@ -77,6 +77,7 @@ import { RoleSelectComponent } from './Modals/role-select/role-select.component'
 import { AlertDialogComponent } from './Modals/alert-dialog/alert-dialog.component';
 import { ErrorDialogComponent } from './Modals/error-dialog/error-dialog.component';
 import { CopyLinkComponent } from './Modals/copy-link/copy-link.component';
+
 import { FormsModule } from '@angular/forms';
 import { 
 	IgxAvatarModule,
@@ -87,6 +88,8 @@ import {
 	IgxButtonGroupModule,
 	IgxRippleModule
  } from "igniteui-angular";
+import { AppManagementComponent } from './Pages/app-management/app-management.component';
+import { GlobalDialogComponent } from './Modals/global-dialog/global-dialog.component';
 
 @NgModule({
   declarations: [
@@ -104,9 +107,11 @@ import {
     ErrorDialogComponent,
     FlipAppCardComponent,
     RoleSelectComponent,
-    CopyLinkComponent
+    CopyLinkComponent,
+    AppManagementComponent,
+    GlobalDialogComponent
   ],
-  entryComponents: [AlertDialogComponent, ErrorDialogComponent, RoleSelectComponent, CopyLinkComponent],
+  entryComponents: [AlertDialogComponent, ErrorDialogComponent, RoleSelectComponent, CopyLinkComponent,GlobalDialogComponent],
   imports: [
     BrowserAnimationsModule,
     ROUTING,

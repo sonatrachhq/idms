@@ -38,6 +38,19 @@
     "copy_link_title":"Cette application doit s'exécuter sur Internet Explorer",
     "copy_link_btn":"copier le lien",
     "empty_list":"Aucune application dans :",
-    "menu_home":"Accueil"
+    "menu_home":"Accueil",
+    "menu_apps":"Gestion applications",
+    "add_app":"Ajouter application",
+    "add_app_success":"Cette application a bien été ajoutée.",
+    "add_role":"Ajouter rôle",
+    "app_title":"Titre application*",
+    "app_desc":"Description application*",
+    "app_detail":"Détail application*",
+    "icon_url":"Url icône*",
+    "app_mode":"Mode application*",
+    "app_url":"Url application*",
+    "nav_app":"Navigateur*",
+    "browser_0":"S'ouvre avec n'importe quel navigateur",
+    "browser_1":"S'ouvre uniquement avec internet explorer"
     
   }

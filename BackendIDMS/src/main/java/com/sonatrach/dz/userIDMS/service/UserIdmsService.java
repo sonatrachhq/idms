@@ -3,9 +3,7 @@ package com.sonatrach.dz.userIDMS.service;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
-import org.intellij.lang.annotations.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sonatrach.dz.languages.domain.Languages;
 import com.sonatrach.dz.message.request.LoginForm;
 import com.sonatrach.dz.message.request.SignUpForm;
 import com.sonatrach.dz.message.response.JwtResponse;
@@ -28,6 +22,7 @@ import com.sonatrach.dz.message.response.ResponseMessage;
 import com.sonatrach.dz.security.jwt.JwtProvider;
 import com.sonatrach.dz.userIDMS.domain.UserIDMS;
 import com.sonatrach.dz.userIDMS.repo.UserIDMSRepository;
+
 
 
 

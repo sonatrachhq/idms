@@ -3,9 +3,12 @@ package com.sonatrach.dz.applications.domain;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -13,19 +16,23 @@ import javax.persistence.Table;
 @NamedQueries({@NamedQuery(name = "Applications.findVisible", query = "SELECT p FROM Applications p WHERE dashbvisibility=1 and publicflag=0"),
 
 	})
+@SequenceGenerator(name="APPLICATIONS_ID_SEQ", allocationSize=1)
 public class Applications {
 	@Id
-	Integer idapplication;
-	String applicationtitle;
-	String applicationdesc;
-	String applicationdetail;
-	Integer applicationstatus;
-	Integer dashbvisibility;
-	String iconurl;
-	Integer iduser;
-	Date systemdate;
-	Integer publicflag;
-	Integer ieflag;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="APPLICATIONS_ID_SEQ")
+	private Integer idapplication;
+	private String applicationtitle;
+	private String applicationdesc;
+	private String applicationdetail;
+	private Integer applicationstatus;
+	private Integer applicationmode;
+	private Integer dashbvisibility;
+	private String iconurl;
+	private String applicationurl;
+	private Integer iduser;
+	private Date systemdate;
+	private Integer publicflag;
+	private Integer ieflag;
 
 	public Applications() {
 
@@ -117,6 +124,22 @@ public class Applications {
 
 	public void setIeflag(Integer ieflag) {
 		this.ieflag = ieflag;
+	}
+
+	public String getApplicationurl() {
+		return applicationurl;
+	}
+
+	public void setApplicationurl(String applicationurl) {
+		this.applicationurl = applicationurl;
+	}
+
+	public Integer getApplicationmode() {
+		return applicationmode;
+	}
+
+	public void setApplicationmode(Integer applicationmode) {
+		this.applicationmode = applicationmode;
 	}
 
 	
