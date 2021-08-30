@@ -76,7 +76,7 @@ export class I18nModule {
         this.checkToken();
      },
      error => {
-      console.log(error);
+      //console.log(error);
       this.openDialogError("global_error_msg");
       
       
@@ -113,7 +113,7 @@ export class I18nModule {
           }
       },
       (error)=>{
-        console.log(error)
+        //console.log(error)
       }
     )
   }
@@ -133,7 +133,7 @@ export class I18nModule {
        
       },
       error => {
-       console.log(error);
+       //console.log(error);
        this.openDialogError("global_error_msg");
        
        
@@ -163,7 +163,7 @@ export class I18nModule {
        }
     },
     error => {
-     console.log(error);
+     //console.log(error);
      this.openDialogError("global_error_msg");
      
      

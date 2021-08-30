@@ -5,3 +5,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container{
     height: 100%;width: 100%; 
 }
+
+.igx-list__item-content, .igx-list__item-content:active {
+  
+    padding: 0 !important;
+   
+  }

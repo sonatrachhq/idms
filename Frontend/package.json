@@ -38,6 +38,7 @@
     "rxjs": "~6.6.0",
     "save": "^2.4.0",
     "snyk": "^1.622.0",
+    "sweetalert2": "^11.1.4",
     "tslib": "^2.0.0",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"

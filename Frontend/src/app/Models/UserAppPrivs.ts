@@ -11,4 +11,6 @@ export interface UserAppPrivs{
      publicflag:String;
 	 roles: Array<Role>;
      ieflag:number;
+	 interimstartdate:Date;
+    interimenddate:Date;
 }

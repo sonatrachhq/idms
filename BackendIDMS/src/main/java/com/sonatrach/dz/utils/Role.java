@@ -8,6 +8,18 @@ public class Role {
 	private String DESCROLE;
 	private Date PRIVSTARTDATE;
 	private Date PRIVENDDATE;
+	public Role() {
+		
+	}
+	
+	public Role(Integer iDROLE, Integer iDSTATUS, String dESCROLE, Date pRIVSTARTDATE, Date pRIVENDDATE) {
+		super();
+		IDROLE = iDROLE;
+		IDSTATUS = iDSTATUS;
+		DESCROLE = dESCROLE;
+		PRIVSTARTDATE = pRIVSTARTDATE;
+		PRIVENDDATE = pRIVENDDATE;
+	}
 	public Integer getIDROLE() {
 		return IDROLE;
 	}

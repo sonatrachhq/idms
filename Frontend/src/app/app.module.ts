@@ -1,3 +1,5 @@
+import { AddRoleTabComponent } from './Components/add-role-tab/add-role-tab.component';
+
 import { GlobalErrorHandlerService } from './IdmsServices/global-error-handler.service';
 import { CommunService, initConfig } from './IdmsServices/commun.service';
 import { ThemeService } from './Theme/Services/theme.service';
@@ -8,7 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './Routing/app-routing.module';
 import { MbscModule, MbscFormsModule } from '@mobiscroll/angular-lite';
 import { MatStepperModule } from '@angular/material/stepper';
-import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -86,10 +88,20 @@ import {
 	IgxListModule,
 	IgxInputGroupModule,
 	IgxButtonGroupModule,
+  IgxPaginatorModule,
 	IgxRippleModule
  } from "igniteui-angular";
 import { AppManagementComponent } from './Pages/app-management/app-management.component';
 import { GlobalDialogComponent } from './Modals/global-dialog/global-dialog.component';
+import { AddRoleComponent } from './Modals/add-role/add-role.component';
+import { AffectRoleComponent } from './Modals/affect-role/affect-role.component';
+import { AffectRoleTabComponent } from './Components/affect-role-tab/affect-role-tab.component';
+import { AddApplicationComponent } from './Components/add-application/add-application.component';
+import { HomePageTabComponent } from './Components/home-page-tab/home-page-tab.component';
+import { AssocObjTabComponent } from './Components/assoc-obj-tab/assoc-obj-tab.component';
+import { AssocObjComponent } from './Modals/assoc-obj/assoc-obj.component';
+
+
 
 @NgModule({
   declarations: [
@@ -109,9 +121,19 @@ import { GlobalDialogComponent } from './Modals/global-dialog/global-dialog.comp
     RoleSelectComponent,
     CopyLinkComponent,
     AppManagementComponent,
-    GlobalDialogComponent
+    GlobalDialogComponent,
+    AddRoleComponent,
+    AffectRoleComponent,
+    AddRoleTabComponent,
+    AffectRoleTabComponent,
+    AddApplicationComponent,
+    HomePageTabComponent,
+    AssocObjTabComponent,
+    AssocObjComponent,
+  
+
   ],
-  entryComponents: [AlertDialogComponent, ErrorDialogComponent, RoleSelectComponent, CopyLinkComponent,GlobalDialogComponent],
+  entryComponents: [AlertDialogComponent, ErrorDialogComponent, RoleSelectComponent, CopyLinkComponent,GlobalDialogComponent,AddRoleComponent,AssocObjComponent],
   imports: [
     BrowserAnimationsModule,
     ROUTING,
@@ -121,7 +143,7 @@ import { GlobalDialogComponent } from './Modals/global-dialog/global-dialog.comp
     MbscModule,
     MbscFormsModule,
     MatStepperModule,
-    NoopAnimationsModule,
+    
     MatFormFieldModule,
     ReactiveFormsModule,
     A11yModule,
@@ -177,6 +199,7 @@ import { GlobalDialogComponent } from './Modals/global-dialog/global-dialog.comp
     IgxListModule,
     IgxInputGroupModule,
     IgxButtonGroupModule,
+    IgxPaginatorModule,
     IgxRippleModule
    
   ],

@@ -1,5 +1,6 @@
 package com.sonatrach.dz.userIDMS.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -92,4 +93,14 @@ public class UserIdmsService {
 		
 	}
 	
+	
+	//get all users 
+	public List<UserIDMS> getAllUsers(){
+		try {
+			return userRepository.findAll();
+		}catch(Exception e) {
+			System.out.println("Exception in UserIdmsService ==>getAllUsers()   :" +e.getMessage());
+		}
+		return null;
+	}
 }

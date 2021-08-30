@@ -1,0 +1,88 @@
+<mat-card class="table-container">
+    <mat-card-content>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" novalidate>
+    <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label>{{'app_title'|translate}}</mat-label>
+        <input matInput placeholder="{{'app_title'|translate}}" formControlName="applicationtitle" >
+        <mat-icon matSuffix> title</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['applicationtitle'].valid && formGroup.controls['applicationtitle'].touched">
+          {{ titleAlert|translate }}
+        </mat-error>
+      </mat-form-field>
+    <br>
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'app_desc'|translate}}</mat-label>
+        <input matInput placeholder="{{'app_desc'|translate}}" formControlName="applicationdesc" >
+        <mat-icon matSuffix> description</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['applicationdesc'].valid && formGroup.controls['applicationdesc'].touched">
+          {{ titleAlert|translate }}
+        </mat-error>
+      </mat-form-field>
+    <br>
+<mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'app_detail'|translate}}</mat-label>
+        <input matInput placeholder="{{'app_detail'|translate}}" formControlName="applicationdetail" >
+        <mat-icon matSuffix> format_align_justify</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['applicationdetail'].valid && formGroup.controls['applicationdetail'].touched">
+          {{ titleAlert|translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'icon_url'|translate}}</mat-label>
+        <input matInput placeholder="{{'icon_url'|translate}}" formControlName="iconurl" >
+        <mat-icon matSuffix> insert_photo</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['iconurl'].valid && formGroup.controls['iconurl'].touched">
+          {{ titleAlert|translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'app_url'|translate}}</mat-label>
+        <input matInput placeholder="{{'app_url'|translate}}" formControlName="applicationurl" >
+        <mat-icon matSuffix> find_in_page</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['applicationurl'].valid && formGroup.controls['applicationurl'].touched">
+          {{ titleAlert|translate }}
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label> {{ 'app_mode'| translate }}</mat-label>
+        <mat-select formControlName="applicationmode" >
+          <mat-option *ngFor="let mode of modes" [value]="mode">
+            {{mode.desc|translate}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!formGroup.controls['applicationmode'].valid && formGroup.controls['applicationmode'].touched">
+          {{ titleAlert| translate }}
+      </mat-error>
+
+      </mat-form-field>
+
+      
+     <br>
+
+     <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label> {{ 'nav_app'| translate }}</mat-label>
+      <mat-select formControlName="ieflag" >
+        <mat-option *ngFor="let nav of navs" [value]="nav">
+          {{nav.desc|translate}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.controls['ieflag'].valid && formGroup.controls['ieflag'].touched">
+        {{ titleAlert| translate }}
+    </mat-error>
+
+    </mat-form-field>
+         
+
+      <button [disabled]="!formGroup.valid" mat-raised-button  color="primary" style="width: 100%"> {{'add_app' | translate}}</button>
+    </form>
+    </mat-card-content>
+</mat-card>

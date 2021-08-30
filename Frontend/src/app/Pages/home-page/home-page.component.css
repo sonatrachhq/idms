@@ -43,3 +43,20 @@ mat-grid-tile {
     margin-top: 26px;
   }
   
+  .igx-list__item-content, .igx-list__item-content:active {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 !important;
+    border-radius: var(--igx-list-item-border-radius);
+    background: inherit;
+    z-index: 2;
+  }
+  .center {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}

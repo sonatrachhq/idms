@@ -1,110 +1,42 @@
 <mat-tab-group mat-align-tabs="center" style="margin-left: 45px;margin-right: 45px; margin-top: 25px;">
-    <mat-tab>
+    <mat-tab *ngIf="getPrivs(7)">
       <ng-template mat-tab-label >
         <mat-icon class="example-tab-icon">get_app</mat-icon>
         {{'add_app' | translate}}
       </ng-template>
       
-        <mat-card class="table-container">
-            <mat-card-content>
-            <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" novalidate>
-            <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
-                <mat-label>{{'app_title'|translate}}</mat-label>
-                <input matInput placeholder="{{'app_title'|translate}}" formControlName="applicationtitle" >
-                <mat-icon matSuffix> title</mat-icon>
-                <mat-error
-                  *ngIf="!formGroup.controls['applicationtitle'].valid && formGroup.controls['applicationtitle'].touched">
-                  {{ titleAlert|translate }}
-                </mat-error>
-              </mat-form-field>
-            <br>
-              <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
-                <mat-label>{{'app_desc'|translate}}</mat-label>
-                <input matInput placeholder="{{'app_desc'|translate}}" formControlName="applicationdesc" >
-                <mat-icon matSuffix> description</mat-icon>
-                <mat-error
-                  *ngIf="!formGroup.controls['applicationdesc'].valid && formGroup.controls['applicationdesc'].touched">
-                  {{ titleAlert|translate }}
-                </mat-error>
-              </mat-form-field>
-            <br>
-       <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
-                <mat-label>{{'app_detail'|translate}}</mat-label>
-                <input matInput placeholder="{{'app_detail'|translate}}" formControlName="applicationdetail" >
-                <mat-icon matSuffix> format_align_justify</mat-icon>
-                <mat-error
-                  *ngIf="!formGroup.controls['applicationdetail'].valid && formGroup.controls['applicationdetail'].touched">
-                  {{ titleAlert|translate }}
-                </mat-error>
-              </mat-form-field>
-              <br>
-              <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
-                <mat-label>{{'icon_url'|translate}}</mat-label>
-                <input matInput placeholder="{{'icon_url'|translate}}" formControlName="iconurl" >
-                <mat-icon matSuffix> insert_photo</mat-icon>
-                <mat-error
-                  *ngIf="!formGroup.controls['iconurl'].valid && formGroup.controls['iconurl'].touched">
-                  {{ titleAlert|translate }}
-                </mat-error>
-              </mat-form-field>
-              <br>
-              <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
-                <mat-label>{{'app_url'|translate}}</mat-label>
-                <input matInput placeholder="{{'app_url'|translate}}" formControlName="applicationurl" >
-                <mat-icon matSuffix> find_in_page</mat-icon>
-                <mat-error
-                  *ngIf="!formGroup.controls['applicationurl'].valid && formGroup.controls['applicationurl'].touched">
-                  {{ titleAlert|translate }}
-                </mat-error>
-              </mat-form-field>
-              <br>
-                  <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
-                <mat-label> {{ 'app_mode'| translate }}</mat-label>
-                <input type="text" placeholder="{{ 'app_mode'| translate }}"  matInput 
-                  formControlName="applicationmode" [matAutocomplete]="auto">
-                  <mat-icon matSuffix style="cursor: pointer;"> arrow_drop_down_circle</mat-icon>
-                <mat-error *ngIf="!formGroup.controls['applicationmode'].valid && formGroup.controls['applicationmode'].touched">
-                    {{ titleAlert| translate }}
-                </mat-error>
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let mode of modes" [value]="mode.id">
-                    {{mode.id}}-{{mode.desc|translate}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-             <br>
-
-                  <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
-                <mat-label> {{ 'nav_app'| translate }}</mat-label>
-                <input type="text" placeholder="{{ 'nav_app'| translate }}"  matInput 
-                  formControlName="ieflag" [matAutocomplete]="autoNav">
-                  <mat-icon matSuffix> public</mat-icon>
-                <mat-error *ngIf="!formGroup.controls['ieflag'].valid && formGroup.controls['ieflag'].touched">
-                    {{ titleAlert| translate }}
-                </mat-error>
-                <mat-autocomplete #autoNav="matAutocomplete">
-                  <mat-option *ngFor="let nav of navs" [value]="nav.id">
-                    {{nav.id}}-{{nav.desc|translate}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-    
-              <button [disabled]="!formGroup.valid" mat-raised-button  color="primary" style="width: 100%"> {{'add_app' | translate}}</button>
-            </form>
-            </mat-card-content>
-        </mat-card>
+        <app-add-application></app-add-application>
          
        
       
     </mat-tab>
   
-    <mat-tab>
+    <mat-tab *ngIf="getPrivs(8)">
       <ng-template mat-tab-label>
         <mat-icon class="example-tab-icon">touch_app</mat-icon>
         {{'add_role' | translate}}
       </ng-template>
-      Content 2
-    </mat-tab>
+     <app-add-role-tab></app-add-role-tab>
   
+    </mat-tab>
+    <mat-tab >
+      <ng-template mat-tab-label>
+        <mat-icon  class="example-tab-icon"> category</mat-icon>
+        
+        {{'assoc_obj' | translate}}
+      </ng-template>
+     <app-assoc-obj-tab></app-assoc-obj-tab>
+  
+    </mat-tab>
+    <mat-tab *ngIf="getPrivs(9)">
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">accessibility_new</mat-icon>
+          {{'affect_role' | translate}}
+        </ng-template>
+       <app-affect-role-tab></app-affect-role-tab>
+    
+      </mat-tab>
+
+
  
   </mat-tab-group>

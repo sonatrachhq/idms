@@ -23,4 +23,13 @@ public class AppRolesService {
 		}
 		return null;
 	}
+	
+	public void deleteRole(AppRoles approle) {
+		try {
+			appRoleRepo.save(approle);
+
+		}catch(Exception e) {
+			System.out.println("Exception  deleteRole() in AppRolesService==>" + e.getMessage());
+		}
+			}
 }

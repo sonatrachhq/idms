@@ -4,12 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "APPROLES")
 @SequenceGenerator(name="APPROLES_ID_SEQ", allocationSize=1)
+@NamedQuery(name = "AppRoles.findByApp", query = "SELECT p FROM AppRoles  p WHERE idapplication=?1 ")
 public class AppRoles {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="APPROLES_ID_SEQ")
@@ -20,6 +22,16 @@ public class AppRoles {
 
 public AppRoles() {
 	
+}
+
+
+
+public AppRoles(Integer idrole, Integer idapplication, Integer idstatus, String descrole) {
+	super();
+	this.idrole = idrole;
+	this.idapplication = idapplication;
+	this.idstatus = idstatus;
+	this.descrole = descrole;
 }
 
 

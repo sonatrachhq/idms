@@ -11,7 +11,7 @@ export class StyleManagerService {
   */
    setStyle(key: string, href: string) {
      
-     //console.log( getLinkElementForKey(key))
+     ////console.log( getLinkElementForKey(key))
      getLinkElementForKey(key)
      .setAttribute("href", href);
   

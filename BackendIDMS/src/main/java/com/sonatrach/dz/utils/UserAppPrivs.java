@@ -1,4 +1,5 @@
 package com.sonatrach.dz.utils;
+import java.util.Date;
 import java.util.List;
 public class UserAppPrivs {
 	private Integer IDUSERIDMS;
@@ -11,6 +12,8 @@ public class UserAppPrivs {
     private String APPLICATIONURL;
     private Integer PUBLICFLAG;
     private Integer IEFLAG;
+    private Date INTERIMSTARTDATE;
+    private Date INTERIMENDDATE;
 	private List<Role> ROLES;
 	
 	
@@ -19,9 +22,10 @@ public class UserAppPrivs {
 		
 	}
 	
+
 	public UserAppPrivs(Integer iDUSERIDMS, Integer iDAPPLICATION, String aPPLICATIONTITLE, String aPPLICATIONDESC,
 			String aPPLICATIONDETAIL, String iCONURL, Integer aPPLICATIONMODE, String aPPLICATIONURL,
-			Integer pUBLICFLAG, List<Role> rOLES) {
+			Integer pUBLICFLAG, Integer iEFLAG, Date iNTERIMSTARTDATE, Date iNTERIMENDDATE, List<Role> rOLES) {
 		super();
 		IDUSERIDMS = iDUSERIDMS;
 		IDAPPLICATION = iDAPPLICATION;
@@ -32,8 +36,33 @@ public class UserAppPrivs {
 		APPLICATIONMODE = aPPLICATIONMODE;
 		APPLICATIONURL = aPPLICATIONURL;
 		PUBLICFLAG = pUBLICFLAG;
+		IEFLAG = iEFLAG;
+		INTERIMSTARTDATE = iNTERIMSTARTDATE;
+		INTERIMENDDATE = iNTERIMENDDATE;
 		ROLES = rOLES;
 	}
+
+
+	public Date getINTERIMSTARTDATE() {
+		return INTERIMSTARTDATE;
+	}
+
+
+	public void setINTERIMSTARTDATE(Date iNTERIMSTARTDATE) {
+		INTERIMSTARTDATE = iNTERIMSTARTDATE;
+	}
+
+
+	public Date getINTERIMENDDATE() {
+		return INTERIMENDDATE;
+	}
+
+
+	public void setINTERIMENDDATE(Date iNTERIMENDDATE) {
+		INTERIMENDDATE = iNTERIMENDDATE;
+	}
+
+
 	public Integer getIDUSERIDMS() {
 		return IDUSERIDMS;
 	}

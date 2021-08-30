@@ -1,0 +1,38 @@
+<div style="display: block;">
+    <igx-input-group type="search" style="margin-top: 35px;">
+        <igx-prefix>
+          <igx-icon>search</igx-icon>
+        </igx-prefix>
+        <input #search igxInput placeholder="Search application" [(ngModel)]="searchApp">
+        <igx-suffix *ngIf="search.value.length > 0" (click)="searchApp = null">
+          <igx-icon>clear</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+<div class="list-sample" >
+    <igx-list [displayDensity]="density" style="height: auto;" >
+        <ng-template igxEmptyList>
+            <p class="empty">{{'empty_list'|translate}}  </p>
+        </ng-template>
+        <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
+        *ngFor="let app of data| igxFilter: filterApps ;let j = index"
+        [ngClass]="{'addPadding': addPadding}">
+            <igx-avatar igxListThumbnail [src]="app.iconurl" roundShape="true"  ></igx-avatar>
+            <span igxListLineTitle >{{ app.applicationtitle  | translate}}</span>
+            <span igxListLineSubTitle >{{app.applicationdesc  | translate}}</span>
+            <button igxListAction mat-flat-button color="accent"  style=" margin: 5px;" (click)="openAffectRoleModal(app)" > {{'assoc_obj' | translate}}</button>
+            <igx-icon igxListAction style=" margin: 5px;" 
+            #tooltip="matTooltip"
+            [matTooltip]="tooltipMsg|translate"
+            [matTooltipPosition]="position"
+            matTooltipHideDelay="1000"
+            (click)="openSnackBar(app)">
+            more_vert
+        </igx-icon>
+            
+        </igx-list-item>
+    </igx-list>
+    <igx-paginator #paginator [perPage]="10" [selectOptions]="itemsPerPage" [totalRecords]="apps.length"
+    (perPageChange)="navigateToFirstPage()"></igx-paginator>
+</div>
+</div>
+

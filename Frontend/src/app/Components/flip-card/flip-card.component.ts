@@ -27,7 +27,7 @@ export class FlipCardComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.app)
+    //console.log(this.app)
   }
   
 

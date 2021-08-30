@@ -32,7 +32,7 @@ export class LangsService {
    public updateLangUser(profil:Profil ):Observable<Profil>{
      return this.http.post<Profil>(this.host+"updateLangUser",profil).pipe(
       catchError((err) => {
-         //console.log('error caught in service')
+         ////console.log('error caught in service')
         console.error(err);
         return throwError(err);
       })
@@ -44,7 +44,7 @@ export class LangsService {
     }
     return this.http.get<Array<Languages>>(this.host+"api/auth/getAllLanguages").pipe(
       catchError((err) => {
-         //console.log('error caught in service')
+         ////console.log('error caught in service')
         console.error(err);
         return throwError(err);
       })

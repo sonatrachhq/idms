@@ -21,7 +21,7 @@ export class GuestPageService {
    getVisibleApps(): Observable<Array<Applications>>{
       return this.http.get<Array<Applications>>(this.host+"api/auth/getVisibleApps").pipe(
         catchError((err) => {
-           //console.log('error caught in service')
+           ////console.log('error caught in service')
           console.error(err);
           return throwError(err);
         })

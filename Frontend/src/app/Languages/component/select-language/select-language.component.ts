@@ -41,11 +41,11 @@ ngOnInit(): void {
   //get all languages
   this.langService.getAllLanguages().subscribe(
     data => {  
-     // console.log(data);
+     // //console.log(data);
      this.langs=data;
   },
   error => {
-   console.log(error);
+   //console.log(error);
    this.openDialogError("global_error_msg");
    
    
@@ -77,11 +77,11 @@ idmsTranslate(lang:Languages){
         "iduser":0,
         "systemdate":new Date
       }
-      console.log(profil);
+      //console.log(profil);
        this.updateLang(profil );
     },
     error => {
-     console.log(error);
+     //console.log(error);
      this.openDialogError("global_error_msg");
      
      
@@ -91,16 +91,16 @@ idmsTranslate(lang:Languages){
   }
 
   }
-  console.log(lang)
+  //console.log(lang)
 }
 updateLang(profil:Profil){
   this.langService.updateLangUser(profil).subscribe(
     data => {  
-     // console.log(data);
+     // //console.log(data);
      
   },
   error => {
-   console.log(error);
+   //console.log(error);
    this.openDialogError("global_error_msg");
    
    

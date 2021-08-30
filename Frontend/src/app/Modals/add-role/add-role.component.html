@@ -1,0 +1,21 @@
+<mat-dialog-content align="center">
+    <form [formGroup]="formGroup"  novalidate>
+   
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'role_desc'|translate}}</mat-label>
+        <input matInput placeholder="{{'role_desc'|translate}}" formControlName="descrole" >
+        <mat-icon matSuffix> description</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['descrole'].valid && formGroup.controls['descrole'].touched">
+          {{ 'titleAlert_login'|translate }}
+        </mat-error>
+      </mat-form-field>
+
+     
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary"  [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)">{{'btn_role_select_valid'|translate}}</button>
+  </mat-dialog-actions>

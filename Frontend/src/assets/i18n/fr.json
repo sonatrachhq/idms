@@ -37,12 +37,13 @@
     "btn_role_select_cancel":"Annuler",
     "copy_link_title":"Cette application doit s'exécuter sur Internet Explorer",
     "copy_link_btn":"copier le lien",
-    "empty_list":"Aucune application dans :",
+    "empty_list":"La liste des applications est vide",
     "menu_home":"Accueil",
     "menu_apps":"Gestion applications",
     "add_app":"Ajouter application",
     "add_app_success":"Cette application a bien été ajoutée.",
     "add_role":"Ajouter rôle",
+    "add_role_success":"Ce rôle a bien été ajouté.",
     "app_title":"Titre application*",
     "app_desc":"Description application*",
     "app_detail":"Détail application*",
@@ -51,6 +52,21 @@
     "app_url":"Url application*",
     "nav_app":"Navigateur*",
     "browser_0":"S'ouvre avec n'importe quel navigateur",
-    "browser_1":"S'ouvre uniquement avec internet explorer"
+    "browser_1":"S'ouvre uniquement avec internet explorer",
+    "user_idms":"Choisir un utilisateur",
+    "role_desc":"Description rôle*",
+    "interval":"Veuillez choisir un interval*",
+    "start_date":"Date début",
+    "end_date":"Date fin",
+    "affect_role":"Affecter rôle",
+    "affect_role_success":"Ce rôle a bien été affecté",
+    "assoc_obj":"Associer objet",
+    "assoc_obj_success":"Les objets ont bien été associé",
+    "select_obj":"Veuillez sélectionner des objets ",
+    "toggle_label":"Associer les objets d'un rôle existant",
+    "role_select_assoc":"Veuillez sélectionner un rôle existant",
+    "update_selected_obj":"Modifier les objets sélectionnés",
+    "no_roles":"Vous n'avez pas de rôle sur cette application!"
+    
     
   }

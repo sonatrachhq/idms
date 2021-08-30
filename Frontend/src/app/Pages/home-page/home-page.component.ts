@@ -15,7 +15,7 @@ import {
   MatSnackBarVerticalPosition,
   MAT_SNACK_BAR_DATA,
 } from '@angular/material/snack-bar';
-import { IgxFilterOptions } from 'igniteui-angular';
+import { IgxFilterOptions, IgxPaginatorComponent } from 'igniteui-angular';
 
 @Component({
   selector: 'app-home-page',
@@ -23,93 +23,37 @@ import { IgxFilterOptions } from 'igniteui-angular';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  currentUser:UserIDMS={
-    "idlang":0,
-    "iduser":0,
-    "iduseridms":0,
-    "pswuser":"",
-    "sonuser":this.tokenStorage.getSonuser(),
-    "sysdate":new Date,
-    "userstatus":0
-  };
-  tooltipMsg="btn_detail_flip_card";
-  public density = 'comfortable';
-  columns: number = 1;
-  position:string="below";
-  modes=["prod","pre_prod","dev"];
-  public searchApp: string;
-  apps$:Observable<Array<UserAppPrivs>>;
-  applications:UserAppPrivs[]=[];
 
+  
+  modes=["prod","pre_prod","dev"];
+  applications:UserAppPrivs[]=[];
+  allApps:UserAppPrivs[]=[];
+ 
   constructor(private tokenStorage: TokenStorageService,private homePageService:HomePageService,public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
     
   }
 
   ngOnInit(): void {
-    this.currentUser.sonuser=this.tokenStorage.getSonuser();
-    //console.log(this.currentUser)
-    this.homePageService.getUsersAppPrivs(this.currentUser).subscribe(
-      (data)=>{
-       //console.log(data)
-        this.applications=data;
-       
-        //get apps by mode default mode:0 prod
-        this.apps$=this.homePageService.getAppsByMode(this.applications,"0");
-      },
-      (error)=>{
-        console.log(error)
-      }
-    )
+  
+   
+
+    this.allApps=this.tokenStorage.getAppPrivs();
+    this.applications=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==0);
+
+    
   }
   updateData(event:any){
-   
+    
     let mode:string=event.index;
+    this.applications= this.allApps.filter(app=>app.applicationmode==event.index);
    
-    this.apps$=this.homePageService.getAppsByMode(this.applications,mode.toString());
-  }
-
-
-  openRoleSelect(app:UserAppPrivs) {
-    if(app.roles.length>1){
-      const dialogRef = this.dialog.open(RoleSelectComponent, {
-        width: '450px',
-        data: {roles:app.roles,
-        appUrl:app.applicationurl.toString() }
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        //window.location.reload();
-      });
-    }else{
-      if(app.ieflag==1){
-        window.open(app.applicationurl.toString(), "_blank");
-      }else{
-        const dialogRef = this.dialog.open(CopyLinkComponent, {
-          width: '380px',
-          data: {
-            appUrl:app.applicationurl.toString() }
-        });
     
-        dialogRef.afterClosed().subscribe(result => {
-         // window.location.reload();
-        });
-      }
-     
-    }
+    //this.apps$=this.homePageService.getAppsByMode(this.allApps,mode.toString());
     
   }
-  openSnackBar(app:UserAppPrivs) {
-    this._snackBar.open(this.translate.instant(app.applicationdetail.toString()),this.translate.instant('close_alert'));
-   
-  }
 
-  get filterApps() {
-   
-    const fo = new IgxFilterOptions();
-    fo.key = 'applicationtitle';
-    fo.inputValue = this.searchApp;
-    return fo;
-  }
+
+ 
 }
 
 

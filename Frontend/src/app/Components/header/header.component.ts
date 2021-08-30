@@ -48,12 +48,12 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService) {
         this.options$.subscribe(
           data => {  
-            //console.log(data);
+            ////console.log(data);
             this.themes=data;
            
         },
         error => {
-         console.log(error);
+         //console.log(error);
          this.openDialogError("global_error_msg");
          
          
@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit {
           
         this.authService.checkToken(info).subscribe(
         (data)=>{
-          //console.log(data)
+          ////console.log(data)
             if(data.password=="true"){
                 this.getCurrentUser();
             }else{
@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit {
             }
         },
         (error)=>{
-          console.log(error)
+          //console.log(error)
         }
       )}
       )
@@ -103,13 +103,13 @@ export class HeaderComponent implements OnInit {
           this.currentUser.sonuser=this.tokenStorage.getSonuser();
           this.globalService.getCurrentUser(this.currentUser).subscribe(
             data => {  
-            //  console.log(data);
+            //  //console.log(data);
              this.currentUser=data;
             this.getUsersProfil();
            
           },
           error => {
-           console.log(error);
+           //console.log(error);
            this.openDialogError("global_error_msg");
            
            
@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit {
     }
     this.globalService.getUsersProfil(profil).subscribe(
       data => {  
-       // console.log(data);
+       // //console.log(data);
        if(data!=null){
         let  usersTheme:Option=this.themes.find(theme =>theme.id==data.idtheme);
         this.themeService.setTheme(usersTheme.value);
@@ -143,7 +143,7 @@ export class HeaderComponent implements OnInit {
         
     },
     error => {
-     console.log(error);
+     //console.log(error);
      this.openDialogError("global_error_msg");
      
      
@@ -162,7 +162,7 @@ export class HeaderComponent implements OnInit {
         "iduser":0,
         "systemdate":new Date
       }
-      console.log(profil);
+      //console.log(profil);
       this.updateTheme(profil );
     }
     
@@ -171,11 +171,11 @@ export class HeaderComponent implements OnInit {
   updateTheme(profil:Profil ){
       this.globalThemeService.updateThemeUser(profil).subscribe(
         data => {  
-         // console.log(data);
+         // //console.log(data);
     
       },
       error => {
-       console.log(error);
+       //console.log(error);
        this.openDialogError("global_error_msg");
        
        

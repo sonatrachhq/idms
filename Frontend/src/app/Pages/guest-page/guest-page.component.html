@@ -1,5 +1,5 @@
-
-     <igx-input-group type="search" class="search" >
+<div style="display: block;">
+    <igx-input-group type="search" class="search" >
         <igx-prefix>
             <igx-icon>search</igx-icon>
         </igx-prefix>
@@ -10,12 +10,12 @@
     </igx-input-group>
 
 <div class="list-sample">
-<igx-list [displayDensity]="density" *ngIf="apps$ |  async as apps"  >
+<igx-list [displayDensity]="density" style="height: auto;" >
     <ng-template igxEmptyList>
         <p class="empty">{{'empty_list'|translate}} </p>
     </ng-template>
     <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content" #item
-    *ngFor="let app of apps| igxFilter: filterApps ;">
+    *ngFor="let app of data| igxFilter: filterApps ;" style="padding: .5rem 1rem !important;">
         <igx-avatar igxListThumbnail [src]="app.iconurl" roundShape="true" ></igx-avatar>
         <span igxListLineTitle >{{ app.applicationtitle | translate }}</span>
         <span igxListLineSubTitle >{{app.applicationdesc  | translate}}</span>
@@ -30,4 +30,9 @@
     
 
     </igx-list-item>
-</igx-list></div>
+</igx-list>
+<igx-paginator #paginator [perPage]="10" [selectOptions]="itemsPerPage" [totalRecords]="apps.length"
+(perPageChange)="navigateToFirstPage()"></igx-paginator>
+</div>
+</div>
+     

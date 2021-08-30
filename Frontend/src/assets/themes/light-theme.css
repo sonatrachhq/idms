@@ -828,7 +828,7 @@
   }
   
   .mat-pseudo-checkbox {
-    color: rgba(255, 255, 255, .7)
+    color: #000
   }
   
   .mat-pseudo-checkbox::after {
@@ -2212,7 +2212,9 @@
   .mat-menu-panel {
     background: white
   }
-  
+  .footer{
+    background: #DADCDD
+  }
   .mat-menu-panel:not([class*=mat-elevation-z]) {
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)
   }
@@ -2312,7 +2314,8 @@
   
   .mat-progress-spinner circle,
   .mat-spinner circle {
-    stroke: #FF8500
+    stroke: #FF8500;
+    
   }
   
   .mat-progress-spinner.mat-accent circle,
@@ -2397,7 +2400,7 @@
   }
   
   .mat-select-panel {
-    background: #fff
+    background: #DADCDD
   }
   
   
@@ -2487,7 +2490,7 @@
   }
   
   .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
-    background-color: rgba(194, 24, 91, .54)
+    background-color: #F9A047
   }
   
   .mat-slide-toggle.mat-primary.mat-checked .mat-ripple-element {

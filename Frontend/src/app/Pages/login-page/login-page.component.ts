@@ -1,3 +1,5 @@
+import { LoginPageService } from './../../Services/login-page.service';
+import { UserIDMS } from './../../Models/UserIDMS';
 import { ThemeService } from './../../Theme/Services/theme.service';
 
 import { AuthService } from './../../auth/auth.service';
@@ -20,6 +22,15 @@ export class LoginPageComponent implements OnInit {
   hide = true;
   formGroup: FormGroup = new FormGroup({});
   langId:number=0;
+  currentUser:UserIDMS={
+    "idlang":0,
+    "iduser":0,
+    "iduseridms":0,
+    "pswuser":"",
+    "sonuser":"",
+    "sysdate":new Date,
+    "userstatus":0
+  };
   sonUser:String=this.tokenStorage.getSonuser();
   private loginInfo: AuthLoginInfo=new AuthLoginInfo("","");
   constructor( private tokenStorage: TokenStorageService,
@@ -27,6 +38,7 @@ export class LoginPageComponent implements OnInit {
     private authService: AuthService,
     public dialog: MatDialog,
     private router:Router,
+    private loginPageService:LoginPageService,
     private readonly themeService: ThemeService) { 
     this.formGroup = new FormGroup({
       sonuser: new FormControl('', [Validators.required]),
@@ -43,7 +55,7 @@ export class LoginPageComponent implements OnInit {
      
         this.authService.checkToken(info).subscribe(
         (data)=>{
-          //console.log(data)
+          ////console.log(data)
             if(data.password!="true"){
               this.themeService.setTheme("light-theme");
             }
@@ -55,30 +67,30 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit(post: any) {
-    console.log(this.langId )
+    //console.log(this.langId )
     this.loginInfo.sonuser=post.sonuser;
     this.loginInfo.password=post.password;
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {  
-          console.log(data);
+          //console.log(data);
           if(data!=null){
             this.tokenStorage.saveToken(data.accessToken);
           this.tokenStorage.saveSonuser(data.sonuser);
           this.tokenStorage.saveTheme(2);
           this.tokenStorage.saveLang(1);
-          this.router.navigate(["homePage"]).then(() => {
-            window.location.reload();
-          });
-          
+          this.currentUser.sonuser=data.sonuser;
+        
+            this.getUsersRoles();
+      
           
           }else{
             this.openDialog("son_psw_error");
-            console.log(data);
+            //console.log(data);
           }
           
       },
       error => {
-       console.log(error);
+       //console.log(error);
        this.openDialogError("global_error_msg")
        //this.showAlert('Alerte de connexion',"Nom d'utilisateur ou mot de passe incorrect");
        
@@ -87,7 +99,60 @@ export class LoginPageComponent implements OnInit {
     );
   
   }
+  getUsersRoles(){
+    this.loginPageService.getUsersRoles(this.currentUser).subscribe(
+      (data)=>{
+        //console.log(data)
+      
+          this.tokenStorage.saveRoles(data);
+        this.getUsersAppPrivs();
+      
+        
+        
+      },
+      error => {
+        //console.log(error);
+        this.openDialogError("global_error_msg")
+        //this.showAlert('Alerte de connexion',"Nom d'utilisateur ou mot de passe incorrect");
+        
+         
+       }
+    )
+  }
+  getUsersAppPrivs(){
+    this.loginPageService.getUsersAppPrivs(this.currentUser).subscribe(
+      (data)=>{
+       //console.log(data)
+         
+       this.tokenStorage.saveAppPrivs(data);
+      this.getUsersObjects();
 
+      },
+      (error)=>{
+        //console.log(error)
+      }
+    )
+  }
+
+  getUsersObjects(){
+    this.loginPageService.getUsersObjects(this.currentUser).subscribe(
+      (data)=>{
+       //console.log(data)
+         
+       this.tokenStorage.saveObjects(data);
+        
+      this.router.navigate(["homePage"]).then(() => {
+        window.location.reload();
+        
+      });
+
+      },
+      (error)=>{
+        //console.log(error)
+      }
+    )
+  }
+ 
   register(){
     this.router.navigateByUrl("register");
   }

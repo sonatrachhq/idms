@@ -24,7 +24,7 @@ var AuthInterceptor = /** @class */ (function () {
             authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
         }
         return next.handle(authReq).pipe(operators_1.catchError(function (error) {
-            //console.log('error in intercept')
+            ////console.log('error in intercept')
             console.error(error);
             if (error.status == 200) {
                 return rxjs_1.throwError("Erreur lors de la génération des fichiers.\nAssurez vous que les fichiers sont fermés\n");

@@ -26,7 +26,7 @@ export class GlobalAppService {
     }
     return this.http.post<UserIDMS>(this.host+"getCurrentUser",user).pipe(
       catchError((err) => {
-         //console.log('error caught in service')
+         ////console.log('error caught in service')
         console.error(err);
         return throwError(err);
       })
@@ -36,7 +36,7 @@ export class GlobalAppService {
   public getUsersProfil(profil:Profil):Observable<Profil>{
     return this.http.post<Profil>(this.host+"getUsersProfil",profil).pipe(
       catchError((err) => {
-         //console.log('error caught in service')
+         ////console.log('error caught in service')
         console.error(err);
         return throwError(err);
       })

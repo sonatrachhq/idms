@@ -1,0 +1,140 @@
+<div mat-dialog-title>
+  <mat-slide-toggle [(ngModel)]="chooseObj" color="primary">{{'toggle_label'|translate}}</mat-slide-toggle>
+</div>
+<div *ngIf="!chooseObj">
+  <mat-dialog-content align="center">
+    <form [formGroup]="formGroup" novalidate>
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label>{{'role_select_title'|translate}}</mat-label>
+        <mat-select formControlName="idrole" (selectionChange)="firstDropDownChanged()">
+          <mat-option *ngFor="let role of roles;index as i;" [value]="role">
+            {{role.descrole}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!formGroup.controls['idrole'].valid && formGroup.controls['idrole'].touched">
+          {{ 'titleAlert_login'|translate }}
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;">
+        <mat-label>{{'select_obj'|translate}}</mat-label>
+        <mat-select [formControl]="idsobject" multiple >
+          
+          <mat-option *ngFor="let obj of allObj" [value]="obj">{{obj.descobject}}</mat-option>
+
+        </mat-select>
+        <mat-error *ngIf="idsobject.hasError('required') ">
+          {{ 'titleAlert_login'|translate }}
+        </mat-error>
+      </mat-form-field>
+   
+    </form>
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close>{{'btn_role_select_cancel'|translate}}</button>
+    <button mat-raised-button color="primary" [disabled]="!formGroup.valid||idsobject.hasError('required')"
+      (click)="onSubmit(formGroup.value)">{{'btn_role_select_valid'|translate}}</button>
+  </mat-dialog-actions>
+</div>
+<div class="disable-background" *ngIf="showSpinner"></div>
+  <div class="center" *ngIf="showSpinner">
+    <mat-progress-spinner diameter=65 mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+<!--  
+                 
+                  <mat-form-field appearance="fill" style="width: 100%;margin-bottom: 8px;">
+                <mat-label>Toppings</mat-label>
+                <mat-select formControlName="idsobject" multiple>
+                  <mat-select-trigger>
+                    {{idsobject.value ? idsobject.value[0] : ''}}
+                    <span *ngIf="idsobject.value?.length > 1" class="example-additional-selection">
+                      (+{{idsobject.value.length - 1}} {{idsobject.value?.length === 2 ? 'other|translate' : 'others|translate'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let obj of objects" [value]="obj.idobject">{{obj.idobject-obj.descobject}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+                
+                
+                
+                <input matInput placeholder="{{'role_desc'|translate}}" formControlName="idrole"  [matAutocomplete]="autoRole" [(ngModel)]="selectedRole" (change)="firstDropDownChanged()">
+                <mat-icon matSuffix style="cursor: pointer;"> arrow_drop_down_circle</mat-icon>
+                <mat-error
+                  *ngIf="!formGroup.controls['idrole'].valid && formGroup.controls['idrole'].touched">
+                  {{ 'titleAlert_login'|translate }}
+                </mat-error>
+                <mat-autocomplete #autoRole="matAutocomplete"> 
+                    <mat-option *ngFor="let role of roles;index as i;" [value]="role.idrole">
+                      {{role.idrole}}-{{role.descrole}}
+                    </mat-option>
+                  </mat-autocomplete>
+                 <mat-form-field appearance="fill">
+                <mat-label>Toppings</mat-label>
+                <mat-select formControlName="idsobject" multiple>
+                  <mat-select-trigger>
+                    {{idsobject.value ? idsobject.value[0] : ''}}
+                    <span *ngIf="idsobject.value?.length > 1" class="example-additional-selection">
+                      (+{{idsobject.value.length - 1}} {{idsobject.value?.length === 2 ? 'other|translate' : 'others|translate'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let obj of objects.objects[]" [value]="topping">{{topping}}</mat-option>
+                </mat-select>
+              </mat-form-field>-->
+
+
+
+<div *ngIf="chooseObj">
+    <mat-dialog-content align="center">
+        <form [formGroup]="form" novalidate>
+    
+          <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+            <mat-label>{{'role_select_title'|translate}}</mat-label>
+            <mat-select formControlName="idrole" >
+              <mat-option *ngFor="let role of roles;index as i;" [value]="role">
+                {{role.descrole}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="!form.controls['idrole'].valid && form.controls['idrole'].touched">
+              {{ 'titleAlert_login'|translate }}
+            </mat-error>
+    
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+            <mat-label>{{'role_select_assoc'|translate}}</mat-label>
+            <mat-select formControlName="existidrole"  (selectionChange)="roleSelectChanged()">
+              <mat-option *ngFor="let role of roles;index as i;" [value]="role">
+                {{role.descrole}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="!form.controls['existidrole'].valid && form.controls['existidrole'].touched">
+              {{ 'titleAlert_login'|translate }}
+            </mat-error>
+    
+          </mat-form-field>
+  
+
+          <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;">
+            <mat-label>{{'update_selected_obj'|translate}}</mat-label>
+            <mat-select [formControl]="idsobjectExisting" multiple >
+              
+              <mat-option *ngFor="let obj of allObjc" [value]="obj">{{obj.descobject}}</mat-option>
+    
+            </mat-select>
+         
+          </mat-form-field>
+        </form>
+    
+    
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-raised-button color="accent" mat-dialog-close>{{'btn_role_select_cancel'|translate}}</button>
+        <button mat-raised-button color="primary" [disabled]="!form.valid"
+          (click)="associateObj(form.value)">{{'btn_role_select_valid'|translate}}</button>
+      </mat-dialog-actions>
+</div>

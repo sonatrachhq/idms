@@ -20,7 +20,7 @@ export class GlobalThemeService {
    public updateThemeUser(profil:Profil):Observable<Profil>{
      return this.http.post<Profil>(this.host+"updateThemeUser",profil).pipe(
       catchError((err) => {
-         //console.log('error caught in service')
+         ////console.log('error caught in service')
         console.error(err);
         return throwError(err);
       })

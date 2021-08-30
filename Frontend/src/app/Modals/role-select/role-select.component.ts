@@ -16,12 +16,12 @@ export class RoleSelectComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.data.roles[0].descrole)
+    //console.log(this.data.roles[0].descrole)
   }
 
 
   accessApp(){
-    console.log(this.selected)
+    //console.log(this.selected)
     if(this.selected!=-1){
       window.open(this.data.appUrl, "_blank");
       this.onNoClick();
@@ -38,7 +38,7 @@ export class RoleSelectComponent implements OnInit {
       this.selected=-1
     }
    
-   // console.log(this.selected)
+   // //console.log(this.selected)
   }
  
 }

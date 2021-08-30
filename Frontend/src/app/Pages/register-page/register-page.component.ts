@@ -40,7 +40,7 @@ export class RegisterPageComponent implements OnInit {
    
   }
   onSubmit(post: any) {
-    console.log(post)
+    //console.log(post)
     //this.selectedLang=post.idlang.split("-")[0]
    
     this.signupInfo.idlang=1;
@@ -49,11 +49,11 @@ export class RegisterPageComponent implements OnInit {
     this.signupInfo.sonuser=post.sonuser;
     this.signupInfo.sysdate=new Date;
     this.signupInfo.userstatus=1;
-    console.log(this.signupInfo)
+    //console.log(this.signupInfo)
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
-        console.log(data.userId)
+        //console.log(data.userId)
         let profil:Profil={
           "idapplication":1,
           "idlanguage":1,
@@ -66,7 +66,7 @@ export class RegisterPageComponent implements OnInit {
         this.createProfil(profil);
       },
       error => {
-        console.log(error);
+        //console.log(error);
         if(error=="son"){
           
           this.openDialog("son_exist_error")
@@ -83,12 +83,12 @@ export class RegisterPageComponent implements OnInit {
   createProfil(profil:Profil){
       this.registerService.saveProfil(profil).subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           
           this.router.navigateByUrl('/login');
         },
         error => {
-          console.log(error);
+          //console.log(error);
          
             this.openDialogError("global_error_msg");
           

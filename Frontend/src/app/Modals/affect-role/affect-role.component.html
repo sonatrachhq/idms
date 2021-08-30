@@ -1,0 +1,70 @@
+<mat-dialog-content align="center">
+    <form [formGroup]="formGroup"  novalidate>
+
+
+    <!--<mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label> {{ 'user_idms'| translate }}</mat-label>
+        <input type="text" placeholder="{{ 'user_idms'| translate }}"  matInput 
+          formControlName="iduseridms" [matAutocomplete]="auto">
+          <mat-icon matSuffix style="cursor: pointer;"> arrow_drop_down_circle</mat-icon>
+          <mat-error *ngIf="!formGroup.controls['iduseridms'].valid && formGroup.controls['iduseridms'].touched">
+            {{ 'titleAlert_login'| translate }}
+        </mat-error>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let user of allIdmsUsers" [value]="user.iduseridms">
+            {{user.iduseridms}}-{{user.sonuser}}
+          </mat-option>
+        </mat-autocomplete>
+        
+      </mat-form-field>!-->
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label> {{ 'user_idms'| translate }}</mat-label>
+        <mat-select formControlName="iduseridms" >
+          <mat-option *ngFor="let user of allIdmsUsers" [value]="user">
+            {{user.sonuser}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!formGroup.controls['iduseridms'].valid && formGroup.controls['iduseridms'].touched">
+          {{ 'titleAlert_login'| translate }}
+      </mat-error>
+
+      </mat-form-field>
+
+
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label>{{'role_select_title'|translate}}</mat-label>
+        <mat-select formControlName="idrole" >
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{role.descrole}}
+          </mat-option>
+        </mat-select>
+        <mat-error
+        *ngIf="!formGroup.controls['idrole'].valid && formGroup.controls['idrole'].touched">
+        {{ 'titleAlert_login'|translate }}
+      </mat-error>
+
+      </mat-form-field>
+
+     
+      <mat-form-field appearance="fill"  style="width: 100%;margin-bottom: 8px;">
+        <mat-label>{{'interval'|translate}} </mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="{{'start_date'|translate}}" formControlName="privstartdate">
+          <input matEndDate placeholder="{{'end_date'|translate}}" formControlName="privenddate">
+        </mat-date-range-input>
+        <mat-error
+        *ngIf="!formGroup.controls['privstartdate'].valid && formGroup.controls['privstartdate'].touched">
+        {{ 'titleAlert_login'|translate }}
+      </mat-error>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary"  [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)">{{'btn_role_select_valid'|translate}}</button>
+  </mat-dialog-actions>
+

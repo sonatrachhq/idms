@@ -1,17 +1,24 @@
+import { UsersObject } from './../Models/UsersObject';
+import { UserAppPrivs } from './../Models/UserAppPrivs';
+import { Role } from './../Models/Role';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'AuthToken';
 const SONUSER_KEY = 'AuthSonuser';
-const AUTHORITIES_KEY = 'AuthAuthorities';
+const ROLES_KEY = 'Roles';
 const HOST_KEY = 'HostKey';
 const THEME_KEY='themeKey';
 const LANG_KEY='langKey';
+const APPPRIVS_KEY='AppPrivs';
+const USERSOBJECTS_KEY='UsersObjects';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStorageService {
-  private roles: Array<string> = [];
+  private roles: Role[] = [];
+  private appPrivs:UserAppPrivs[]=[];
+  private objects:UsersObject[]=[];
   constructor() { }
 
   signOut() {
@@ -68,10 +75,59 @@ export class TokenStorageService {
     return sonuser!==null? sonuser :"";
   }
 
-  public saveAuthorities(authorities: string[]) {
+  /*public saveAuthorities(authorities: string[]) {
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
+  }*/
+
+  public getRoles():Role[]{
+    this.roles = [];
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(sessionStorage.getItem(ROLES_KEY)).forEach(role => {
+        this.roles.push(role);
+      });
+    }
+
+    return this.roles;
   }
 
+  public saveRoles(roles: Role[]) {
+    window.sessionStorage.removeItem(ROLES_KEY);
+    window.sessionStorage.setItem(ROLES_KEY, JSON.stringify(roles));
+  }
+
+
+  public getAppPrivs():UserAppPrivs[]{
+    this.appPrivs = [];
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(sessionStorage.getItem(APPPRIVS_KEY)).forEach(privs => {
+        this.appPrivs.push(privs);
+      });
+    }
+
+    return this.appPrivs;
+  }
+
+  public saveAppPrivs(appPrivs: UserAppPrivs[]) {
+    window.sessionStorage.removeItem(APPPRIVS_KEY);
+    window.sessionStorage.setItem(APPPRIVS_KEY, JSON.stringify(appPrivs));
+  }
+
+
+  public getObjects():UsersObject[]{
+    this.objects = [];
+    if (sessionStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(sessionStorage.getItem(USERSOBJECTS_KEY)).forEach(obj => {
+        this.objects.push(obj);
+      });
+    }
+
+    return this.objects;
+  }
+
+  public saveObjects(objects: UsersObject[]) {
+    window.sessionStorage.removeItem(USERSOBJECTS_KEY);
+    window.sessionStorage.setItem(USERSOBJECTS_KEY, JSON.stringify(objects));
+  }
 
 }
