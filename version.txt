@@ -1,3 +1,10 @@
+3.0
+---
+-SUB_MENU_GESTION_APP: add ,update , delete app
+-SUB_MENU_GESTION_ROLE: add , delete role
+-SUB_MENU_GESTION_OBJECT: add ,update , delete object
+-All SUB_MEnu filter by mode
+------------------------------------------------------------------------------------------
 2.0
 ---
 -Add role

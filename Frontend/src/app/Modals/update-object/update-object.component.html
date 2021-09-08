@@ -1,0 +1,39 @@
+<mat-dialog-content align="center">
+
+
+ 
+
+    <form [formGroup]="formGroup"  novalidate>
+
+        <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+            <mat-label>{{'select_obj'|translate}}</mat-label>
+            <mat-select formControlName="idobject" >
+              <mat-option *ngFor="let obj of distinctObj" [value]="obj">
+                {{obj.descobject}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+            *ngIf="!formGroup.controls['idobject'].valid && formGroup.controls['idobject'].touched">
+            {{ 'titleAlert_login'|translate }}
+          </mat-error>
+    
+          </mat-form-field>
+
+      
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'desc_obj'|translate}}</mat-label>
+        <input matInput placeholder="{{'desc_obj'|translate}}" formControlName="descobject" >
+        <mat-icon matSuffix> description</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['descobject'].valid && formGroup.controls['descobject'].touched">
+          {{ 'titleAlert_login'|translate }}
+        </mat-error>
+      </mat-form-field>
+
+   
+   </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary"  [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)">{{'update_obj'|translate}}</button>
+  </mat-dialog-actions>

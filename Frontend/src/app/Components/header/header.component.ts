@@ -8,7 +8,7 @@ import { GlobalAppService } from './../../IdmsServices/global-app.service';
 import { UserIDMS } from './../../Models/UserIDMS';
 import { GlobalThemeService } from './../../Theme/Services/global-theme.service';
 import { TokenStorageService } from './../../auth/token-storage.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Option } from '../../Theme/Models/Option';
 import { ThemeService } from './../../Theme/Services/theme.service';
@@ -187,7 +187,37 @@ export class HeaderComponent implements OnInit {
     //this.connected=1;
       this.router.navigateByUrl("login")
   }
- 
+  navToAppManag(mode:number){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mode":mode
+        
+      }
+  };
+  //console.log(navigationExtras)
+    this.router.navigate(['appManagement'],navigationExtras ).then(value=>window.location.reload());
+  }
+
+  navToRoleManag(mode:number){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mode":mode
+        
+      }
+  };
+  //console.log(navigationExtras)
+    this.router.navigate(['roleManagement'],navigationExtras ).then(value=>window.location.reload());
+  }
+  navToObjectManag(mode:number){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mode":mode
+        
+      }
+  };
+  //console.log(navigationExtras)
+    this.router.navigate(['objectManagement'],navigationExtras ).then(value=>window.location.reload());
+  }
   logout(){
     this.connected=0;
     this.tokenStorage.signOut();

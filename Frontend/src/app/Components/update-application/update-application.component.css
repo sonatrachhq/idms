@@ -1,0 +1,12 @@
+.example-tab-icon {
+    margin-right: 8px;
+  }
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    margin: 35px;
+  }
+  
+  .table-container > * {
+    width: 100%;
+  }

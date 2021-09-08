@@ -1,3 +1,4 @@
+import { ObjType } from './../Models/ObjType';
 import { ObjectUsers } from './../Models/ObjectUsers';
 import { RoleObjects } from './../Models/RoleObjects';
 import { AppPrivs } from './../Models/AppPrivs';
@@ -44,6 +45,16 @@ export class AppManagementService {
     );
    }
 
+   public getAllObjTypes():Observable<Array<ObjType>>{
+    return this.http.get<Array<ObjType>>(this.host+"getAllObjTypes").pipe(
+     catchError((err) => {
+        ////console.log('error caught in service')
+       console.error(err);
+       return throwError(err);
+     })
+   );
+  }
+
    public saveNewRole(role:AppRoles):Observable<AppRoles>{
      return this.http.post<AppRoles>(this.host+"saveNewRole",role).pipe(
       catchError((err) => {
@@ -53,6 +64,17 @@ export class AppManagementService {
       })
     );
    }
+
+   public deleteRole(role:AppRoles):Observable<AppRoles>{
+    return this.http.post<AppRoles>(this.host+"deleteRole",role).pipe(
+     catchError((err) => {
+        ////console.log('error caught in service')
+       console.error(err);
+       return throwError(err);
+     })
+   );
+  }
+  
 
    public saveNewPrivs(privs:AppPrivs):Observable<AppPrivs>{
      return this.http.post<AppPrivs>(this.host+"saveNewPrivs",privs).pipe(
@@ -111,5 +133,56 @@ export class AppManagementService {
        return throwError(err);
      })
    );
+  }
+
+  public updateApplication(app:Applications):Observable<Applications>{
+    return this.http.post<Applications>(this.host+"updateApplication",app).pipe(
+     catchError((err) => {
+        ////console.log('error caught in service')
+       console.error(err);
+       return throwError(err);
+     })
+   );
+  }
+
+  
+  public deleteApplication(app:Applications):Observable<Applications>{
+    return this.http.post<Applications>(this.host+"deleteApplication",app).pipe(
+     catchError((err) => {
+        ////console.log('error caught in service')
+       console.error(err);
+       return throwError(err);
+     })
+   );
+  }
+
+  public addAppObject(obj:AppObjects):Observable<AppObjects>{
+    return this.http.post<AppObjects>(this.host+"addAppObject",obj).pipe(
+      catchError((err) => {
+         ////console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+  
+  public updateAppObject(obj:AppObjects):Observable<AppObjects>{
+    return this.http.post<AppObjects>(this.host+"updateAppObject",obj).pipe(
+      catchError((err) => {
+         ////console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
+  public deleteAppObject(objs:Array<AppObjects>):Observable<Array<AppObjects>>{
+    return this.http.post<Array<AppObjects>>(this.host+"deleteAppObject",objs).pipe(
+      catchError((err) => {
+         ////console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
   }
 }

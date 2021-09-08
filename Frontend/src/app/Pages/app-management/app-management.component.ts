@@ -1,3 +1,4 @@
+import { ActivatedRoute, Params } from '@angular/router';
 import { UsersObject } from './../../Models/UsersObject';
 import { AddRoleComponent } from './../../Modals/add-role/add-role.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,14 +25,16 @@ import { IgxPaginatorComponent } from 'igniteui-angular';
 })
 export class AppManagementComponent implements OnInit {
   allObjects:UsersObject[]=[];
-  
-  constructor(private tokenStorage: TokenStorageService) { 
-
+  mode:number;
+  constructor(private tokenStorage: TokenStorageService,private route: ActivatedRoute) { 
+    
   }
 
   ngOnInit(): void {
    this.allObjects=this.tokenStorage.getObjects();
    ////console.log(this.allObjects)
+   this.route.queryParams.subscribe(Params=>{this.mode=Params["mode"];
+   console.log(Params["mode"])})
   }
 
  

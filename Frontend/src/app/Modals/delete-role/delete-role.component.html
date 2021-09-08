@@ -1,0 +1,29 @@
+<mat-dialog-content align="center">
+
+
+ 
+
+    <form [formGroup]="formGroup"  novalidate>
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label>{{'role_select_title'|translate}}</mat-label>
+        <mat-select formControlName="idrole" >
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{role.descrole}}
+          </mat-option>
+        </mat-select>
+        <mat-error
+        *ngIf="!formGroup.controls['idrole'].valid && formGroup.controls['idrole'].touched">
+        {{ 'titleAlert_login'|translate }}
+      </mat-error>
+
+      </mat-form-field>
+
+   </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary"  [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)">{{'delete_role'|translate}}</button>
+  </mat-dialog-actions>
+
+

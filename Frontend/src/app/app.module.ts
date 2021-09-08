@@ -100,6 +100,23 @@ import { AddApplicationComponent } from './Components/add-application/add-applic
 import { HomePageTabComponent } from './Components/home-page-tab/home-page-tab.component';
 import { AssocObjTabComponent } from './Components/assoc-obj-tab/assoc-obj-tab.component';
 import { AssocObjComponent } from './Modals/assoc-obj/assoc-obj.component';
+import { RoleManagementComponent } from './Pages/role-management/role-management.component';
+import { ObjectManagementComponent } from './Pages/object-management/object-management.component';
+import { UpdateApplicationComponent } from './Components/update-application/update-application.component';
+import { ListAppToUpdateComponent } from './Components/list-app-to-update/list-app-to-update.component';
+import { ListAppToDeleteComponent } from './Components/list-app-to-delete/list-app-to-delete.component';
+import { ListRoleToDeleteComponent } from './Components/list-role-to-delete/list-role-to-delete.component';
+import { DeleteRoleComponent } from './Modals/delete-role/delete-role.component';
+import { ListAppComponent } from './Components/list-app/list-app.component';
+import { AddObjectComponent } from './Modals/add-object/add-object.component';
+import { DeleteObjectComponent } from './Modals/delete-object/delete-object.component';
+import { UpdateObjectComponent } from './Modals/update-object/update-object.component';
+
+
+
+
+
+
 
 
 
@@ -130,10 +147,31 @@ import { AssocObjComponent } from './Modals/assoc-obj/assoc-obj.component';
     HomePageTabComponent,
     AssocObjTabComponent,
     AssocObjComponent,
+    RoleManagementComponent,
+    ObjectManagementComponent,
+    UpdateApplicationComponent,
+    ListAppToUpdateComponent,
+    ListAppToDeleteComponent,
+    ListRoleToDeleteComponent,
+    DeleteRoleComponent,
+    ListAppComponent,
+    AddObjectComponent,
+    DeleteObjectComponent,
+    UpdateObjectComponent,
   
 
   ],
-  entryComponents: [AlertDialogComponent, ErrorDialogComponent, RoleSelectComponent, CopyLinkComponent,GlobalDialogComponent,AddRoleComponent,AssocObjComponent],
+  entryComponents: [AlertDialogComponent, 
+    ErrorDialogComponent,
+     RoleSelectComponent, 
+     CopyLinkComponent,
+     GlobalDialogComponent,
+     AddRoleComponent,
+     AssocObjComponent,
+     DeleteRoleComponent,
+    AddObjectComponent,
+    DeleteObjectComponent,
+    UpdateObjectComponent],
   imports: [
     BrowserAnimationsModule,
     ROUTING,

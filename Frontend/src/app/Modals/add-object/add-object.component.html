@@ -1,0 +1,51 @@
+<mat-dialog-content align="center">
+
+
+ 
+
+    <form [formGroup]="formGroup"  novalidate>
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label>{{'obj_type'|translate}}</mat-label>
+        <mat-select formControlName="idobjecttype" >
+          <mat-option *ngFor="let obj of allObjType" [value]="obj">
+            {{obj.descobjecttype}}
+          </mat-option>
+        </mat-select>
+        <mat-error
+        *ngIf="!formGroup.controls['idobjecttype'].valid && formGroup.controls['idobjecttype'].touched">
+        {{ 'titleAlert_login'|translate }}
+      </mat-error>
+
+      </mat-form-field>
+
+      
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
+        <mat-label>{{'desc_obj'|translate}}</mat-label>
+        <input matInput placeholder="{{'desc_obj'|translate}}" formControlName="descobject" >
+        <mat-icon matSuffix> description</mat-icon>
+        <mat-error
+          *ngIf="!formGroup.controls['descobject'].valid && formGroup.controls['descobject'].touched">
+          {{ 'titleAlert_login'|translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+        <mat-label>{{'obj_parent'|translate}}</mat-label>
+        <mat-select formControlName="idparentobject" >
+          <mat-option *ngFor="let obj of allObjc" [value]="obj">
+            {{obj.descobject}}
+          </mat-option>
+        </mat-select>
+        <mat-error
+        *ngIf="!formGroup.controls['idparentobject'].valid && formGroup.controls['idparentobject'].touched">
+        {{ 'titleAlert_login'|translate }}
+      </mat-error>
+
+      </mat-form-field>
+   </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary"  [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)">{{'add_obj'|translate}}</button>
+  </mat-dialog-actions>

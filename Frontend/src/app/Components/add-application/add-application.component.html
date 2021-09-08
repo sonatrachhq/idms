@@ -35,10 +35,7 @@
         <mat-label>{{'icon_url'|translate}}</mat-label>
         <input matInput placeholder="{{'icon_url'|translate}}" formControlName="iconurl" >
         <mat-icon matSuffix> insert_photo</mat-icon>
-        <mat-error
-          *ngIf="!formGroup.controls['iconurl'].valid && formGroup.controls['iconurl'].touched">
-          {{ titleAlert|translate }}
-        </mat-error>
+       
       </mat-form-field>
       <br>
       <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline"> 
@@ -80,7 +77,18 @@
     </mat-error>
 
     </mat-form-field>
-         
+    <mat-form-field style="width: 100%;margin-bottom: 8px;" appearance="outline">
+      <mat-label> {{ 'flag_app'| translate }}</mat-label>
+    <mat-select formControlName="publicflag" >
+      <mat-option *ngFor="let flag of flags" [value]="flag">
+        {{flag.desc|translate}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="!formGroup.controls['publicflag'].valid && formGroup.controls['publicflag'].touched">
+      {{ titleAlert| translate }}
+  </mat-error>
+
+  </mat-form-field>
 
       <button [disabled]="!formGroup.valid" mat-raised-button  color="primary" style="width: 100%"> {{'add_app' | translate}}</button>
     </form>

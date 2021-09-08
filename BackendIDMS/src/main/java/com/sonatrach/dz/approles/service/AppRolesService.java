@@ -1,5 +1,7 @@
 package com.sonatrach.dz.approles.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,19 @@ public class AppRolesService {
 		return null;
 	}
 	
-	public void deleteRole(AppRoles approle) {
+	public AppRoles deleteRole(AppRoles approle) {
 		try {
-			appRoleRepo.save(approle);
+			Optional<AppRoles> role=appRoleRepo.findById(approle.getIdrole());
+			if(role.get()!=null) {
+				role.get().setIdstatus(3);
+				appRoleRepo.save(role.get());
+				return role.get();
+			}
+			
 
 		}catch(Exception e) {
 			System.out.println("Exception  deleteRole() in AppRolesService==>" + e.getMessage());
 		}
-			}
+		return null;
+	}
 }

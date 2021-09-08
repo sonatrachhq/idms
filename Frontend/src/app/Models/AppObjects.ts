@@ -1,5 +1,5 @@
 export interface AppObjects{
-    idobject:number;
+    idobject?:number;
 	idobjecttype:number;
 	idparentobject:number;
     idapplication:number;

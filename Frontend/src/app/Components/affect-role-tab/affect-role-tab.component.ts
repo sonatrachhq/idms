@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { IgxPaginatorComponent, IgxFilterOptions } from 'igniteui-angular';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -41,6 +41,7 @@ export class AffectRoleTabComponent implements OnInit {
     "sysdate":new Date,
     "userstatus":0
   };
+  @Input('mode') mode:number;
   constructor(private tokenStorage: TokenStorageService, 
     private globalService:GlobalAppService,
     public dialog: MatDialog,
@@ -67,15 +68,13 @@ export class AffectRoleTabComponent implements OnInit {
   }
   getAllApps(){
     if(this.tokenStorage.getRoles().length!=0){
-      this.apps=this.tokenStorage.getAppPrivs();
+      this.apps=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==this.mode);
      }else{
       this.apps=this.tokenStorage.getAppPrivs().filter(
-        app=>app.iduseridms==this.currentUser.iduseridms
+        app=>app.iduseridms==this.currentUser.iduseridms && app.applicationmode==this.mode
       );
      
      }
-
-
   }
   public get data() {
     let application = this.apps;

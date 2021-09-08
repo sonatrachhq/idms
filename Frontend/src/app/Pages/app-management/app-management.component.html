@@ -10,33 +10,29 @@
        
       
     </mat-tab>
-  
-    <mat-tab *ngIf="getPrivs(8)">
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">touch_app</mat-icon>
-        {{'add_role' | translate}}
-      </ng-template>
-     <app-add-role-tab></app-add-role-tab>
-  
-    </mat-tab>
     <mat-tab >
-      <ng-template mat-tab-label>
-        <mat-icon  class="example-tab-icon"> category</mat-icon>
-        
-        {{'assoc_obj' | translate}}
+      <ng-template mat-tab-label >
+        <mat-icon class="example-tab-icon">update</mat-icon>
+        {{'update_app' | translate}}
       </ng-template>
-     <app-assoc-obj-tab></app-assoc-obj-tab>
-  
+      
+       <app-list-app-to-update [mode]="mode"></app-list-app-to-update>
+         
+       
+      
     </mat-tab>
-    <mat-tab *ngIf="getPrivs(9)">
-        <ng-template mat-tab-label>
-          <mat-icon class="example-tab-icon">accessibility_new</mat-icon>
-          {{'affect_role' | translate}}
-        </ng-template>
-       <app-affect-role-tab></app-affect-role-tab>
-    
-      </mat-tab>
 
-
+    <mat-tab >
+      <ng-template mat-tab-label >
+        <mat-icon class="example-tab-icon">delete</mat-icon>
+        {{'delete_app' | translate}}
+      </ng-template>
+      
+       <app-list-app-to-delete [mode]="mode"></app-list-app-to-delete>
+         
+       
+      
+    </mat-tab>
+   
  
   </mat-tab-group>

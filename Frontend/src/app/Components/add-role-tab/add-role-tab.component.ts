@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { IgxPaginatorComponent, IgxFilterOptions } from 'igniteui-angular';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -23,6 +23,7 @@ import { AddRoleComponent } from 'src/app/Modals/add-role/add-role.component';
 export class AddRoleTabComponent implements OnInit {
   public searchApp: string;
   public density = 'comfortable';
+
   public addPadding:boolean=true;
   public itemsPerPage = [5,10,15,20];
   @ViewChild('paginator', { static: true })
@@ -30,6 +31,7 @@ export class AddRoleTabComponent implements OnInit {
   position:string="below";
   tooltipMsg="btn_detail_flip_card";
   apps:UserAppPrivs[]=[];
+  @Input('mode') mode:number;
   currentUser:UserIDMS={
     "idlang":0,
     "iduser":0,
@@ -65,10 +67,10 @@ export class AddRoleTabComponent implements OnInit {
   }
   getAllApps(){
     if(this.tokenStorage.getRoles().length!=0){
-      this.apps=this.tokenStorage.getAppPrivs();
+      this.apps=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==this.mode);
      }else{
       this.apps=this.tokenStorage.getAppPrivs().filter(
-        app=>app.iduseridms==this.currentUser.iduseridms
+        app=>app.iduseridms==this.currentUser.iduseridms && app.applicationmode==this.mode
       );
      
      }

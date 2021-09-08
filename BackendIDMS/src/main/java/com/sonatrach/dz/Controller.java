@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.sonatrach.dz.appObject.domain.AppObject;
 import com.sonatrach.dz.appObject.service.AppObjectService;
@@ -40,6 +39,8 @@ import com.sonatrach.dz.languages.domain.Languages;
 import com.sonatrach.dz.languages.service.LanguageService;
 import com.sonatrach.dz.message.request.LoginForm;
 import com.sonatrach.dz.message.request.SignUpForm;
+import com.sonatrach.dz.objectType.domain.ObjectTypeApp;
+import com.sonatrach.dz.objectType.service.ObjectTypeService;
 import com.sonatrach.dz.objectUsers.domain.ObjectUsers;
 import com.sonatrach.dz.objectUsers.service.ObjectUsersService;
 import com.sonatrach.dz.profil.domain.Profil;
@@ -87,6 +88,9 @@ private AppObjectService appObjService;
 private RoleObjectsService roleObjService;
 @Autowired
 private ObjectUsersService objUserService;
+@Autowired
+private ObjectTypeService objTypeService;
+
 
 /********************************************************GUEST PAGE *******************************************************************/
 @GetMapping( "/api/auth/getVisibleApps" )
@@ -623,7 +627,29 @@ public Applications addApplication(@RequestBody Applications app) {
 	}
 	return null;
 }
+//**********update app*********************//
+@PostMapping({"updateApplication"})
+public Applications updateApplication(@RequestBody Applications app) {
+	try {
+		return appService.updateApp(app);
+	}catch(Exception e) {
+		System.out.println("Exception updateApp in ApplicationsService {updateApplication controller}==>" + e.getMessage());
+	}
+	return null;
+}
 
+//***********delete app******************//
+@PostMapping({"deleteApplication"})
+public Applications deleteApplication(@RequestBody Applications app) {
+	try {
+		return appService.deleteApp(app);
+	}catch(Exception e) {
+		System.out.println("Exception deleteApp in ApplicationsService {deleteApplication controller}==>" + e.getMessage());
+	}
+	return null;
+}
+
+/**************************************************Settings role management************************************************/
 //**************add role**********************//
 //get all users idms for select
 @GetMapping({"getAllIdmsUsers"})
@@ -660,6 +686,17 @@ public AppPrivs saveNewPrivs(@RequestBody  AppPrivs privs) {
 	return null;
 }
 
+//***********delete role*************************//
+@PostMapping({"deleteRole"})
+public AppRoles deleteRole(@RequestBody AppRoles approle) {
+	try {
+		return appRoleService.deleteRole(approle);
+	}catch(Exception e) {
+		System.out.println("Exception in appRoleService ==>deleteRole()   :{deleteRole==>controller}  :" +e.getMessage());
+	}
+	return null;
+}
+/**************************************************Settings object management************************************************/
 //**************associate objects**********************//
 
 //get all objects for selected app
@@ -710,6 +747,54 @@ public List<ObjectUsers> deleteObjectUser(@RequestBody List<ObjectUsers> roleObj
 		return objUserService.deleteObjUser(roleObjcts);
 	}catch(Exception e) {
 		System.out.println("Exception  deleteObjUser() ==>ObjectUsersService   :{deleteObjectUser==>controller}  :" +e.getMessage());
+	}
+	return null;
+}
+//**************add objects**********************//
+//get all object type
+@GetMapping({"getAllObjTypes"})
+public List<ObjectTypeApp> getAllObjTypes(){
+	try {
+		return objTypeService.getAllObjType();
+	}catch(Exception e) {
+		System.out.println("Exception  getAllObjType() in ObjectTypeService   :{getAllObjTypes==>controller}==>" + e.getMessage());
+	}
+	return null;
+}
+
+//add object (save in DB)
+@PostMapping({"addAppObject"})
+public AppObject addAppObject(@RequestBody AppObject appObject){
+	try {
+		return appObjService.addAppObject(appObject);
+	}catch(Exception e) {
+		System.out.println("Exception  addAppObject() in AppObjectService  :{addAppObject==>controller}  :" +e.getMessage());
+	}
+	return null;
+}
+
+//delete object
+@PostMapping({"deleteAppObject"})
+public List<AppObject> deleteAppObject(@RequestBody  List<AppObject> appObjects){
+	try {
+		for(int i=0;i<appObjects.size();i++) {
+			appObjService.deleteAppObject(appObjects.get(i));
+		}
+		return appObjects;
+	}catch(Exception e) {
+		System.out.println("Exception  deleteAppObject() in AppObjectService  :{deleteAppObject==>controller}  :" +e.getMessage());
+	}
+	return null;
+}
+
+//update object
+@PostMapping({"updateAppObject"})
+public AppObject updateAppObject(@RequestBody AppObject appObject){
+	try {
+		System.out.println(appObject.getIDOBJECT());
+		return appObjService.updateAppObject(appObject);
+	}catch(Exception e) {
+		System.out.println("Exception  updateAppObject() in AppObjectService  :{updateAppObject==>controller}  :" +e.getMessage());
 	}
 	return null;
 }

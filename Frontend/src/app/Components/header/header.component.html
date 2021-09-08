@@ -46,14 +46,43 @@
           {{'menu_home' | translate}}
         </button>
         <mat-divider ></mat-divider>
-        <button mat-menu-item routerLink='/appManagement'  style=" padding-right: 10px;" >
+        <button mat-menu-item [matMenuTriggerFor]="appMenu" >
           <mat-icon  matSuffix aria-hidden="false" >apps</mat-icon>
           {{'menu_apps' | translate}}
         </button>
         <mat-divider ></mat-divider>
+        <button mat-menu-item [matMenuTriggerFor]="roleMenu" >
+          <mat-icon  matSuffix aria-hidden="false" >accessibility_new</mat-icon>
+          {{'menu_roles' | translate}}
+        </button>
+        <mat-divider ></mat-divider>
+        <button mat-menu-item [matMenuTriggerFor]="objectMenu" >
+          <mat-icon  matSuffix aria-hidden="false" >category</mat-icon>
+          {{'menu_objects' | translate}}
+        </button>
+        <mat-divider ></mat-divider>
       </mat-nav-list>
     </mat-sidenav>
+   
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+  <mat-menu #appMenu="matMenu"  xPosition="after">
+    <button mat-menu-item  (click)="navToAppManag(0)"> {{'prod'|translate}}</button>
+    <button mat-menu-item (click)="navToAppManag(1)">{{'pre_prod'|translate}}</button>
+    <button mat-menu-item (click)="navToAppManag(2)">{{'dev'|translate}}</button>
+   
+  </mat-menu>
+  <mat-menu #roleMenu="matMenu"  xPosition="after">
+    <button mat-menu-item  (click)="navToRoleManag(0)"> {{'prod'|translate}}</button>
+    <button mat-menu-item (click)="navToRoleManag(1)">{{'pre_prod'|translate}}</button>
+    <button mat-menu-item (click)="navToRoleManag(2)">{{'dev'|translate}}</button>
+   
+  </mat-menu>
+  <mat-menu #objectMenu="matMenu"  xPosition="after">
+    <button mat-menu-item  (click)="navToObjectManag(0)"> {{'prod'|translate}}</button>
+    <button mat-menu-item (click)="navToObjectManag(1)">{{'pre_prod'|translate}}</button>
+    <button mat-menu-item (click)="navToObjectManag(2)">{{'dev'|translate}}</button>
+   
+  </mat-menu>

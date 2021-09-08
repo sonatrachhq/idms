@@ -1,0 +1,46 @@
+<mat-tab-group mat-align-tabs="center" style="margin-left: 45px;margin-right: 45px; margin-top: 25px;">
+   
+  
+    <mat-tab >
+        <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon"> library_add</mat-icon>
+          
+          {{'add_obj' | translate}}
+        </ng-template>
+       <app-list-app [mode]="mode" [state]="1"></app-list-app>
+    
+      </mat-tab>
+      <mat-tab >
+        <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon"> update</mat-icon>
+          
+          {{'update_obj' | translate}}
+        </ng-template>
+       <app-list-app [mode]="mode" [state]="3"></app-list-app>
+    
+      </mat-tab>
+    <mat-tab >
+        <ng-template mat-tab-label>
+          <mat-icon  class="example-tab-icon"> delete</mat-icon>
+          
+          {{'delete_obj' | translate}}
+        </ng-template>
+       <app-list-app [mode]="mode" [state]="2"></app-list-app>
+    
+      </mat-tab>
+
+
+    <mat-tab >
+      <ng-template mat-tab-label>
+        <mat-icon  class="example-tab-icon"> category</mat-icon>
+        
+        {{'assoc_obj' | translate}}
+      </ng-template>
+     <app-assoc-obj-tab [mode]="mode"></app-assoc-obj-tab>
+  
+    </mat-tab>
+   
+  
+
+ 
+  </mat-tab-group>

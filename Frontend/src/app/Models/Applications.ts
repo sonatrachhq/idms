@@ -11,5 +11,6 @@ export interface Applications{
     iduser:number;
     systemdate:Date;
     ieflag:number;
+    publicflag:number;
     
 }

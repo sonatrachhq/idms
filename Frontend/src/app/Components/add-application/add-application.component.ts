@@ -36,9 +36,13 @@ export class AddApplicationComponent implements OnInit {
   {"id":2,"desc":"dev"}
 ];
 navs:dataType[]=[
-  {"id":0,"desc":"browser_0"},
-  {"id":1,"desc":"browser_1"},
+  {"id":1,"desc":"browser_0"},
+  {"id":0,"desc":"browser_1"},
 ];
+flags:dataType[]=[
+  {"id":0,"desc":"public_flag"},
+  {"id":1,"desc":"private_flag"},
+]
 currentUser:UserIDMS={
   "idlang":0,
   "iduser":0,
@@ -64,10 +68,11 @@ formSettings: MbscFormOptions = {
       applicationtitle: new FormControl('', [Validators.required]),
       applicationdesc: new FormControl('', [Validators.required]),
       applicationdetail:new FormControl('', [Validators.required]),
-      iconurl:new FormControl('', [Validators.required]),
+      iconurl:new FormControl('', ),
       applicationurl:new FormControl('', [Validators.required]),
       applicationmode:new FormControl('', [Validators.required]),
       ieflag:new FormControl('', [Validators.required]),
+      publicflag:new FormControl('', [Validators.required]),
     });
   }
 
@@ -108,18 +113,19 @@ formSettings: MbscFormOptions = {
       "applicationdesc":form.applicationdesc,
       "applicationtitle":form.applicationtitle,
       "applicationdetail":form.applicationdetail,
-      "iconurl":form.iconurl,
+      "iconurl":form.iconurl==""?"../assets/img/logo.png":form.iconurl,
       "applicationurl":form.applicationurl,
       "applicationmode":form.applicationmode.id,
       "ieflag":form.ieflag.id,
       "applicationstatus":1,
       "dashbvisibility":1,
       "iduser":this.currentUser.iduser,
-      "systemdate":new Date
+      "systemdate":new Date,
+      "publicflag":form.publicflag.id
 
     }
-////console.log(app)
-     this.appManagementService.addApplication(app).subscribe(
+//console.log(app)
+      this.appManagementService.addApplication(app).subscribe(
       data => {  
         //console.log(data);
         if(data!=null){
@@ -139,7 +145,7 @@ formSettings: MbscFormOptions = {
      
       
     }
-    ) 
+    )  
   }
 
   //***************************************************Error handling************************************************** */

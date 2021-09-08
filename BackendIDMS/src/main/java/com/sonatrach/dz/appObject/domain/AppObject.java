@@ -1,9 +1,12 @@
 package com.sonatrach.dz.appObject.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -11,8 +14,10 @@ import javax.persistence.Table;
 @NamedQueries({@NamedQuery(name = "AppObject.findObjectsByApp", query = "SELECT p FROM AppObject p WHERE IDAPPLICATION=?1 "),
 
 })
+@SequenceGenerator(name="APPOBJECTS_ID_SEQ", allocationSize=1)
 public class AppObject {
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="APPOBJECTS_ID_SEQ")
 	private Integer IDOBJECT;
 	private Integer IDOBJECTTYPE;
 	private Integer IDPARENTOBJECT;

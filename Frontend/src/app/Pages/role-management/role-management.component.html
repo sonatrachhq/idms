@@ -1,0 +1,31 @@
+<mat-tab-group mat-align-tabs="center" style="margin-left: 45px;margin-right: 45px; margin-top: 25px;">
+
+  
+    <mat-tab *ngIf="getPrivs(8)">
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">touch_app</mat-icon>
+        {{'add_role' | translate}}
+      </ng-template>
+     <app-add-role-tab [mode]="mode"></app-add-role-tab>
+  
+    </mat-tab>
+
+    <mat-tab *ngIf="getPrivs(9)">
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">accessibility_new</mat-icon>
+          {{'affect_role' | translate}}
+        </ng-template>
+       <app-affect-role-tab [mode]="mode"></app-affect-role-tab>
+    
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">delete</mat-icon>
+          {{'delete_role' | translate}}
+        </ng-template>
+       <app-list-role-to-delete  [mode]="mode"></app-list-role-to-delete>
+    
+      </mat-tab>
+ 
+  </mat-tab-group>

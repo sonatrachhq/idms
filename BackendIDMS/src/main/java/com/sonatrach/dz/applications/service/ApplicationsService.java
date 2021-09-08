@@ -2,6 +2,7 @@ package com.sonatrach.dz.applications.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -39,4 +40,50 @@ public Applications addApplication(Applications app) {
 	}
 	return null;
 }
+
+public Applications updateApp(Applications app) {
+	try {
+		Optional<Applications> application=appRepo.findById(app.getIdapplication());
+		if(application.get()!=null) {
+			application.get().setApplicationdesc(app.getApplicationdesc());
+			application.get().setApplicationdetail(app.getApplicationdetail());
+			application.get().setApplicationmode(app.getApplicationmode());
+			application.get().setApplicationstatus(app.getApplicationstatus());
+			application.get().setApplicationtitle(app.getApplicationtitle());
+			application.get().setApplicationurl(app.getApplicationurl());
+			application.get().setIconurl(app.getIconurl());
+			application.get().setIduser(app.getIduser());
+			application.get().setIeflag(app.getIeflag());
+			application.get().setPublicflag(app.getPublicflag());
+			application.get().setSystemdate(app.getSystemdate());
+			appRepo.save(application.get());
+			return application.get();
+		}
+		
+	
+	
+	}catch(Exception e) {
+		System.out.println("Exception  updateApp() in ApplicationsService==>" + e.getMessage());
+	}
+	return null;
+}
+
+
+public Applications deleteApp(Applications app) {
+	try {
+		Optional<Applications> application=appRepo.findById(app.getIdapplication());
+		if(application.get()!=null) {
+			application.get().setApplicationstatus(3);
+			appRepo.save(application.get());
+			return application.get();
+		}
+		
+	
+	
+	}catch(Exception e) {
+		System.out.println("Exception  deleteApp() in ApplicationsService==>" + e.getMessage());
+	}
+	return null;
+}
+
 }

@@ -8,7 +8,7 @@ export interface UserAppPrivs{
 	 iconurl:String;
 	 applicationmode:number;
    applicationurl:String;
-     publicflag:String;
+     publicflag:number;
 	 roles: Array<Role>;
      ieflag:number;
 	 interimstartdate:Date;
