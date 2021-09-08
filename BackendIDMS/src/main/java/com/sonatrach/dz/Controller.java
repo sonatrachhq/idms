@@ -791,7 +791,7 @@ public List<AppObject> deleteAppObject(@RequestBody  List<AppObject> appObjects)
 @PostMapping({"updateAppObject"})
 public AppObject updateAppObject(@RequestBody AppObject appObject){
 	try {
-		System.out.println(appObject.getIDOBJECT());
+		
 		return appObjService.updateAppObject(appObject);
 	}catch(Exception e) {
 		System.out.println("Exception  updateAppObject() in AppObjectService  :{updateAppObject==>controller}  :" +e.getMessage());
