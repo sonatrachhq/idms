@@ -45,7 +45,7 @@ export class DeleteObjectComponent implements OnInit {
     unique[this.allObjc[i].idobject] = true;
     this.distinctObj.push(this.allObjc[i]);
     }
-    console.log(this.allObjc)
+    //console.log(this.allObjc)
   }
   onSubmit() {
     console.log(this.idsobject.value)
@@ -59,7 +59,7 @@ export class DeleteObjectComponent implements OnInit {
         "idstatus":1
       }
 
-      console.log(obj)
+     // console.log(obj)
       this.appObjects.push(obj);
     }
    this.showConfirm("delete_obj_qts")

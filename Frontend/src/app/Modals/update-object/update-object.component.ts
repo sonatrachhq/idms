@@ -55,7 +55,7 @@ export class UpdateObjectComponent implements OnInit {
     unique[this.allObjc[i].idobject] = true;
     this.distinctObj.push(this.allObjc[i]);
     }
-    console.log(this.allObjc)
+    //console.log(this.allObjc)
   }
   onSubmit(form:any) {
  
@@ -69,13 +69,13 @@ export class UpdateObjectComponent implements OnInit {
         "idstatus":1
       }
 
-      console.log(obj)
+     // console.log(obj)
      
     this.appManagementService.updateAppObject(obj).subscribe(
       data=>{
-        console.log(data)
+        //console.log(data)
         if(data!=null){
-          //delete from local storage
+          //update in  local storage
         
          this.allObj.forEach(
            obj=>{
