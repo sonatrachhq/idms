@@ -112,7 +112,7 @@ export class LoginPageComponent implements OnInit {
     this.loginInfo.password=post.password;
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {  
-          //console.log(data);
+          console.log(data);
           if(data!=null){
             this.tokenStorage.saveToken(data.accessToken);
           this.tokenStorage.saveSonuser(data.sonuser);
