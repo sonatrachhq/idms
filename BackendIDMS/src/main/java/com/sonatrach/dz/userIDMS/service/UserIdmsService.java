@@ -1,6 +1,7 @@
 package com.sonatrach.dz.userIDMS.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -58,7 +59,7 @@ public class UserIdmsService {
 
 			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-			return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername()));
+			return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(),currentUser.get().getEmail()));
 	
 		
 
@@ -75,7 +76,7 @@ public class UserIdmsService {
 
 		// Creating user's account
 		UserIDMS user = new UserIDMS(signUpRequest.getIdlang(),signUpRequest.getSonuser(), encoder.encode(signUpRequest.getPswuser()), signUpRequest.getUserstatus(),
-				signUpRequest.getIduser(),signUpRequest.getSysdate());
+				signUpRequest.getIduser(),signUpRequest.getSysdate(),signUpRequest.getEmail());
 
 		UserIDMS registeredUser=userRepository.save(user);
 		

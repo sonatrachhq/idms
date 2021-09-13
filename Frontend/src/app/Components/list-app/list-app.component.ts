@@ -1,3 +1,4 @@
+import { UsersObject } from './../../Models/UsersObject';
 import { UpdateObjectComponent } from './../../Modals/update-object/update-object.component';
 import { DeleteObjectComponent } from './../../Modals/delete-object/delete-object.component';
 import { AddObjectComponent } from './../../Modals/add-object/add-object.component';
@@ -31,7 +32,7 @@ export class ListAppComponent implements OnInit {
 
   public searchApp: string;
   public density = 'comfortable';
-
+  objects:UsersObject[]=[];
   public addPadding:boolean=true;
   public itemsPerPage = [5,10,15,20];
   @ViewChild('paginator', { static: true })
@@ -62,6 +63,8 @@ export class ListAppComponent implements OnInit {
     private router :Router) { }
 
   ngOnInit(): void {
+    this.objects=this.tokenStorage.getObjects();
+    console.log(this.objects)
     this.globalService.getCurrentUser(this.currentUser).subscribe(
       data => {  
        
@@ -126,18 +129,32 @@ export class ListAppComponent implements OnInit {
   }
 
   deleteObject(app:Applications){
-    const dialogRef = this.dialog.open(DeleteObjectComponent, {
-      width: '650px',
-      data: {app:app,currentUser:this.currentUser.iduseridms}
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-     // window.location.reload();
-    });
+    this.objects=this.objects.filter(obj=>obj.idapplication==app.idapplication)
+    console.log(this.objects)
+    if(this.objects.length!=0){
+      const dialogRef = this.dialog.open(DeleteObjectComponent, {
+        width: '650px',
+        data: {app:app,currentUser:this.currentUser.iduseridms}
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+       // window.location.reload();
+      });
+    }else{
+        Swal.fire({
+          icon: 'error',
+          title: this.translate.instant("delete_obj"),
+          text: this.translate.instant("no_objects"),
+          showConfirmButton: false,
+        })
+    }
+ 
 
   }
 
   updateObject(app:Applications){
+    this.objects=this.objects.filter(obj=>obj.idapplication==app.idapplication)
+    if(this.objects.length!=0){
     const dialogRef = this.dialog.open(UpdateObjectComponent, {
       width: '650px',
       data: {app:app,currentUser:this.currentUser.iduseridms}
@@ -146,7 +163,14 @@ export class ListAppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
      // window.location.reload();
     });
-
+  }else{
+    Swal.fire({
+      icon: 'error',
+      title: this.translate.instant("update_obj"),
+      text: this.translate.instant("no_objects"),
+      showConfirmButton: false,
+    })
+}
   }
 
   get filterApps() {

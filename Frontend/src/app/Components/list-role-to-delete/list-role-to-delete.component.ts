@@ -16,7 +16,7 @@ import { TokenStorageService } from '../../auth/token-storage.service';
 import { Applications } from '../../Models/Applications';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddRoleComponent } from 'src/app/Modals/add-role/add-role.component';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-list-role-to-delete',
   templateUrl: './list-role-to-delete.component.html',
@@ -44,6 +44,7 @@ export class ListRoleToDeleteComponent implements OnInit {
     "sysdate":new Date,
     "userstatus":0
   };
+  allApps:UserAppPrivs[]=[];
   constructor(private tokenStorage: TokenStorageService, 
     private globalService:GlobalAppService,
     public dialog: MatDialog,
@@ -99,6 +100,9 @@ export class ListRoleToDeleteComponent implements OnInit {
 
 
   opendeleteRoleModal(app:Applications){
+    this.allApps=this.tokenStorage.getAppPrivs().filter(appl=>appl.idapplication==app.idapplication)
+    console.log(this.allApps)
+    if(this.allApps[0].roles.length!=0){
     const dialogRef = this.dialog.open(DeleteRoleComponent, {
       width: '650px',
       data: {app:app,currentUser:this.currentUser.iduseridms}
@@ -107,7 +111,14 @@ export class ListRoleToDeleteComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
      // window.location.reload();
     });
-
+  }else{
+    Swal.fire({
+      icon: 'error',
+      title: this.translate.instant("delete_role"),
+      text: this.translate.instant("no_roles"),
+      showConfirmButton: false,
+    })
+  }
   }
   get filterApps() {
    

@@ -1,3 +1,4 @@
+import { EmailBoxComponent } from './../../Modals/email-box/email-box.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -96,6 +97,17 @@ export class HomePageTabComponent implements OnInit {
      
     }
     
+  }
+  openEmailBox(app:UserAppPrivs){
+    const dialogRef = this.dialog.open(EmailBoxComponent, {
+      width: '650px',
+      data: {app:app.applicationtitle,obj:"Demande d'accés"}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+     // window.location.reload();
+    });
+
   }
   openSnackBar(app:UserAppPrivs) {
     this._snackBar.open(this.translate.instant(app.applicationdetail.toString()),this.translate.instant('close_alert'));

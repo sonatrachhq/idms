@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AppObjects } from './../../Models/AppObjects';
 import { ObjectType } from './../../Models/ObjectType';
 import { UsersObject } from './../../Models/UsersObject';
@@ -39,6 +40,7 @@ export class AddObjectComponent implements OnInit {
   constructor(private appManagementService:AppManagementService,
     private tokenStorage: TokenStorageService,
     private translate: TranslateService,
+    private router: Router,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
       this.formGroup = new FormGroup({
@@ -52,7 +54,7 @@ export class AddObjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.allObjects = this.tokenStorage.getObjects().filter(ob => ob.idapplication == this.data.app.idapplication);
- 
+    console.log(this.router.url)
     let app:Applications={
       "idapplication":this.data.app.idapplication,
       "applicationdesc":"",
@@ -144,7 +146,12 @@ export class AddObjectComponent implements OnInit {
       text: this.translate.instant(msg.toString()),
       showConfirmButton: false,
     }).then((result) => {
-      window.location.reload();
+     window.location.reload();
+    /*  Swal.close()
+     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([this.router.url]); 
+  });*/
+    
     })
  /*    const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '350px',

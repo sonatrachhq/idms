@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "APPLICATIONS")
-@NamedQueries({@NamedQuery(name = "Applications.findVisible", query = "SELECT p FROM Applications p WHERE dashbvisibility=1 and publicflag=0"),
+@NamedQueries({@NamedQuery(name = "Applications.findVisible", query = "SELECT p FROM Applications p WHERE dashbvisibility=1 and publicflag=0 order by applicationtitle"),
 	
 	})
 @SequenceGenerator(name="APPLICATIONS_ID_SEQ", allocationSize=1)

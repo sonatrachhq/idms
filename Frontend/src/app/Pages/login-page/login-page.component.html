@@ -1,4 +1,4 @@
-
+<!-- 
     <mat-card class="example-card">
         <mat-card-header>
          
@@ -46,3 +46,96 @@
     
     
 
+ -->
+<body>
+  <div class="wrapper">
+    <div class="container">
+ 
+      <form class="signIn" [formGroup]="formGroup" novalidate>
+        <h3>IDMS<br><br>{{'auth_login' | translate}}</h3>
+            <span><img  src="./assets/img/logo.png" style="background-size: cover; width: 120px;height: 120px;"></span>
+            
+            
+        <br>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="185" height="60" viewBox="0 0 126 50">
+          <image id="Vector_Smart_Object" data-name="Vector Smart Object" y="19" width="155" height="40" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAAAOCAYAAAAc/yP5AAAEQElEQVRYhe2Xa4iWVRDH/7Orq3ZTs0JcSyvJCKyo6E4RVERGly/dbwZFRpclRbRYUss2u1H5oT5EaRAUVFQaSQT5xVDBWLbwkpsamJlLuWauWukvpv4vPjy9tW/LWkvswMOcM2dmzpy5nfOoOwCuBy7plrEf/nOoA04qGpFz4HBgHHC7pJGSGoHLetNY4MIeyFxaI98oYDLwIDDBtNnA1T2x9d8GYAAwFmj4R1sDTaX5JOC4DCQwBhjm75DePBPQ2AOZphp4zgS2A1uAdcBe4ASgFZiZ5wDqC/z1wKAqeg4F6grzBuCgKnxDgYElWhbJYR4Pzq+0Pryo27SBFf0OZMKpNTmmoKQczEbjDOawKvzzgOnA48Dx2p8ASZtrQ88w7UlgiCsk15uBhyxzk3HyPgrMAc4p7TXCAZgB3JW2AuOBiwo8d5dklgDL7cQAzjM9g7nGwd3gIKTOX0171XwbgdXAPuPBvmp2AXus410nwZt2+ra8itL5nrcZL7JcV9oBHGU7EtpdLE1Ovm+BX4CrgPnsh5oDWlcmRMQ3helkb9ZUaMcNEfGEpEck3QgcLWmwaS2S7pSUVXxWREyTlI5v83p+E6znSONrIqI5Ih6WdEXJnPskPRMRqXeNaUMkDS3wjCzJnCLpvYjYHRFExNLC2npJEyWNlXS2pMWS7pA0V1Imb8WmzyVdK+lE65sjaYGkUZI6zXO5pCslnSvpfUmPFfZJe9+WlMl5vqRtPtv9krL6Tpa0XdIU82dl5xWwyjqfM32iaTXBgG6YXoyIzhJttf4IembRDknHpnGFCt9kvNA4HbSiILOl7PyC7E+ltUycHR6njtMk7assZuVVsXmDpAuAlgxmdo+I+KqiIyIWA3JSvOLEaPf6wcafSvrY4+TLtrxTUtqyx/Qx9l+L55sLNnwoabykcRGxMtu99WSnO0LSPOv60fxbIyK7yQbvVfH55oj4ucoZq8KfKrMH0CapS9ILkl6TtNYqdhpnht6bjw9gWpVKWuusf17SZ6W174DTPb7F+GtXS8LFVczNjpGv7xVAOnXd37SqdPgX6cxujp0Be0DSLld1ZsNHkvba/g5Ji2pwXSZ43p/LLfvBX/B1GT+VD9Ea9P4OmVmDCpXRERGve9wqKe89PN8UEW9JWlaQX5aVC2QwpvuwL0saUeBJ2gxJoyV9ImlqRdY429MkZ+47Jfsyg2/1SzqdVx8Reb8sBaa69S4pCkTEQiBb6A1uX09HRN5TLxVa9SyPr3M7bTWt0y0ubdtt2kYn/WR3jrR3fUR86fv4ZknfFwIzy7JpV6ULzc+xu8JeJ+Fi70uhrb6RshGxFbjHifNDrcGs1qZ6FfyImuJKzTa2ICLaD/S+vXyG2yTlQ2u4pJWSmiKiow+Y1g/90A99Hg54m/0/wqqZo2f7F6JPQXe/Jv1QHY4pvKj7DPQHs2fQLOnZPmWRpN8ARm3tu9uhaVEAAAAASUVORK5CYII="/>
+        </svg>
+        <br>
+        <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;margin-top: 20px;">
+          <mat-label>{{'son_login' | translate}}</mat-label>
+          <input matInput placeholder="{{'son_login' | translate}}" formControlName="sonuser" value="sonUser">
+          <mat-icon matSuffix> person_outline</mat-icon>
+          <mat-error
+            *ngIf="!formGroup.controls['sonuser'].valid && formGroup.controls['sonuser'].touched">
+            {{ 'titleAlert_login'| translate}}
+          </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;"> 
+          <mat-label>{{'psw_login' | translate}}</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{'psw_login' | translate}}" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+            {{ 'titleAlert_login'| translate }}
+          </mat-error>
+        </mat-form-field>
+    
+        <button class="form-btn sx back" type="button" mat-raised-button color="accent" >{{'inscription_register' | translate}}</button>
+        <button class="form-btn dx" type="submit" [disabled]="!formGroup.valid"  mat-raised-button color="primary"  (click) ="onSubmit(formGroup.value)" >{{'connect_header' | translate}}</button>
+      </form>
+      <form class="signUp" [formGroup]="form"  novalidate>
+        <h3>IDMS <br><br>
+          {{'inscription_register' | translate}}
+         </h3>
+     
+        <p> {{'subscribe_login'| translate}}<br>
+        </p>
+        <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;">
+          <mat-label>{{'son_login' | translate}}</mat-label>
+          <input matInput placeholder="{{'son_login' | translate}}" formControlName="sonuser" >
+          <mat-icon matSuffix> person_outline</mat-icon>
+          <mat-error
+            *ngIf="!form.controls['sonuser'].valid && form.controls['sonuser'].touched">
+            {{ 'titleAlert_login'| translate}}
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" >
+          <mat-icon matSuffix> email</mat-icon>
+          <mat-error
+            *ngIf="!form.controls['email'].valid && form.controls['email'].touched">
+            {{ 'titleAlert_login'| translate}}/ {{ 'invalid'| translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;"> 
+          <mat-label>{{'psw_login' | translate}}</mat-label>
+          <input matInput placeholder="{{'psw_login' | translate}}" formControlName="password"  [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix> lock</mat-icon>
+          <mat-error 
+            *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
+            {{ 'pswAlert_login'| translate }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 8px;"> 
+          <mat-label>{{'confirmPsw_login' | translate}}</mat-label>
+          <input matInput placeholder="{{'confirmPsw_login' | translate}}" formControlName="confirmPsw"  [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix> lock</mat-icon>
+          <mat-error 
+            *ngIf="!form.controls['confirmPsw'].valid && form.controls['confirmPsw'].touched">
+            {{ 'pswAlert_login'| translate }}
+          </mat-error>
+        </mat-form-field>
+     
+        <button class="form-btn sx log-in" type="button">{{'connect_header' | translate}}</button>
+        <button class="form-btn dx" type="submit" (click)="register(form.value)" [disabled]="!form.valid">{{'inscription_register' | translate}}</button>
+      </form>
+    
+    </div>
+  </div>
+
+</body>

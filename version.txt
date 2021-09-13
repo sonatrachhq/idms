@@ -1,3 +1,10 @@
+4.0
+---
+-Amélioration fonctionnalités
+-Design
+-Request access (email)
+-Withdraw access(email)
+------------------------------------------------------------------------------------------
 3.0
 ---
 -SUB_MENU_GESTION_APP: add ,update , delete app

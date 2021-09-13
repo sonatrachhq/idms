@@ -2,8 +2,10 @@ package com.sonatrach.dz;
 
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,9 @@ import com.sonatrach.dz.appprivs.domain.AppPrivs;
 import com.sonatrach.dz.appprivs.service.AppPrivsService;
 import com.sonatrach.dz.approles.domain.AppRoles;
 import com.sonatrach.dz.approles.service.AppRolesService;
+import com.sonatrach.dz.email.domain.MailRequest;
+import com.sonatrach.dz.email.domain.MailResponse;
+import com.sonatrach.dz.email.service.EmailService;
 import com.sonatrach.dz.languages.domain.Languages;
 import com.sonatrach.dz.languages.service.LanguageService;
 import com.sonatrach.dz.message.request.LoginForm;
@@ -57,12 +62,18 @@ import com.sonatrach.dz.utils.Role;
 import com.sonatrach.dz.utils.UserAppPrivs;
 import com.sonatrach.dz.utils.UsersObject;
 
+import freemarker.core.ParseException;
+import freemarker.template.MalformedTemplateNameException;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateNotFoundException;
+
 
 
 
 
 @RestController
 @CrossOrigin(origins = "*")
+
 public class Controller {
 @Autowired
 ApplicationsService appService;
@@ -90,6 +101,8 @@ private RoleObjectsService roleObjService;
 private ObjectUsersService objUserService;
 @Autowired
 private ObjectTypeService objTypeService;
+@Autowired
+private EmailService emailService;
 
 
 /********************************************************GUEST PAGE *******************************************************************/
@@ -182,6 +195,7 @@ public List<Role>getUsersRoles(@RequestBody UserIDMS user ){
 	}
 	return null;
 }
+/**********************************************Home page *****************************************************************/
 /********************************************Get user's apps &  roles when login*******************************************/
 
 //@GetMapping( "/api/auth/test" )
@@ -553,6 +567,36 @@ public List<UserAppPrivs> getAppsByMode(@RequestBody List<UserAppPrivs> apps, @R
 		System.out.println("Exception getAppsByMode in controller==>" + e.getMessage());
 	}
 return null;
+}
+/************************************send email*************************************************************************/
+
+@PostMapping({ "sendEmail" })
+public MailResponse sendEmail(@RequestBody MailRequest request) {
+	Map<String, Object> model = new HashMap<>();
+	model.put("msg", request.getMsg());
+
+	MailResponse response = new MailResponse();
+
+		try {
+			response = emailService.sendEmail(request,  model);
+		} catch (TemplateNotFoundException e) {
+			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+		} catch (MalformedTemplateNameException e) {
+			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+		} catch (ParseException e) {
+			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+		} catch (TemplateException e) {
+			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+		}catch(Exception e ) {
+			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+		}
+
+	
+
+	
+	return response;
 }
 
 /******************************************get current user**************************************************************/

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,11 +24,16 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sonatrach.dz.security.jwt.JwtAuthEntryPoint;
 import com.sonatrach.dz.security.jwt.JwtAuthTokenFilter;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 
 
@@ -37,6 +43,8 @@ import com.sonatrach.dz.security.jwt.JwtAuthTokenFilter;
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true
 )
+@EnableSwagger2
+@EnableWebMvc
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //implements WebMvcConfigurer{
    /* @Autowired
@@ -80,12 +88,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
        http.cors().and().csrf().disable().
                authorizeRequests()
                .antMatchers("/api/auth/**").permitAll()
+               .antMatchers("/swagger-ui.html/**", "/configuration/**", "/swagger-resources/**", "/v2/api-docs","/webjars/**").permitAll()
                .anyRequest().authenticated()
                .and()
                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
        
        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+   }
+   
+   
+	/*
+	 * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	 * registry.addResourceHandler("swagger-ui.html")
+	 * .addResourceLocations("classpath:/META-INF/resources/");
+	 * 
+	 * registry.addResourceHandler("/webjars/**")
+	 * .addResourceLocations("classpath:/META-INF/resources/webjars/"); }
+	 */
+ 
+   @Override
+   public void configure(WebSecurity web) throws Exception {
+       web.ignoring().antMatchers("/v2/api-docs",
+                                  "/configuration/ui",
+                                  "/swagger-resources/**",
+                                  "/configuration/security",
+                                  "/swagger-ui.html",
+                                  "/webjars/**");
    }
    /* @Bean
     public CorsConfigurationSource corsConfigurationSource() {

@@ -1,0 +1,24 @@
+<div *ngIf="!showSpinner">
+  <mat-dialog-content align="center">
+
+    <form [formGroup]="formGroup"  novalidate>
+        <mat-form-field style="width: 100%;margin-bottom: 8px;">
+            <textarea matInput formControlName="emailmsg" rows="4" placeholder="{{'email_msg'|translate}}"></textarea>
+            <mat-icon matSuffix>email</mat-icon>
+            
+               </mat-form-field>
+                          
+    
+   </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="accent" mat-dialog-close >{{'btn_role_select_cancel'|translate}}</button>
+      <button mat-raised-button color="primary"  [disabled]="!formGroup.valid" (click)="onSubmit(formGroup.value)">{{'send_email'|translate}}</button>
+  </mat-dialog-actions>
+</div>
+  <div class="disable-background" *ngIf="showSpinner"></div>
+  <div class="center" *ngIf="showSpinner">
+    <mat-dialog-content align="center">
+        <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+    </mat-dialog-content>
+  </div>

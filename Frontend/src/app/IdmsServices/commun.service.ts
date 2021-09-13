@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 interface Config {
 
   url: string;
+  emailReceiver:string;
 
 }
 @Injectable({
@@ -15,6 +16,7 @@ interface Config {
 
 export class CommunService {
   public host:string="";
+  public emailReceiver="";
   constructor(private http: HttpClient,private tokenStorage: TokenStorageService) { 
  
   }
@@ -31,12 +33,16 @@ public load(): Promise<void> {
       .toPromise()
       .then(config => {
         this.host = config.url;
+        this.emailReceiver=config.emailReceiver;
         this.tokenStorage.saveHost(this.host);
         });
 
     }
     public getHost():String{
       return this.host;
+    }
+    public getEmailReceiver():string{
+      return this.emailReceiver;
     }
  
   }

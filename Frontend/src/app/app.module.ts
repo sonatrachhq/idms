@@ -111,6 +111,7 @@ import { ListAppComponent } from './Components/list-app/list-app.component';
 import { AddObjectComponent } from './Modals/add-object/add-object.component';
 import { DeleteObjectComponent } from './Modals/delete-object/delete-object.component';
 import { UpdateObjectComponent } from './Modals/update-object/update-object.component';
+import { EmailBoxComponent } from './Modals/email-box/email-box.component';
 
 
 
@@ -158,6 +159,7 @@ import { UpdateObjectComponent } from './Modals/update-object/update-object.comp
     AddObjectComponent,
     DeleteObjectComponent,
     UpdateObjectComponent,
+    EmailBoxComponent,
   
 
   ],
@@ -171,7 +173,8 @@ import { UpdateObjectComponent } from './Modals/update-object/update-object.comp
      DeleteRoleComponent,
     AddObjectComponent,
     DeleteObjectComponent,
-    UpdateObjectComponent],
+    UpdateObjectComponent,
+    EmailBoxComponent],
   imports: [
     BrowserAnimationsModule,
     ROUTING,

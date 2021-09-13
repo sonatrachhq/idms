@@ -1,3 +1,4 @@
+import { Role } from './../../Models/Role';
 import { Component, OnInit } from '@angular/core';
 import { AddRoleComponent } from './../../Modals/add-role/add-role.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -57,6 +58,9 @@ formSettings: MbscFormOptions = {
   theme: 'mobiscroll',
   themeVariant: 'light'
 };
+showSpinner: Boolean = false;
+roles:Role[]=[]
+apps:UserAppPrivs[]=[];
   constructor(private tokenStorage: TokenStorageService, 
     private globalService:GlobalAppService,
     public dialog: MatDialog,
@@ -77,6 +81,8 @@ formSettings: MbscFormOptions = {
   }
 
   ngOnInit(): void {
+    this.apps=this.tokenStorage.getAppPrivs();
+    //console.log(this.apps)
     this.globalService.getCurrentUser(this.currentUser).subscribe(
       data => {  
        
@@ -108,6 +114,7 @@ formSettings: MbscFormOptions = {
   
   onSubmit(form:any){
     //console.log(form)
+    this.showSpinner=true
     let app:Applications={
       
       "applicationdesc":form.applicationdesc,
@@ -124,12 +131,30 @@ formSettings: MbscFormOptions = {
       "publicflag":form.publicflag.id
 
     }
+  
 //console.log(app)
       this.appManagementService.addApplication(app).subscribe(
       data => {  
-        //console.log(data);
+        console.log(data);
         if(data!=null){
-        
+          let apps:UserAppPrivs={
+            "applicationdesc":form.applicationdesc,
+            "applicationtitle":form.applicationtitle,
+            "applicationdetail":form.applicationdetail,
+            "iconurl":form.iconurl==""?"../assets/img/logo.png":form.iconurl,
+            "applicationurl":form.applicationurl,
+            "applicationmode":form.applicationmode.id,
+            "ieflag":form.ieflag.id,
+            "publicflag":form.publicflag.id,
+            "idapplication":data.idapplication,
+            "iduseridms":this.currentUser.iduseridms,
+            "interimenddate":new Date('01/01/1900'),
+            "interimstartdate":new Date('01/01/1900'),
+            "roles":this.roles
+          }
+          this.apps.push(apps)
+          this.tokenStorage.saveAppPrivs(this.apps)
+          this.showSpinner=false
           this.showAlert("add_app","add_app_success");
         
         

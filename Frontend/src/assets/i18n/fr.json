@@ -72,7 +72,8 @@
     "toggle_label":"Associer les objets d'un rôle existant",
     "role_select_assoc":"Veuillez sélectionner un rôle existant",
     "update_selected_obj":"Modifier les objets sélectionnés",
-    "no_roles":"Vous n'avez pas de rôle sur cette application!",
+    "no_roles":"Aucun rôle existant sur cette application!",
+    "no_objects":"Cette application ne contient aucun objet!",
     "update_app":"Modifier application",
     "update_app_success":"Vos modifications ont bien été enregistrées",
     "delete_app":"Supprimer application",
@@ -84,6 +85,12 @@
     "update_obj":"Modifier objet",
     "obj_type":"Type d'objet*",
     "obj_parent":"Objet parent*",
-    "desc_obj":"Description objet*"
+    "desc_obj":"Description objet*",
+    "email_msg":"Le message de l'email*",
+    "send_email":"Envoyer email",
+    "send_email_success":"Votre email a bien été envoyé",
+    "send_email_fail":"Votre email n'a pas pu etre envoyé",
+    "withdraw_access":"Retirer accés",
+    "invalid":"invalide"
     
   }

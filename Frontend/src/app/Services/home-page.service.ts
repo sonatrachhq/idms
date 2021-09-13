@@ -1,3 +1,5 @@
+import { MailResponse } from './../Models/MailResponse';
+import { MailRequest } from './../Models/MailRequest';
 import { UserIDMS } from './../Models/UserIDMS';
 import { UserAppPrivs } from './../Models/UserAppPrivs';
 import { Observable } from 'rxjs';
@@ -21,8 +23,19 @@ export class HomePageService {
 
 
 
-  public getAppsByMode(journal:Array<UserAppPrivs>,mode:String):Observable<Array<UserAppPrivs>>{
-    return this.http.post<Array<UserAppPrivs>>(this.host+"getAppsByMode",journal,{params:new HttpParams().set('mode', mode.toString())}).pipe(
+  public getAppsByMode(privs:Array<UserAppPrivs>,mode:String):Observable<Array<UserAppPrivs>>{
+    return this.http.post<Array<UserAppPrivs>>(this.host+"getAppsByMode",privs,{params:new HttpParams().set('mode', mode.toString())}).pipe(
+      catchError((err) => {
+         ////console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
+
+  public sendEmail(req:MailRequest):Observable<MailResponse>{
+    return this.http.post<MailResponse>(this.host+"sendEmail",req).pipe(
       catchError((err) => {
          ////console.log('error caught in service')
         console.error(err);

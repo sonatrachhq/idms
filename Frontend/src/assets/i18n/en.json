@@ -72,7 +72,8 @@
     "toggle_label":"Associate the objects of an existing role",
     "role_select_assoc":"Please select an existing role",
     "update_selected_obj":"Update selected object ",
-    "no_roles":"You have no role on this application!",
+    "no_roles":"No existing role on this application!",
+    "no_objects":"This app does not contain any object!",
     "update_app":"Update application",
     "update_app_success":"Your changes have been saved",
     "delete_app":"Delete application",
@@ -84,5 +85,11 @@
     "update_obj":"Update object",
     "obj_type":"Object type*",
     "obj_parent":"Parent object*",
-    "desc_obj":"Object description*"
+    "desc_obj":"Object description*",
+    "email_msg":"The email message*",
+    "send_email":"Send email",
+    "send_email_success":"Your email has been successfully sent",
+    "send_email_fail":"Your email could not be sent",
+    "withdraw_access":"Withdraw access",
+    "invalid":"invalid"
   }

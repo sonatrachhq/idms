@@ -24,6 +24,8 @@ public class SignUpForm {
 	private Integer iduser;
 	
 	private Date sysdate;
+	
+	private String email;
 
 
 
@@ -73,6 +75,14 @@ public class SignUpForm {
 
 	public void setSysdate(Date sysdate) {
 		this.sysdate = sysdate;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

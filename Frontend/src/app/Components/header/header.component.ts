@@ -195,7 +195,10 @@ export class HeaderComponent implements OnInit {
       }
   };
   //console.log(navigationExtras)
-    this.router.navigate(['appManagement'],navigationExtras ).then(value=>window.location.reload());
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {    
+    this.router.navigate(['appManagement'],navigationExtras );
+    });
+   // this.router.navigate(['appManagement'],navigationExtras ).then(value=>window.location.reload());
   }
 
   navToRoleManag(mode:number){
@@ -206,7 +209,10 @@ export class HeaderComponent implements OnInit {
       }
   };
   //console.log(navigationExtras)
-    this.router.navigate(['roleManagement'],navigationExtras ).then(value=>window.location.reload());
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {    
+    this.router.navigate(['roleManagement'],navigationExtras );
+    });
+    //this.router.navigate(['roleManagement'],navigationExtras ).then(value=>window.location.reload());
   }
   navToObjectManag(mode:number){
     let navigationExtras: NavigationExtras = {
@@ -216,7 +222,11 @@ export class HeaderComponent implements OnInit {
       }
   };
   //console.log(navigationExtras)
-    this.router.navigate(['objectManagement'],navigationExtras ).then(value=>window.location.reload());
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {    
+    this.router.navigate(['objectManagement'],navigationExtras );
+    });
+
+   // this.router.navigate(['objectManagement'],navigationExtras ).then(value=>window.location.reload());
   }
   logout(){
     this.connected=0;

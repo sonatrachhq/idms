@@ -21,7 +21,7 @@ import { AlertDialogComponent } from 'src/app/Modals/alert-dialog/alert-dialog.c
 export class RegisterPageComponent implements OnInit {
   hide = true;
   formGroup: FormGroup = new FormGroup({});
-  signupInfo: SignUpInfo=new SignUpInfo(0,"","",0,0,new Date);
+  signupInfo: SignUpInfo=new SignUpInfo(0,"","",0,0,new Date,"");
   langs:Languages[]=[];
   //selectedLang:number=0;
   constructor( private router:Router,private authService: AuthService,private registerService: RegisterPageService ,public dialog: MatDialog,private _formBuilder: FormBuilder) { 

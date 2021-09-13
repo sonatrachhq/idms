@@ -16,6 +16,7 @@ import { Applications } from '../../Models/Applications';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AddRoleComponent } from 'src/app/Modals/add-role/add-role.component';
 import { AffectRoleComponent } from 'src/app/Modals/affect-role/affect-role.component';
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-affect-role-tab',
   templateUrl: './affect-role-tab.component.html',
@@ -30,6 +31,7 @@ export class AffectRoleTabComponent implements OnInit {
   position:string="below";
   tooltipMsg="btn_detail_flip_card";
   apps:UserAppPrivs[]=[];
+  allApps:UserAppPrivs[]=[];
   public addPadding:boolean=true;
   public searchApp: string;
   currentUser:UserIDMS={
@@ -97,14 +99,26 @@ export class AffectRoleTabComponent implements OnInit {
 
 
   openAffectRoleModal(app:Applications){
-    const dialogRef = this.dialog.open(AffectRoleComponent, {
-      width: '650px',
-      data: {app:app,currentUser:this.currentUser.iduseridms}
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-     // window.location.reload();
-    });
+    this.allApps=this.tokenStorage.getAppPrivs().filter(appl=>appl.idapplication==app.idapplication)
+    console.log(this.allApps)
+    if(this.allApps[0].roles.length!=0){
+      const dialogRef = this.dialog.open(AffectRoleComponent, {
+        width: '650px',
+        data: {app:app,currentUser:this.currentUser.iduseridms}
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+       // window.location.reload();
+      });
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: this.translate.instant("affect_role"),
+        text: this.translate.instant("no_roles"),
+        showConfirmButton: false,
+      })
+    }
+   
 
   }
   get filterApps() {

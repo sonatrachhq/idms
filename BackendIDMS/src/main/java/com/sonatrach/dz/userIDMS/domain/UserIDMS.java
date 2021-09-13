@@ -44,22 +44,35 @@ public class UserIDMS{
 	private Integer iduser;
 	@Column(name="SYSTEMDATE")
 	private Date sysdate;
+	private String email;
   
     public UserIDMS() {}
 
 
  
 
-    public UserIDMS( Integer idlang, String sonuser, String pswuser, int userstatus, Integer iduser,
-			Date sysdate) {
+ 
+
+
+
+
+	public UserIDMS(Integer idlang, String sonuser, String pswuser, int userstatus, Integer iduser,
+			Date sysdate, String email) {
 		super();
+		this.iduseridms = iduseridms;
 		this.idlang = idlang;
 		this.sonuser = sonuser;
 		this.pswuser = pswuser;
 		this.userstatus = userstatus;
 		this.iduser = iduser;
 		this.sysdate = sysdate;
+		this.email = email;
 	}
+
+
+
+
+
 
 
 
@@ -157,6 +170,20 @@ public class UserIDMS{
 
 	public void setSysdate(Date sysdate) {
 		this.sysdate = sysdate;
+	}
+
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

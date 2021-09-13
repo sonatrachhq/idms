@@ -11,6 +11,7 @@ const THEME_KEY='themeKey';
 const LANG_KEY='langKey';
 const APPPRIVS_KEY='AppPrivs';
 const USERSOBJECTS_KEY='UsersObjects';
+const EMAIL_KEY = 'EmailKey';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,16 @@ export class TokenStorageService {
   public getToken(): string {
     let token=sessionStorage.getItem(TOKEN_KEY);
     return token !==null? token :"";
+  }
+
+  public saveEmail(email: string) {
+    window.sessionStorage.removeItem(EMAIL_KEY);
+    window.sessionStorage.setItem(EMAIL_KEY, email);
+  }
+
+  public getEmail(): string {
+    let email=sessionStorage.getItem(EMAIL_KEY);
+    return email !==null? email :"";
   }
 
   public saveHost(host: string) {

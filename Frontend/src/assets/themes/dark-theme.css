@@ -978,6 +978,9 @@ textarea.cdk-textarea-autosize-measuring-firefox {
   background: #424242;
   color: #fff
 }
+form{
+  background: #424242;
+}
 
 .mat-autocomplete-panel:not([class*=mat-elevation-z]) {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)
@@ -2276,11 +2279,11 @@ td.mat-footer-cell {
 }
 
 .mat-progress-bar-background {
-  fill: #e91e63
+  fill: #cfd8dc
 }
 
 .mat-progress-bar-buffer {
-  background-color: #e91e63
+  background-color: #cfd8dc
 }
 
 .mat-progress-bar-fill::after {

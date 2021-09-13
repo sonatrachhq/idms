@@ -35,7 +35,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
   
-   
+   //console.log(this.tokenStorage.getEmail())
 
     this.allApps=this.tokenStorage.getAppPrivs();
     this.applications=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==0);
