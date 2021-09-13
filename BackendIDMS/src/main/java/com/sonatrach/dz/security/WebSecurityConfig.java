@@ -32,8 +32,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.sonatrach.dz.security.jwt.JwtAuthEntryPoint;
 import com.sonatrach.dz.security.jwt.JwtAuthTokenFilter;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 
 
@@ -43,7 +41,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true
 )
-@EnableSwagger2
+
 @EnableWebMvc
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //implements WebMvcConfigurer{
@@ -88,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
        http.cors().and().csrf().disable().
                authorizeRequests()
                .antMatchers("/api/auth/**").permitAll()
-               .antMatchers("/swagger-ui.html/**", "/configuration/**", "/swagger-resources/**", "/v2/api-docs","/webjars/**").permitAll()
+               .antMatchers("/swagger-ui/**", "/sonatrach-openapi/**").permitAll()
                .anyRequest().authenticated()
                .and()
                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -107,15 +105,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * .addResourceLocations("classpath:/META-INF/resources/webjars/"); }
 	 */
  
-   @Override
-   public void configure(WebSecurity web) throws Exception {
-       web.ignoring().antMatchers("/v2/api-docs",
-                                  "/configuration/ui",
-                                  "/swagger-resources/**",
-                                  "/configuration/security",
-                                  "/swagger-ui.html",
-                                  "/webjars/**");
-   }
+	/*
+	 * @Override public void configure(WebSecurity web) throws Exception {
+	 * web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui",
+	 * "/swagger-resources/**", "/configuration/security", "/swagger-ui.html",
+	 * "/webjars/**"); }
+	 */
    /* @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -128,4 +123,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }*/
     
+   
+   @Override
+   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+       auth.inMemoryAuthentication()
+               .withUser("admin")
+               .password(passwordEncoder().encode("admin123"))
+               .authorities("ADMIN");
+   }
+
+ 
 }

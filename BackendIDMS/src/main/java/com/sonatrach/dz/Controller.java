@@ -66,6 +66,7 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 
 
@@ -73,7 +74,7 @@ import freemarker.template.TemplateNotFoundException;
 
 @RestController
 @CrossOrigin(origins = "*")
-
+@SecurityRequirement(name = "sonatrachapidoc")
 public class Controller {
 @Autowired
 ApplicationsService appService;
