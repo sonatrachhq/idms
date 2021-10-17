@@ -1,7 +1,8 @@
+import { GlobalAppService } from './IdmsServices/global-app.service';
 import { AddRoleTabComponent } from './Components/add-role-tab/add-role-tab.component';
 
 import { GlobalErrorHandlerService } from './IdmsServices/global-error-handler.service';
-import { CommunService, initConfig } from './IdmsServices/commun.service';
+import { CommunService } from './IdmsServices/commun.service';
 import { ThemeService } from './Theme/Services/theme.service';
 import { StyleManagerService } from './Theme/Services/style-manager.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -251,7 +252,24 @@ import { EmailBoxComponent } from './Modals/email-box/email-box.component';
     StyleManagerService,
     ThemeService,
     CommunService,
-    { provide: APP_INITIALIZER, useFactory: initConfig, deps: [CommunService], multi: true },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [CommunService,GlobalAppService],
+      useFactory: (appConfigSvc: CommunService,globalAppService:GlobalAppService) => {
+        return () => {
+          return appConfigSvc.load().then(()=>{
+            //console.log(appConfigSvc.getHost())
+            appConfigSvc.getIntlmParams().then(()=>{
+              return globalAppService.checkUsersState()
+            })
+           
+          });
+        };
+      }
+    },
+    /* { provide: APP_INITIALIZER, useFactory: initConfig, deps: [CommunService], multi: true },
+    { provide: APP_INITIALIZER, useFactory: initCheckLogin, deps: [GlobalAppService], multi: true }, */
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorHandler, useClass: GlobalErrorHandlerService }
   ],

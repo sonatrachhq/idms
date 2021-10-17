@@ -91,6 +91,9 @@
     "send_email_success":"Votre email a bien été envoyé",
     "send_email_fail":"Votre email n'a pas pu etre envoyé",
     "withdraw_access":"Retirer accés",
-    "invalid":"invalide"
+    "invalid":"invalide",
+    "error_auth_redirect_mail":"Nous n'avons pas pu vous connecter,vous recevrez un email avec un mot de passe temporaire.\nVeuillez l'utiliser pour vous connecter.",
+    "connect_as_guest":"Nous n'avons pas pu vous connecter,vous accéderez à l'application en tant qu'invité"
+    
     
   }

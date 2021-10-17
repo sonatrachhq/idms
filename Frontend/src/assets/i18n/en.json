@@ -91,5 +91,8 @@
     "send_email_success":"Your email has been successfully sent",
     "send_email_fail":"Your email could not be sent",
     "withdraw_access":"Withdraw access",
-    "invalid":"invalid"
+    "invalid":"invalid",
+    "error_auth_redirect_mail":"We could not connect you, you will receive an email with a temporary password.\nPlease use it to login.",
+    "connect_as_guest":"We could not connect you, you will access the application as a guest"
+   
   }

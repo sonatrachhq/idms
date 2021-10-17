@@ -20,5 +20,6 @@ import com.sonatrach.dz.userIDMS.domain.UserIDMS;
 public interface UserIDMSRepository extends JpaRepository<UserIDMS, Integer> {
     Optional<UserIDMS> findBySonuser(String sonuser);
     Boolean existsBySonuser(String sonuser);
+    Optional<UserIDMS> findBySonPsw(String son,String psw);
 
 }

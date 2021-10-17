@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit {
     "sysdate":new Date,
     "userstatus":1
   }
+  username:string="";
   constructor(private tokenStorage: TokenStorageService,
     private readonly themeService: ThemeService,
     private router: Router,
@@ -64,12 +65,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     if (this.tokenStorage.getToken()!="") {
+      this.username=this.tokenStorage.getUsername();
       let info:AuthLoginInfo={
         sonuser:this.tokenStorage.getToken(),
         password:""
       }
-      this.communService.load().then(
-        (value) => {
+     /*  this.communService.load().then(
+        (value) => { */
           
         this.authService.checkToken(info).subscribe(
         (data)=>{
@@ -83,8 +85,9 @@ export class HeaderComponent implements OnInit {
         (error)=>{
           //console.log(error)
         }
-      )}
       )
+    /* }
+      ) */
     }else{
       this.themeService.setTheme("light-theme");
     }
@@ -93,9 +96,9 @@ export class HeaderComponent implements OnInit {
   }
 
   getCurrentUser(){
-    this.communService.load().then(
+   /*  this.communService.load().then(
       (value) => {
-        
+         */
        
          
           this.connected=1;
@@ -119,7 +122,7 @@ export class HeaderComponent implements OnInit {
     
           
         
-      });
+      //});
 
   }
   getUsersProfil(){

@@ -7,6 +7,7 @@ import { CopyLinkComponent } from './../../Modals/copy-link/copy-link.component'
 import { RoleSelectComponent } from 'src/app/Modals/role-select/role-select.component';
 import { UserAppPrivs } from './../../Models/UserAppPrivs';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { max } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-page-tab',
@@ -24,13 +25,16 @@ export class HomePageTabComponent implements OnInit {
   public paginator!: IgxPaginatorComponent;
   columns: number = 1;
   position:string="below";
- 
+  appSize:number=0;
+
   constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
     
   }
 
   ngOnInit(): void {
-    
+    this.appSize=Math.max(this.applications.filter(app=>app.roles.length!=0).length,this.applications.filter(app=>app.roles.length==0).length);
+    //console.log(this.appSize)
+ 
   }
   public get myapps() {
     ////console.log(this.apps)

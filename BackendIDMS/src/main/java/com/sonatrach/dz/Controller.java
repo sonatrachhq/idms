@@ -2,22 +2,47 @@ package com.sonatrach.dz;
 
 
 
+import java.io.BufferedReader;
+
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.naming.AuthenticationException;
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.ldap.core.ContextSource;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.core.support.LdapContextSource;
+import org.springframework.ldap.filter.AndFilter;
+import org.springframework.ldap.filter.EqualsFilter;
+import org.springframework.ldap.filter.Filter;
+import org.springframework.ldap.support.LdapUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +69,7 @@ import com.sonatrach.dz.languages.domain.Languages;
 import com.sonatrach.dz.languages.service.LanguageService;
 import com.sonatrach.dz.message.request.LoginForm;
 import com.sonatrach.dz.message.request.SignUpForm;
+import com.sonatrach.dz.message.response.JwtResponse;
 import com.sonatrach.dz.objectType.domain.ObjectTypeApp;
 import com.sonatrach.dz.objectType.service.ObjectTypeService;
 import com.sonatrach.dz.objectUsers.domain.ObjectUsers;
@@ -53,28 +79,33 @@ import com.sonatrach.dz.profil.service.ProfilService;
 import com.sonatrach.dz.roleObjects.domain.RoleObjects;
 import com.sonatrach.dz.roleObjects.service.RoleObjectsService;
 import com.sonatrach.dz.security.jwt.JwtProvider;
+import com.sonatrach.dz.storedProcResponse.ObjectType;
+import com.sonatrach.dz.storedProcResponse.ObjectsResult;
+import com.sonatrach.dz.storedProcResponse.ProcResult;
+import com.sonatrach.dz.storedProcResponse.Role;
+import com.sonatrach.dz.storedProcResponse.UserAppPrivs;
+import com.sonatrach.dz.storedProcResponse.UsersObject;
 import com.sonatrach.dz.userIDMS.domain.UserIDMS;
 import com.sonatrach.dz.userIDMS.service.UserIdmsService;
-import com.sonatrach.dz.utils.ObjectType;
-import com.sonatrach.dz.utils.ObjectsResult;
-import com.sonatrach.dz.utils.ProcResult;
-import com.sonatrach.dz.utils.Role;
-import com.sonatrach.dz.utils.UserAppPrivs;
-import com.sonatrach.dz.utils.UsersObject;
+import com.sonatrach.dz.utils.Ntlm;
+import com.sonatrach.dz.utils.UserAD;
 
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
-
-
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*")
 @SecurityRequirement(name = "sonatrachapidoc")
+
 public class Controller {
 @Autowired
 ApplicationsService appService;
@@ -105,12 +136,46 @@ private ObjectTypeService objTypeService;
 @Autowired
 private EmailService emailService;
 
+@Autowired
+Environment env;
+DirContext connection;
+
+private static final Logger log = LoggerFactory.getLogger(Controller.class);
+
+
+@Autowired
+PasswordEncoder encoder;
+@GetMapping("api/auth/test")
+public ResponseEntity<?> test5(){
+	try {
+		
+		//Properties p = System.getProperties();
+		//p.list(System.out);
+//		System.out.println(System.getProperty("user.name"));
+//		 System.out.println(System.getenv().get("USERDOMAIN"));
+//		    System.out.println(System.getenv().get("USERNAME"));
+		/* String line;
+	    Process p = Runtime.getRuntime().exec
+	    	    (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+	    BufferedReader input =
+	            new BufferedReader(new InputStreamReader(p.getInputStream()));*/
+	    String psw=encoder.encode("1234#!Idm$DefaultPsw@S0natrach");
+	    log.info("psw ecoder      "+psw);
+		/*
+		 * while ((line = input.readLine()) != null) { System.out.println(line); //<--
+		 * Parse data here. } input.close();
+		 */
+	} catch (Exception err) {
+	    err.printStackTrace();
+	}
+	return userIdmsService.checkUserExists("SON8415","");
+}
+
 
 /********************************************************GUEST PAGE *******************************************************************/
 @GetMapping( "/api/auth/getVisibleApps" )
 public List<Applications> getVisibleApps(){
 	List<Applications> visibleApps=appService.getVisibleApp();
-
 	if(visibleApps.isEmpty()) {
 		return null;
 	}else {
@@ -134,7 +199,7 @@ public LoginForm checkToken(@RequestBody LoginForm loginRequest) {
 		loginRequest.setSonuser("");
 		return loginRequest;
 	}catch(Exception e ) {
-		System.out.println("Exception checkToken() in  controller ==>" + e.getMessage());
+		log.error("Exception checkToken() in  controller ==>" + e.getMessage());
 	}
 	
 	return null;
@@ -142,22 +207,215 @@ public LoginForm checkToken(@RequestBody LoginForm loginRequest) {
 }
 
 /*************************************LOGIN/SUBSCRIBE PAGE***************************************************************************/
+/* create connection during object creation */
+public boolean newConnectionAD() {
+	String url=env.getProperty("ldap.url");
+	String base=env.getProperty("ldap.base");
+	String psw=env.getProperty("ldap.password");
+
+	Properties env = new Properties();
+	env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+	env.put(Context.PROVIDER_URL, url);
+	env.put(Context.SECURITY_PRINCIPAL, base);  
+	env.put(Context.SECURITY_CREDENTIALS, psw);
+	
+	try {
+		connection = new InitialDirContext(env);		
+		log.info("connection etablie!      " + connection);
+		return true;
+		
+	} catch (AuthenticationException ex) {
+		log.error(ex.getMessage());
+	} catch (NamingException e) {
+		log.error(e.getMessage());
+	}
+	return false;
+}
+
+
+
+/* use this to search any existing user in AD */
+public UserAD searchUserInAD(String sonuser) throws NamingException {
+	//newConnectionAD();
+	String searchFilter = "(samAccountName="+sonuser+")";
+	String[] reqAtt = {"givenName", "sn", "memberOf", "mail","cn"};
+	SearchControls controls = new SearchControls();
+	controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+	controls.setReturningAttributes(reqAtt);
+	//System.out.println(searchFilter);
+	NamingEnumeration<javax.naming.directory.SearchResult> users = connection.search("OU=Pole,DC=corp,DC=sonatrach,DC=dz", searchFilter, controls);
+	//System.out.println(users.hasMore());
+	SearchResult result = null;
+	
+	
+	while (users.hasMore()) {
+		//System.out.println("inside while");
+		result = (SearchResult) users.nextElement();
+		Attributes attr = result.getAttributes();
+		String name = attr.get("cn").get(0).toString();
+		String email=attr.get("mail").get(0).toString();
+		
+		//System.out.println(name+"  "+email);
+		UserAD response=new UserAD(name, email);
+		return response;
+		
+	}
+	return null;
+
+}
+
 @RequestMapping(value = "/api/auth/signin", method = RequestMethod.POST)
 public ResponseEntity<?> signin(@Valid @RequestBody LoginForm loginRequest) {
 	try {
-		return userIdmsService.authenticateUser(loginRequest);
+		
+		  ResponseEntity<?> response= userIdmsService.signin(loginRequest);
+		  
+		  if(response.getStatusCodeValue()==200) { 
+			  UserIDMS currentUser=userIdmsService.updateUsersPsw(loginRequest.getSonuser().toLowerCase(),
+					  "$2a$10$zpEvPQ1RGBXyU.KvnsWHCuy1CkjgXC98k7ZuK5BZUwOXCOoa.t.vq"); 
+		  if(currentUser!=null) {
+		 log.info("updateUsersPsw   "+currentUser.getPswuser()); 
+		  return response;
+		   }
+		  
+		  }
+		 
+		
 	}catch(Exception e) {
-		System.out.println("Exception authenticateUser() in UserIdmsService {signin controller} ==>" + e.getMessage());
+		log.error("Exception signin() in UserIdmsService {signin controller} ==>" + e.getMessage());
 	}
 	return null;
 }
 
+//using AD without signin
+@PostMapping("api/auth/authUser")
+public ResponseEntity<?> authUser(@RequestBody Ntlm ntlm ) {
+	try { 
+		 log.info("ntlm  "+ntlm.toString());
+		 log.info("domain  "+ntlm.getDomain());
+		 log.info("son  "+ntlm.getUsername());
+//		 String domain=System.getenv().get("USERDOMAIN");
+//		 String sonUser=System.getenv().get("USERNAME").toLowerCase();
+		String domain=ntlm.getDomain();
+		String sonUser=ntlm.getUsername().toLowerCase();
+		 if(domain.equals("SONATRACH")) {//if user is in domain sonatrach
+			
+			 boolean isAdActive=newConnectionAD();
+			 if(isAdActive) { //if AD is active
+				// System.out.println("isAdActive  "+isAdActive);
+				 UserAD userExistsInAD=searchUserInAD(sonUser);
+				
+				 if(userExistsInAD!=null) { //if user exits in AD
+					 //System.out.println("userExistsInAD  "+userExistsInAD.toString());
+					 ResponseEntity<?> userExistsInDB=userIdmsService.checkUserExists(sonUser,userExistsInAD.getName());
+					 if(userExistsInDB!=null) { //if user exits in DB
+						 //System.out.println("userExistsInDB  "+userExistsInDB.toString());
+						 return userExistsInDB;
+					 }else { //if user doesn't exist in DB
+						 ResponseEntity<?>  sonSavedInDB=userIdmsService.saveUser(sonUser, userExistsInAD.getEmail(), userExistsInAD.getName()); //save user in DB
+						 if(sonSavedInDB!=null) {// if user saved in DB
+							 //System.out.println("sonSavedInDB  "+sonSavedInDB.toString());
+							 return sonSavedInDB;
+						 }else { //problem when saving user in DB
+							 //System.out.println("problem when saving user in DB  ");
+							 return null; //to force user to reload and retry
+						 }
+					 }
+				 }
+				 
+			 }
+		 }
+		
+	}catch(Exception e) {
+		log.error("Exception  {authUser controller} ==>" + e.getMessage());
+	}
+	return null;
+}
+
+//send random psw to user by email
+public MailResponse sendPswByEmail( MailRequest request) {
+	Map<String, Object> model = new HashMap<>();
+	model.put("msg", request.getMsg());
+
+	MailResponse response = new MailResponse();
+
+		try {
+			response = emailService.sendEmail(request,  model);
+		} catch (TemplateNotFoundException e) {
+			log.error("Exception  sendEmail() in emailService {sendPswByEmail controller}==>" + e.getMessage());
+		} catch (MalformedTemplateNameException e) {
+			log.error("Exception  sendEmail() in emailService {sendPswByEmail controller}==>" + e.getMessage());
+		} catch (ParseException e) {
+			log.error("Exception  sendEmail() in emailService {sendPswByEmail controller}==>" + e.getMessage());
+		} catch (IOException e) {
+			log.error("Exception  sendEmail() in emailService {sendPswByEmail controller}==>" + e.getMessage());
+		} catch (TemplateException e) {
+			log.error("Exception  sendEmail() in emailService {sendPswByEmail controller}==>" + e.getMessage());
+		}catch(Exception e ) {
+			log.error("Exception  sendEmail() in emailService {sendPswByEmail controller}==>" + e.getMessage());
+		}
+
+	
+
+	
+	return response;
+}
+// Method to generate a random alphanumeric password of a specific length
+public static String generateRandomPassword(int len)
+{
+    // ASCII range – alphanumeric (0-9, a-z, A-Z)
+    final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    SecureRandom random = new SecureRandom();
+    StringBuilder sb = new StringBuilder();
+
+    // each iteration of the loop randomly chooses a character from the given
+    // ASCII range and appends it to the `StringBuilder` instance
+
+    for (int i = 0; i < len; i++)
+    {
+        int randomIndex = random.nextInt(chars.length());
+        sb.append(chars.charAt(randomIndex));
+    }
+
+    return sb.toString();
+}
+
+//to check if user exists in DB before redirecting to login page
+@PostMapping("api/auth/findUserBySON")
+public boolean findUserBySON(@RequestBody Ntlm ntlm) {
+try {
+	  long millis=System.currentTimeMillis();  
+      java.sql.Date date=new java.sql.Date(millis);  
+      //String sonUser=System.getenv().get("USERNAME").toLowerCase();
+      String sonUser=ntlm.getUsername().toLowerCase();
+      log.info("sonUser   "+sonUser);
+		UserIDMS user=new UserIDMS(1, sonUser.toUpperCase(),"", 1, 0,date, "", "");
+		user=userIdmsService.findUserBySon(user);
+		if(user!=null) {
+			
+			String randomPassword = generateRandomPassword(8);
+			userIdmsService.updateUsersPsw(sonUser, randomPassword);
+			
+			log.info("randomPassword    "+randomPassword);
+			MailRequest request=new MailRequest("Bonjour,\n Veuillez utiliser ce mot de passe pour vous connecter : "+randomPassword+"\n Cordialement.", user.getEmail(), "Feriel.Aid@Sonatrach.dz", "Mot de passe temporaire");
+			log.info("request.getMsg()  email  "+request.getMsg());
+			sendPswByEmail(request);
+			return true;
+		}
+	}catch(Exception e) {
+		log.error("Exception findUserBySon() in UserIdmsService {findUserBySON controller} ==>" + e.getMessage());
+	}
+	return false;
+}
+
+//register
 @RequestMapping(value = "/api/auth/signup", method = RequestMethod.POST)
 public ResponseEntity<?> signup(@Valid @RequestBody SignUpForm signUpRequest) {
 	try {
 		return userIdmsService.registerUser(signUpRequest);
 	}catch(Exception e ) {
-		System.out.println("Exception registerUser() in UserIdmsService {signup controller}==>" + e.getMessage());
+		log.error("Exception registerUser() in UserIdmsService {signup controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -167,7 +425,7 @@ public List<Languages> getAllLanguages(){
 	try {
 		return langService.getAllLangs();
 	}catch(Exception e) {
-		System.out.println("Exception getAllLangs() in LanguageService {getAllLanguages controller}==>" + e.getMessage());
+		log.error("Exception getAllLangs() in LanguageService {getAllLanguages controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -178,7 +436,7 @@ public Profil saveProfil(@RequestBody Profil profil) {
 		Profil savedProfil=profilService.setDefaultProfil(profil);
 		return savedProfil;
 	}catch(Exception e) {
-		System.out.println("Exception setDefaultProfil() in ProfilService {saveProfil controller}==>" + e.getMessage());
+		log.error("Exception setDefaultProfil() in ProfilService {saveProfil controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -192,7 +450,7 @@ public List<Role>getUsersRoles(@RequestBody UserIDMS user ){
 		List<Role> roles= appPrivsService.getIdmsRoles(user);
 		return roles;
 	}catch(Exception e) {
-		System.out.println("Exception getIdmsRoles() in AppPrivsService {getUsersRoles controller}==>" + e.getMessage());
+		log.error("Exception getIdmsRoles() in AppPrivsService {getUsersRoles controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -379,7 +637,7 @@ public ArrayList<UserAppPrivs>  getUsersAppPrivs(@RequestBody UserIDMS user) {
 		
 		return listToReturn;
 	}catch(Exception e) {
-		System.out.println("Exception getUsersAppPrivs in controller==>" + e.getMessage());
+		log.error("Exception getUsersAppPrivs in controller==>" + e.getMessage());
 	}
 	
 	return null;
@@ -545,7 +803,7 @@ public ArrayList<UsersObject>  getUsersObjects(@RequestBody UserIDMS user) {
 		
 		return listToReturn;
 	}catch(Exception e) {
-		System.out.println("Exception getUsersObjects in controller==>" + e.getMessage());
+		log.error("Exception getUsersObjects in controller==>" + e.getMessage());
 	}
 	
 	return null;
@@ -565,7 +823,7 @@ public List<UserAppPrivs> getAppsByMode(@RequestBody List<UserAppPrivs> apps, @R
 		}
 		return filteredApps;
 	}catch(Exception e) {
-		System.out.println("Exception getAppsByMode in controller==>" + e.getMessage());
+		log.error("Exception getAppsByMode in controller==>" + e.getMessage());
 	}
 return null;
 }
@@ -581,17 +839,17 @@ public MailResponse sendEmail(@RequestBody MailRequest request) {
 		try {
 			response = emailService.sendEmail(request,  model);
 		} catch (TemplateNotFoundException e) {
-			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+			log.error("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
 		} catch (MalformedTemplateNameException e) {
-			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+			log.error("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
 		} catch (ParseException e) {
-			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+			log.error("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
 		} catch (IOException e) {
-			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+			log.error("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
 		} catch (TemplateException e) {
-			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+			log.error("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
 		}catch(Exception e ) {
-			System.out.println("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
+			log.error("Exception  sendEmail() in emailService {sendEmail controller}==>" + e.getMessage());
 		}
 
 	
@@ -609,7 +867,7 @@ public UserIDMS getCurrentUser(@RequestBody UserIDMS user) {
 			return currentUser;
 		}
 	}catch(Exception e) {
-		System.out.println("Exception  findUserBySon() in UserIdmsService {getCurrentUser controller}==>" + e.getMessage());
+		log.error("Exception  findUserBySon() in UserIdmsService {getCurrentUser controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -622,7 +880,7 @@ public Profil updateLangUser(@RequestBody Profil profil) {
 		Profil updatedProfil=profilService.updateLang(profil);
 		return updatedProfil;
 	}catch(Exception e) {
-		System.out.println("Exception  updateLang() in ProfilService {updateLangUser controller}==>" + e.getMessage());
+		log.error("Exception  updateLang() in ProfilService {updateLangUser controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -633,7 +891,7 @@ public Profil updateThemeUser(@RequestBody Profil profil) {
 		Profil updatedProfil=profilService.updateTheme(profil);
 		return updatedProfil;
 	}catch(Exception e) {
-		System.out.println("Exception  updateTheme() in ProfilService {updateThemeUser controller}==>" + e.getMessage());
+		log.error("Exception  updateTheme() in ProfilService {updateThemeUser controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -644,7 +902,7 @@ public Profil getUsersProfil(@RequestBody Profil profil) {
 		Profil currentProfil=profilService.getUsersProfil(profil);
 		return currentProfil;
 	}catch(Exception e) {
-		System.out.println("Exception  getUsersProfil() in ProfilService {getUsersProfil controller}==>" + e.getMessage());
+		log.error("Exception  getUsersProfil() in ProfilService {getUsersProfil controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -668,7 +926,7 @@ public Applications addApplication(@RequestBody Applications app) {
 		//System.out.println(appRole2.getIdrole());
 		return app;
 	}catch(Exception e) {
-		System.out.println("Exception  {addApplication controller}==>" + e.getMessage());
+		log.error("Exception  {addApplication controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -678,7 +936,7 @@ public Applications updateApplication(@RequestBody Applications app) {
 	try {
 		return appService.updateApp(app);
 	}catch(Exception e) {
-		System.out.println("Exception updateApp in ApplicationsService {updateApplication controller}==>" + e.getMessage());
+		log.error("Exception updateApp in ApplicationsService {updateApplication controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -689,7 +947,7 @@ public Applications deleteApplication(@RequestBody Applications app) {
 	try {
 		return appService.deleteApp(app);
 	}catch(Exception e) {
-		System.out.println("Exception deleteApp in ApplicationsService {deleteApplication controller}==>" + e.getMessage());
+		log.error("Exception deleteApp in ApplicationsService {deleteApplication controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -702,7 +960,7 @@ public List<UserIDMS> getAllIdmsUsers(){
 	try {
 		return userIdmsService.getAllUsers();
 	}catch(Exception e) {
-		System.out.println("Exception in UserIdmsService ==>getAllUsers()   :{getAllIdmsUsers==>controller}  :" +e.getMessage());
+		log.error("Exception in UserIdmsService ==>getAllUsers()   :{getAllIdmsUsers==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -714,7 +972,7 @@ public AppRoles saveNewRole(@RequestBody AppRoles approle) {
 	try {
 		return appRoleService.saveAppRole(approle);
 	}catch(Exception e) {
-		System.out.println("Exception in appRoleService ==>saveAppRole()   :{saveNewRole==>controller}  :" +e.getMessage());
+		log.error("Exception in appRoleService ==>saveAppRole()   :{saveNewRole==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -726,7 +984,7 @@ public AppPrivs saveNewPrivs(@RequestBody  AppPrivs privs) {
 	try {
 		return appPrivsService.saveAppPrivs(privs);
 	}catch(Exception e) {
-		System.out.println("Exception in AppPrivsService ==>saveAppPrivs()   :{saveNewPrivs==>controller}  :" +e.getMessage());
+		log.error("Exception in AppPrivsService ==>saveAppPrivs()   :{saveNewPrivs==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -737,7 +995,7 @@ public AppRoles deleteRole(@RequestBody AppRoles approle) {
 	try {
 		return appRoleService.deleteRole(approle);
 	}catch(Exception e) {
-		System.out.println("Exception in appRoleService ==>deleteRole()   :{deleteRole==>controller}  :" +e.getMessage());
+		log.error("Exception in appRoleService ==>deleteRole()   :{deleteRole==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -750,7 +1008,7 @@ public List<AppObject> findObjectsByApp(@RequestBody Applications app){
 	try {
 		return appObjService.findObjectsByApp(app);
 	}catch(Exception e) {
-		System.out.println("Exception  findObjectsByApp() ==>AppObjectService   :{findObjectsByApp==>controller}  :" +e.getMessage());
+		log.error("Exception  findObjectsByApp() ==>AppObjectService   :{findObjectsByApp==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -761,7 +1019,7 @@ public List<RoleObjects> saveRoleObjects(@RequestBody List<RoleObjects> roleObjc
 	try {
 		return roleObjService.saveRoleObjects(roleObjcts);
 	}catch(Exception e) {
-		System.out.println("Exception  saveRoleObjects() ==>RoleObjectsService   :{saveRoleObjects==>controller}  :" +e.getMessage());
+		log.error("Exception  saveRoleObjects() ==>RoleObjectsService   :{saveRoleObjects==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -771,7 +1029,7 @@ public List<RoleObjects> deleteRoleObjects(@RequestBody List<RoleObjects> roleOb
 	try {
 		return roleObjService.deleteRoleObjects(roleObjcts);
 	}catch(Exception e) {
-		System.out.println("Exception  deleteRoleObjects() ==>RoleObjectsService   :{deleteRoleObjects==>controller}  :" +e.getMessage());
+		log.error("Exception  deleteRoleObjects() ==>RoleObjectsService   :{deleteRoleObjects==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -781,7 +1039,7 @@ public List<ObjectUsers> saveObjectUser(@RequestBody List<ObjectUsers> roleObjct
 	try {
 		return objUserService.saveObjUser(roleObjcts);
 	}catch(Exception e) {
-		System.out.println("Exception  saveObjUser() ==>ObjectUsersService   :{saveObjectUser==>controller}  :" +e.getMessage());
+		log.error("Exception  saveObjUser() ==>ObjectUsersService   :{saveObjectUser==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -791,7 +1049,7 @@ public List<ObjectUsers> deleteObjectUser(@RequestBody List<ObjectUsers> roleObj
 	try {
 		return objUserService.deleteObjUser(roleObjcts);
 	}catch(Exception e) {
-		System.out.println("Exception  deleteObjUser() ==>ObjectUsersService   :{deleteObjectUser==>controller}  :" +e.getMessage());
+		log.error("Exception  deleteObjUser() ==>ObjectUsersService   :{deleteObjectUser==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -802,7 +1060,7 @@ public List<ObjectTypeApp> getAllObjTypes(){
 	try {
 		return objTypeService.getAllObjType();
 	}catch(Exception e) {
-		System.out.println("Exception  getAllObjType() in ObjectTypeService   :{getAllObjTypes==>controller}==>" + e.getMessage());
+		log.error("Exception  getAllObjType() in ObjectTypeService   :{getAllObjTypes==>controller}==>" + e.getMessage());
 	}
 	return null;
 }
@@ -813,7 +1071,7 @@ public AppObject addAppObject(@RequestBody AppObject appObject){
 	try {
 		return appObjService.addAppObject(appObject);
 	}catch(Exception e) {
-		System.out.println("Exception  addAppObject() in AppObjectService  :{addAppObject==>controller}  :" +e.getMessage());
+		log.error("Exception  addAppObject() in AppObjectService  :{addAppObject==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -827,7 +1085,7 @@ public List<AppObject> deleteAppObject(@RequestBody  List<AppObject> appObjects)
 		}
 		return appObjects;
 	}catch(Exception e) {
-		System.out.println("Exception  deleteAppObject() in AppObjectService  :{deleteAppObject==>controller}  :" +e.getMessage());
+		log.error("Exception  deleteAppObject() in AppObjectService  :{deleteAppObject==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
@@ -839,7 +1097,7 @@ public AppObject updateAppObject(@RequestBody AppObject appObject){
 		
 		return appObjService.updateAppObject(appObject);
 	}catch(Exception e) {
-		System.out.println("Exception  updateAppObject() in AppObjectService  :{updateAppObject==>controller}  :" +e.getMessage());
+		log.error("Exception  updateAppObject() in AppObjectService  :{updateAppObject==>controller}  :" +e.getMessage());
 	}
 	return null;
 }

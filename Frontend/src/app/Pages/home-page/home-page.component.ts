@@ -9,6 +9,7 @@ import { HomePageService } from './../../Services/home-page.service';
 import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import { RoleSelectComponent } from 'src/app/Modals/role-select/role-select.component';
 import { CopyLinkComponent } from 'src/app/Modals/copy-link/copy-link.component';
+
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -30,16 +31,16 @@ export class HomePageComponent implements OnInit {
   allApps:UserAppPrivs[]=[];
  
   constructor(private tokenStorage: TokenStorageService,private homePageService:HomePageService,public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
-    
+  
   }
 
   ngOnInit(): void {
-  
+    
    //console.log(this.tokenStorage.getEmail())
 
     this.allApps=this.tokenStorage.getAppPrivs();
     this.applications=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==0);
-
+   
     
   }
   updateData(event:any){

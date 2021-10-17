@@ -12,7 +12,9 @@ const LANG_KEY='langKey';
 const APPPRIVS_KEY='AppPrivs';
 const USERSOBJECTS_KEY='UsersObjects';
 const EMAIL_KEY = 'EmailKey';
-
+const USERNAME_KEY = 'UsernameKey';
+const DOMAIN_KEY='DomainKey';
+const WORKSTATION_KEY='WorkstationKey'
 @Injectable({
   providedIn: 'root'
 })
@@ -46,6 +48,15 @@ export class TokenStorageService {
     return email !==null? email :"";
   }
 
+  public saveUsername(username: string) {
+    window.sessionStorage.removeItem(USERNAME_KEY);
+    window.sessionStorage.setItem(USERNAME_KEY, username);
+  }
+
+  public getUsername(): string {
+    let username=sessionStorage.getItem(USERNAME_KEY);
+    return username !==null? username :"";
+  }
   public saveHost(host: string) {
     window.sessionStorage.removeItem(HOST_KEY);
     window.sessionStorage.setItem(HOST_KEY, host);
@@ -84,6 +95,26 @@ export class TokenStorageService {
   public getSonuser(): string {
     let sonuser=sessionStorage.getItem(SONUSER_KEY);
     return sonuser!==null? sonuser :"";
+  }
+
+  public saveDomain(domain: string) {
+    window.sessionStorage.removeItem(DOMAIN_KEY);
+    window.sessionStorage.setItem(DOMAIN_KEY, domain);
+  }
+
+  public getDomain(): string {
+    let domain=sessionStorage.getItem(DOMAIN_KEY);
+    return domain!==null? domain :"";
+  }
+
+  public saveWorkstation(workstation: string) {
+    window.sessionStorage.removeItem(WORKSTATION_KEY);
+    window.sessionStorage.setItem(WORKSTATION_KEY, workstation);
+  }
+
+  public geWorkstation(): string {
+    let workstation=sessionStorage.getItem(WORKSTATION_KEY);
+    return workstation!==null? workstation :"";
   }
 
   /*public saveAuthorities(authorities: string[]) {

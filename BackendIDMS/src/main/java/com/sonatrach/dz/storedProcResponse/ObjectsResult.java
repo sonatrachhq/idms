@@ -1,4 +1,4 @@
-package com.sonatrach.dz.utils;
+package com.sonatrach.dz.storedProcResponse;
 
 import java.util.Date;
 

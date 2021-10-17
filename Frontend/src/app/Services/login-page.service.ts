@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../auth/token-storage.service';
 import { UserIDMS } from './../Models/UserIDMS';
 import { UserAppPrivs } from './../Models/UserAppPrivs';
 import { Observable } from 'rxjs';
@@ -17,11 +18,12 @@ export class LoginPageService {
   private host:String;
 
 
-  constructor(private http: HttpClient,communService:CommunService) {
-    this.host=communService.getHost();
+  constructor(private http: HttpClient,private token:TokenStorageService) {
+    this.host=this.token.getHost();
    }
 
    public getUsersRoles(user:UserIDMS):Observable<Array<Role>>{
+    this.host=this.token.getHost();
      return this.http.post<Array<Role>>(this.host+"getUsersRoles",user).pipe(
       catchError((err) => {
          ////console.log('error caught in service')
@@ -32,6 +34,7 @@ export class LoginPageService {
    }
  
    public getUsersObjects(user:UserIDMS):Observable<Array<UsersObject>>{
+    this.host=this.token.getHost();
      return this.http.post<Array<UsersObject>>(this.host+"getUsersObjects",user).pipe(
       catchError((err) => {
          ////console.log('error caught in service')
@@ -42,6 +45,7 @@ export class LoginPageService {
    }
 
    public getUsersAppPrivs(user:UserIDMS):Observable<Array<UserAppPrivs>>{
+    this.host=this.token.getHost();
     return this.http.post<Array<UserAppPrivs>>(this.host+"getUsersAppPrivs",user).pipe(
      catchError((err) => {
         ////console.log('error caught in service')

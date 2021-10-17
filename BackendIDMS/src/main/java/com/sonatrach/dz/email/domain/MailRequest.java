@@ -14,6 +14,13 @@ public class MailRequest {
 	
 
 
+	public MailRequest(String msg, String to, String from, String subject) {
+		super();
+		this.msg = msg;
+		this.to = to;
+		this.from = from;
+		this.subject = subject;
+	}
 	public String getFrom() {
 		return from;
 	}

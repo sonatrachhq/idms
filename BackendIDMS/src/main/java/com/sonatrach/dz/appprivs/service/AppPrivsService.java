@@ -15,8 +15,8 @@ import com.sonatrach.dz.approles.domain.AppRoles;
 import com.sonatrach.dz.approles.repo.AppRolesRepo;
 import com.sonatrach.dz.interim.domain.Interim;
 import com.sonatrach.dz.interim.service.InterimService;
+import com.sonatrach.dz.storedProcResponse.Role;
 import com.sonatrach.dz.userIDMS.domain.UserIDMS;
-import com.sonatrach.dz.utils.Role;
 @Service
 @Transactional
 public class AppPrivsService {

@@ -5,6 +5,6 @@ export interface JwtResponse {
     type: string;
     sonuser: string;
     email:string;
-   
+    name:string;
     
 }

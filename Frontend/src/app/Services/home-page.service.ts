@@ -7,7 +7,8 @@ import { CommunService } from './../IdmsServices/commun.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
-import { catchError  } from 'rxjs/operators';
+import { catchError, map  } from 'rxjs/operators';
+import { Ntlm } from '../Models/Ntlm';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,6 @@ export class HomePageService {
       })
     );
   }
+
+ 
 }

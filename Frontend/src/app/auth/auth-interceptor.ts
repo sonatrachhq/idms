@@ -12,12 +12,16 @@ const TOKEN_HEADER_KEY = 'Authorization';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private token: TokenStorageService,public router: Router) { }
+    constructor(private token: TokenStorageService,public router: Router) {
+     
+    }
 
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         let authReq = req;
         const token = this.token.getToken();
+        if (req.headers.get("skip"))
+        return next.handle(req);
         if (token != null ) {
             authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
         }
@@ -54,7 +58,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
  
- 
+   
   
 }
 
