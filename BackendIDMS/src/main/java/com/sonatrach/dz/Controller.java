@@ -81,6 +81,7 @@ import com.sonatrach.dz.roleObjects.service.RoleObjectsService;
 import com.sonatrach.dz.security.jwt.JwtProvider;
 import com.sonatrach.dz.storedProcResponse.ObjectType;
 import com.sonatrach.dz.storedProcResponse.ObjectsResult;
+
 import com.sonatrach.dz.storedProcResponse.ProcResult;
 import com.sonatrach.dz.storedProcResponse.Role;
 import com.sonatrach.dz.storedProcResponse.UserAppPrivs;
@@ -145,7 +146,7 @@ private static final Logger log = LoggerFactory.getLogger(Controller.class);
 
 @Autowired
 PasswordEncoder encoder;
-@GetMapping("api/auth/test")
+@GetMapping("api/auth/test5")
 public ResponseEntity<?> test5(){
 	try {
 		
@@ -170,6 +171,7 @@ public ResponseEntity<?> test5(){
 	}
 	return userIdmsService.checkUserExists("SON8415","");
 }
+
 
 
 /********************************************************GUEST PAGE *******************************************************************/
@@ -456,8 +458,19 @@ public List<Role>getUsersRoles(@RequestBody UserIDMS user ){
 }
 /**********************************************Home page *****************************************************************/
 /********************************************Get user's apps &  roles when login*******************************************/
+public int findDoublons(List<UserAppPrivs> usersPrivs,Integer idapp){
+	
 
-//@GetMapping( "/api/auth/test" )
+	
+	for(int i=0;i<usersPrivs.size();i++) {
+		if(usersPrivs.get(i).getIDAPPLICATION()==idapp) {
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 public ArrayList<UserAppPrivs> getResult(Integer userId){
 	
 	SimpleJdbcCall simpleJdbcCall;
@@ -465,94 +478,138 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 			.returningResultSet("INTERIMRESULT", BeanPropertyRowMapper.newInstance(ProcResult.class));
 	SqlParameterSource in = new MapSqlParameterSource().addValue("USERID", userId);
 	Map out = simpleJdbcCall.execute(in);
-	
 	List<ProcResult> usersPrivs= (List)out.get("USERSRESULT");
 	List<ProcResult> interimPrivs= (List)out.get("INTERIMRESULT");
 	ArrayList<UserAppPrivs> listToReturn=new ArrayList();
-	
-	if(interimPrivs==null) {
-		interimPrivs=new ArrayList();
-	}
-	
-	if(usersPrivs==null) {
-		usersPrivs=new ArrayList();
-	}
-	for(int i=0;i<usersPrivs.size();i++) {
+	ArrayList<UserAppPrivs> interim=new ArrayList();
+	ArrayList<UserAppPrivs> myApps=new ArrayList();
+	ArrayList<UserAppPrivs> otherApps=new ArrayList();
+	ArrayList<ProcResult> mesApps=new ArrayList();
+	ArrayList<ProcResult> autresApps=new ArrayList();
 
-	 
+
+
+
+//diviser la liste en 2 mes applications et les autres
+	for(int i=0;i<usersPrivs.size();i++) {
+		if(usersPrivs.get(i).getIDUSERIDMS()==userId ) {
+			mesApps.add(usersPrivs.get(i));
+		}else {
+			autresApps.add(usersPrivs.get(i));
+		}
+	}
+
+
+
+	log.info("autresApps size==>"+autresApps.size()+"           mesApps size==>"+mesApps.size());
+
+	//traitement sur mes applications
+	for(int i=0;i<mesApps.size();i++) {
 		UserAppPrivs jsonResponse=new UserAppPrivs();
 		List<Role> roles = new ArrayList();
+		jsonResponse.setIDAPPLICATION(mesApps.get(i).getIDAPPLICATION());
+		jsonResponse.setIDUSERIDMS(mesApps.get(i).getIDUSERIDMS());
+		jsonResponse.setAPPLICATIONDESC(mesApps.get(i).getAPPLICATIONDESC());
+		jsonResponse.setAPPLICATIONDETAIL(mesApps.get(i).getAPPLICATIONDETAIL());
+		jsonResponse.setAPPLICATIONMODE(mesApps.get(i).getAPPLICATIONMODE());
+		jsonResponse.setAPPLICATIONTITLE(mesApps.get(i).getAPPLICATIONTITLE());
+		jsonResponse.setAPPLICATIONURL(mesApps.get(i).getAPPLICATIONURL());
+		jsonResponse.setICONURL(mesApps.get(i).getICONURL());
+		jsonResponse.setPUBLICFLAG(mesApps.get(i).getPUBLICFLAG());
+		jsonResponse.setINTERIMSTARTDATE(mesApps.get(i).getINTERIMSTARTDATE());
+		jsonResponse.setINTERIMENDDATE(mesApps.get(i).getINTERIMENDDATE());
+		jsonResponse.setIEFLAG(mesApps.get(i).getIEFLAG());
+		Role role=new Role();
+		role.setIDROLE(mesApps.get(i).getIDROLE());
+		role.setPRIVENDDATE(mesApps.get(i).getPRIVENDDATE());
+		role.setPRIVSTARTDATE(mesApps.get(i).getPRIVSTARTDATE());
+		role.setIDSTATUS(mesApps.get(i).getIDSTATUS());
+		role.setDESCROLE(mesApps.get(i).getDESCROLE());
+		roles.add(role);
 		
-		jsonResponse.setIDAPPLICATION(usersPrivs.get(i).getIDAPPLICATION());
-		jsonResponse.setIDUSERIDMS(usersPrivs.get(i).getIDUSERIDMS());
-		jsonResponse.setAPPLICATIONDESC(usersPrivs.get(i).getAPPLICATIONDESC());
-		jsonResponse.setAPPLICATIONDETAIL(usersPrivs.get(i).getAPPLICATIONDETAIL());
-		jsonResponse.setAPPLICATIONMODE(usersPrivs.get(i).getAPPLICATIONMODE());
-		jsonResponse.setAPPLICATIONTITLE(usersPrivs.get(i).getAPPLICATIONTITLE());
-		jsonResponse.setAPPLICATIONURL(usersPrivs.get(i).getAPPLICATIONURL());
-		jsonResponse.setICONURL(usersPrivs.get(i).getICONURL());
-		jsonResponse.setPUBLICFLAG(usersPrivs.get(i).getPUBLICFLAG());
-		jsonResponse.setIEFLAG(usersPrivs.get(i).getIEFLAG());
-		jsonResponse.setINTERIMSTARTDATE(usersPrivs.get(i).getINTERIMSTARTDATE());
-		jsonResponse.setINTERIMENDDATE(usersPrivs.get(i).getINTERIMENDDATE());
-		if(usersPrivs.get(i).getIDROLE()==null ) {//autre application (n'appartient pas à l'utilisateur)
+		for(int j=i+1;j<mesApps.size();j++) { // tester si il y'a d'autres role sur cette meme application
 			
-			jsonResponse.setROLES(roles);
-			listToReturn.add(jsonResponse);
-		}else { // l'application appartient à l'utilisateur ou bien non (d'autres utilisateurs ont des droits sur cette app)
-			if(usersPrivs.get(i).getPRIVENDDATE()!=null &&
-					(usersPrivs.get(i).getPRIVSTARTDATE().before(new Date())|| usersPrivs.get(i).getPRIVSTARTDATE().compareTo(new Date())==0) &&
-					usersPrivs.get(i).getPRIVENDDATE().after(new Date())) { //tester si le privilège est toujours valide (date fin > date sys)
-				Role role=new Role();
-				role.setIDROLE(usersPrivs.get(i).getIDROLE());
-				role.setPRIVENDDATE(usersPrivs.get(i).getPRIVENDDATE());
-				role.setPRIVSTARTDATE(usersPrivs.get(i).getPRIVSTARTDATE());
-				role.setIDSTATUS(usersPrivs.get(i).getIDSTATUS());
-				role.setDESCROLE(usersPrivs.get(i).getDESCROLE());
-				if(userId==usersPrivs.get(i).getIDUSERIDMS()) { //ajouter le role que si cette appli appartient à l'utilisateur
-					
-					roles.add(role);
-				}
-			
-				for(int j=i+1;j<usersPrivs.size();j++) { // tester si il y'a d'autres role sur cette meme application
+			if(mesApps.get(i).getIDAPPLICATION()==mesApps.get(j).getIDAPPLICATION() ) {
+				
 					Role otherRole=new Role();
-					if(usersPrivs.get(i).getIDAPPLICATION()==usersPrivs.get(j).getIDAPPLICATION() ) {
-						if(usersPrivs.get(j).getPRIVENDDATE()!=null && 
-								(usersPrivs.get(j).getPRIVSTARTDATE().before(new Date())|| usersPrivs.get(j).getPRIVSTARTDATE().compareTo(new Date())==0) &&
-								usersPrivs.get(j).getPRIVENDDATE().after(new Date())) {
-							otherRole.setIDROLE(usersPrivs.get(j).getIDROLE());
-							otherRole.setPRIVENDDATE(usersPrivs.get(j).getPRIVENDDATE());
-							otherRole.setPRIVSTARTDATE(usersPrivs.get(j).getPRIVSTARTDATE());
-							otherRole.setIDSTATUS(usersPrivs.get(j).getIDSTATUS());
-							otherRole.setDESCROLE(usersPrivs.get(j).getDESCROLE());
-							if(userId==usersPrivs.get(j).getIDUSERIDMS()) {//ajouter le role que si cette appli appartient à l'utilisateur
-								
-								roles.add(otherRole);
-							}
-							
-							
-						}
-						usersPrivs.remove(j); // suppression de cette instance afin d'eviter la redandonce 
-						
-					}
-				}
-				if(userId!=usersPrivs.get(i).getIDUSERIDMS()) {
-					jsonResponse.setROLES(new ArrayList());
-				}else {
-					jsonResponse.setROLES(roles);
+					otherRole.setIDROLE(mesApps.get(j).getIDROLE());
+					otherRole.setPRIVENDDATE(mesApps.get(j).getPRIVENDDATE());
+					otherRole.setPRIVSTARTDATE(mesApps.get(j).getPRIVSTARTDATE());
+					otherRole.setIDSTATUS(mesApps.get(j).getIDSTATUS());
+					otherRole.setDESCROLE(mesApps.get(j).getDESCROLE());
+					
+						roles.add(otherRole);
+						//suppression de cette instance afin d'eviter la redandonce 
+						mesApps.remove(j);
+						j--;
+						 
 				}
 				
 				
-			}else {
-				jsonResponse.setROLES(new ArrayList());
+				
 			}
-			
-			listToReturn.add(jsonResponse);
-			
+			jsonResponse.setROLES(roles);
+			myApps.add(jsonResponse);
+			//suppression de cette instance afin d'eviter la redandonce 
+			mesApps.remove(i);
+			 i--;
+			 
+		
 		}
-	
-	
-}
+
+	//traitement sur autres applications
+	for(int i=0;i<autresApps.size();i++) {
+		UserAppPrivs jsonResponse=new UserAppPrivs();
+		List<Role> roles = new ArrayList();
+		jsonResponse.setIDAPPLICATION(autresApps.get(i).getIDAPPLICATION());
+		jsonResponse.setIDUSERIDMS(null);
+		jsonResponse.setAPPLICATIONDESC(autresApps.get(i).getAPPLICATIONDESC());
+		jsonResponse.setAPPLICATIONDETAIL(autresApps.get(i).getAPPLICATIONDETAIL());
+		jsonResponse.setAPPLICATIONMODE(autresApps.get(i).getAPPLICATIONMODE());
+		jsonResponse.setAPPLICATIONTITLE(autresApps.get(i).getAPPLICATIONTITLE());
+		jsonResponse.setAPPLICATIONURL(autresApps.get(i).getAPPLICATIONURL());
+		jsonResponse.setICONURL(autresApps.get(i).getICONURL());
+		jsonResponse.setPUBLICFLAG(autresApps.get(i).getPUBLICFLAG());
+		jsonResponse.setINTERIMSTARTDATE(autresApps.get(i).getINTERIMSTARTDATE());
+		jsonResponse.setINTERIMENDDATE(autresApps.get(i).getINTERIMENDDATE());
+		jsonResponse.setIEFLAG(autresApps.get(i).getIEFLAG());
+		
+		
+		for(int j=i+1;j<autresApps.size();j++) { // tester si il y'a d'autres role sur cette meme application
+			
+			if(autresApps.get(i).getIDAPPLICATION()==autresApps.get(j).getIDAPPLICATION() ) {
+				//suppression de cette instance afin d'eviter la redandonce 
+				autresApps.remove(j);
+				j--;
+						 
+				}
+				
+				
+				
+			}
+			jsonResponse.setROLES(roles);
+			otherApps.add(jsonResponse);
+			//suppression de cette instance afin d'eviter la redandonce 
+			autresApps.remove(i);
+			 i--;
+			 
+		
+		}
+
+	//ajuter mes app a la liste finale
+	for(int i=0;i<myApps.size();i++) {
+		listToReturn.add(myApps.get(i));
+	}
+
+	for(int i=0;i<otherApps.size();i++) {
+		//ajouter autre app a la liste finale que si j'ai pas cette application dans myApps
+		if(findDoublons(listToReturn, otherApps.get(i).getIDAPPLICATION())==-1) {
+			listToReturn.add(otherApps.get(i));
+		}
+	}
+
+	log.info("otherApps size==>"+otherApps.size()+"           myApps size==>"+myApps.size()+"          listToReturn size==>"+listToReturn.size());
+
 	// avoir les privs des utilisateurs pour lequels current user est interim
 	for(int i=0;i<interimPrivs.size();i++) {
 		UserAppPrivs jsonResponse=new UserAppPrivs();
@@ -570,57 +627,54 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 		jsonResponse.setINTERIMSTARTDATE(interimPrivs.get(i).getINTERIMSTARTDATE());
 		jsonResponse.setINTERIMENDDATE(interimPrivs.get(i).getINTERIMENDDATE());
 		jsonResponse.setIEFLAG(interimPrivs.get(i).getIEFLAG());
-		
-			if(interimPrivs.get(i).getPRIVENDDATE()!=null && 
-					(interimPrivs.get(i).getPRIVSTARTDATE().before(new Date())|| interimPrivs.get(i).getPRIVSTARTDATE().compareTo(new Date())==0) &&
-					interimPrivs.get(i).getPRIVENDDATE().after(new Date())) {//tester si le privilège est toujours valide (date fin > date sys)
+
 				Role role=new Role();
 				role.setIDROLE(interimPrivs.get(i).getIDROLE());
 				role.setPRIVENDDATE(interimPrivs.get(i).getPRIVENDDATE());
 				role.setPRIVSTARTDATE(interimPrivs.get(i).getPRIVSTARTDATE());
 				role.setIDSTATUS(interimPrivs.get(i).getIDSTATUS());
 				role.setDESCROLE(interimPrivs.get(i).getDESCROLE());
-				//System.out.println(interimPrivs.get(i).getAPPLICATIONDESC());
+			
 				roles.add(role);
 				for(int j=i+1;j<interimPrivs.size();j++) {
 					Role otherRole=new Role();
 					if(interimPrivs.get(i).getIDAPPLICATION()==interimPrivs.get(j).getIDAPPLICATION() ) {// tester si il y'a d'autres role sur cette meme application
-						if(interimPrivs.get(j).getPRIVENDDATE()!=null
-								&&
-								(interimPrivs.get(j).getPRIVSTARTDATE().before(new Date())|| interimPrivs.get(j).getPRIVSTARTDATE().compareTo(new Date())==0) &&
-								interimPrivs.get(j).getPRIVENDDATE().after(new Date())) {//tester si le privilège est toujours valide (date fin > date sys)
+						
 							otherRole.setIDROLE(interimPrivs.get(j).getIDROLE());
 							otherRole.setPRIVENDDATE(interimPrivs.get(j).getPRIVENDDATE());
 							otherRole.setPRIVSTARTDATE(interimPrivs.get(j).getPRIVSTARTDATE());
 							otherRole.setIDSTATUS(interimPrivs.get(j).getIDSTATUS());
 							otherRole.setDESCROLE(interimPrivs.get(j).getDESCROLE());
 							roles.add(otherRole);
-							
+							interimPrivs.remove(j);// suppression de cette instance afin d'eviter la redandonce 
+							j--;
 						}
-						interimPrivs.remove(j);// suppression de cette instance afin d'eviter la redandonce 
 						
-					}
+						
+					
 				}
 				jsonResponse.setROLES(roles);
-				listToReturn.add(jsonResponse);
-			}
+				interim.add(jsonResponse);
+				// suppression de cette instance afin d'eviter la redandonce 
+				interimPrivs.remove(i);
+				 i--;
+			
 			
 	}
-	
-		//avoir tt les roles d'une meme appli dans une seule instance (user's priv ou bien interim)
-		for(int i=0;i<listToReturn.size();i++) {
-			for(int j=i+1;j<listToReturn.size();j++) {
-				if(listToReturn.get(i).getIDAPPLICATION()==listToReturn.get(j).getIDAPPLICATION()) {
-					
-					for(int k=0;k<listToReturn.get(j).getROLES().size();k++) {
-						listToReturn.get(i).getROLES().add(listToReturn.get(j).getROLES().get(k));
-					}
-					listToReturn.remove(j);
-				}
-			}
-		
+	for(int i=0;i<interim.size();i++) {
+		//ajouter interim app a la liste finale 
+		int index=findDoublons(listToReturn, interim.get(i).getIDAPPLICATION());
+		if(index!=-1) {
+			//si l'app existe deja dans la liste finale je prends que les roles
+			List<Role> roles = new ArrayList();
+			roles.addAll(listToReturn.get(index).getROLES());
+			roles.addAll(interim.get(i).getROLES());
+			listToReturn.get(index).setROLES(roles);
+		}else {
+			//sinon je l'ajoute dans la liste finale
+			listToReturn.add(interim.get(i));
+		}
 	}
-	
 	return listToReturn;
 
 }
@@ -655,7 +709,7 @@ public Map test() {
 }
 
 
-//@GetMapping( "/api/auth/test" )
+
 public ArrayList<UsersObject> getObjects(Integer userId){
 	
 	SimpleJdbcCall simpleJdbcCall;
@@ -671,20 +725,7 @@ public ArrayList<UsersObject> getObjects(Integer userId){
 	interimObjects=(ArrayList<ObjectsResult>) out.get("INTERIMOBJECTS");
 	
 	
-	//remove all invalid users objects 
-	for(int i=0;i<usersObjects.size();i++) {
-		if(usersObjects.get(i).getPRIVSTARTDATE().after(new Date())||usersObjects.get(i).getPRIVENDDATE().before(new Date())) {
-			usersObjects.remove(i);
-		}
-	}
 	
-	
-	//remove all invalid interim objects 
-		for(int i=0;i<interimObjects.size();i++) {
-			if(interimObjects.get(i).getPRIVSTARTDATE().after(new Date())||interimObjects.get(i).getPRIVENDDATE().before(new Date())) {
-				interimObjects.remove(i);
-			}
-		}
 	
 	//change data structure for users objects
 	for(int i=0;i<usersObjects.size();i++) {
@@ -775,10 +816,8 @@ public ArrayList<UsersObject> getObjects(Integer userId){
 		for(int i=0;i<listToReturn.size();i++) {
 			for(int j=i+1;j<listToReturn.size();j++) {
 				if(listToReturn.get(i).getIDAPPLICATION()==listToReturn.get(j).getIDAPPLICATION()) {
+					listToReturn.get(i).getObjects().addAll(listToReturn.get(j).getObjects());
 					
-					for(int k=0;k<listToReturn.get(j).getObjects().size();k++) {
-						listToReturn.get(i).getObjects().add(listToReturn.get(j).getObjects().get(k));
-					}
 					listToReturn.remove(j);
 				}
 			}

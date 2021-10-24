@@ -2,11 +2,16 @@ package com.sonatrach.dz.storedProcResponse;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class Role {
 	private Integer IDROLE;
 	private Integer IDSTATUS;
 	private String DESCROLE;
+	 @Temporal(TemporalType.DATE)
 	private Date PRIVSTARTDATE;
+	 @Temporal(TemporalType.DATE)
 	private Date PRIVENDDATE;
 	public Role() {
 		

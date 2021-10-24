@@ -2,13 +2,18 @@ package com.sonatrach.dz.storedProcResponse;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class ObjectType {
 	private Integer IDOBJECT;
 	private Integer IDOBJECTTYPE;
 	private Integer IDPARENTOBJECT;
 	private Integer IDSTATUS;
 	private String DESCOBJECT;
+	 @Temporal(TemporalType.DATE)
 	private Date PRIVSTARTDATE;
+	 @Temporal(TemporalType.DATE)
 	private Date PRIVENDDATE;
 	private Integer IDROLE;
 	 private Date INTERIMSTARTDATE;

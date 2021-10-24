@@ -259,10 +259,10 @@ import { EmailBoxComponent } from './Modals/email-box/email-box.component';
       useFactory: (appConfigSvc: CommunService,globalAppService:GlobalAppService) => {
         return () => {
           return appConfigSvc.load().then(()=>{
-            //console.log(appConfigSvc.getHost())
-            appConfigSvc.getIntlmParams().then(()=>{
+            console.log(appConfigSvc.getHost())
+             appConfigSvc.getIntlmParams().then(()=>{
               return globalAppService.checkUsersState()
-            })
+            }) 
            
           });
         };

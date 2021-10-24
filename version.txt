@@ -1,3 +1,8 @@
+7.0
+---
+-Add check validity priv start date and priv end date in proc (privs and objects)
+-Update get UserAppPrivs and getObjects in backend
+------------------------------------------------------------------------------------------
 6.0
 ---
 -Authentification AD

@@ -19,7 +19,8 @@ export class LoginPageService {
 
 
   constructor(private http: HttpClient,private token:TokenStorageService) {
-    this.host=this.token.getHost();
+   this.host=this.token.getHost();
+   //this.host="http://localhost:8080/"
    }
 
    public getUsersRoles(user:UserIDMS):Observable<Array<Role>>{
@@ -45,7 +46,7 @@ export class LoginPageService {
    }
 
    public getUsersAppPrivs(user:UserIDMS):Observable<Array<UserAppPrivs>>{
-    this.host=this.token.getHost();
+   this.host=this.token.getHost();
     return this.http.post<Array<UserAppPrivs>>(this.host+"getUsersAppPrivs",user).pipe(
      catchError((err) => {
         ////console.log('error caught in service')

@@ -1,6 +1,9 @@
 package com.sonatrach.dz.storedProcResponse;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 public class UserAppPrivs {
 	private Integer IDUSERIDMS;
 	private Integer IDAPPLICATION;
@@ -12,7 +15,9 @@ public class UserAppPrivs {
     private String APPLICATIONURL;
     private Integer PUBLICFLAG;
     private Integer IEFLAG;
+    @Temporal(TemporalType.DATE)
     private Date INTERIMSTARTDATE;
+    @Temporal(TemporalType.DATE)
     private Date INTERIMENDDATE;
 	private List<Role> ROLES;
 	

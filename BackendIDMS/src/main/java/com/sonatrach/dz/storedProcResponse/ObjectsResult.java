@@ -2,6 +2,9 @@ package com.sonatrach.dz.storedProcResponse;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class ObjectsResult {
 	private Integer IDOBJECT;
 	private Integer IDOBJECTTYPE;
@@ -9,10 +12,14 @@ public class ObjectsResult {
 	private Integer IDAPPLICATION;
 	private Integer IDSTATUS;
 	private String DESCOBJECT;
+	 @Temporal(TemporalType.DATE)
 	private Date PRIVSTARTDATE;
+	 @Temporal(TemporalType.DATE)
 	private Date PRIVENDDATE;
 	private Integer IDROLE;
+	 @Temporal(TemporalType.DATE)
 	private Date INTERIMSTARTDATE;
+	 @Temporal(TemporalType.DATE)
 	private Date INTERIMENDDATE;
 	
 	
@@ -48,10 +55,9 @@ public class ObjectsResult {
 
 
 	public Date getINTERIMSTARTDATE() {
-		return INTERIMSTARTDATE;
+		return   INTERIMSTARTDATE;
+
 	}
-
-
 
 
 

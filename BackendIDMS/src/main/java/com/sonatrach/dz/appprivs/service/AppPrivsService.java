@@ -1,6 +1,7 @@
 package com.sonatrach.dz.appprivs.service;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -39,12 +40,13 @@ public class AppPrivsService {
 			if(interim !=null) {
 			privsInterim=appPrivsRepo.findByUser(interim.getIduseridms());
 			//remove all invalid interim privs 
-			for(int i=0;i<privsInterim.size();i++) {
-				
-				if(privsInterim.get(i).getPrivstartdate().after(new Date())||privsInterim.get(i).getPrivenddate().before(new Date())) {
-					privsInterim.remove(i);
-				}
-			}
+			
+			  for(int i=0;i<privsInterim.size();i++) {
+			  
+			  if(privsInterim.get(i).getPrivstartdate().after(new
+			  Date())||privsInterim.get(i).getPrivenddate().before(new Date())) {
+			  privsInterim.remove(i); } }
+			 
 			}
 			//add user's privs 
 			List<Role> roles=new ArrayList();
