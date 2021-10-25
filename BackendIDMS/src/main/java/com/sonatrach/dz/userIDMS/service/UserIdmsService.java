@@ -85,7 +85,7 @@ public class UserIdmsService {
 				String jwt = jwtProvider.generateJwtToken(authentication);
 				
 				UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-				System.out.println(currentUser.get().getUsername());
+				//System.out.println(currentUser.get().getUsername());
 				return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername().toLowerCase(),currentUser.get().getEmail(),name));
 				
 			}

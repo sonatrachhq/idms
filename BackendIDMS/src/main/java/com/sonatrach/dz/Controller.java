@@ -597,9 +597,8 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 		}
 
 	//ajuter mes app a la liste finale
-	for(int i=0;i<myApps.size();i++) {
-		listToReturn.add(myApps.get(i));
-	}
+	listToReturn.addAll(myApps);
+	
 
 	for(int i=0;i<otherApps.size();i++) {
 		//ajouter autre app a la liste finale que si j'ai pas cette application dans myApps

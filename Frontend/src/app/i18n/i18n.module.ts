@@ -184,7 +184,7 @@ export class I18nModule {
 }
 
 export function httpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
+  return new TranslateHttpLoader(httpClient,'./idms/assets/i18n/', '.json');
 }
 
 export function translateCacheFactory(translateService: TranslateService, translateCacheSettings: TranslateCacheSettings) {
