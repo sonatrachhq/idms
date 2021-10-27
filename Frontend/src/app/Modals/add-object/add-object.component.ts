@@ -146,7 +146,8 @@ export class AddObjectComponent implements OnInit {
       text: this.translate.instant(msg.toString()),
       showConfirmButton: false,
     }).then((result) => {
-     window.location.reload();
+    // window.location.reload();
+    this.dialog.closeAll();
     /*  Swal.close()
      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([this.router.url]); 

@@ -1,3 +1,7 @@
+8.0
+---
+-DELETE ALL RELOAD
+------------------------------------------------------------------------------------------
 7.0
 ---
 -Add check validity priv start date and priv end date in proc (privs and objects)

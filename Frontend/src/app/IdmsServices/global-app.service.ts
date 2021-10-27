@@ -67,7 +67,9 @@ export class GlobalAppService {
     }
     console.log("checkUsersState")
     console.log(ntlm)
-    return this.http.post<JwtResponse>(this.host+"api/auth/authUser",ntlm)
+    return this.http.post<JwtResponse>(this.host+"api/auth/authUser",ntlm, {
+      headers:{skip:"true"},
+    })
     .toPromise()
     .then((data)=>{
       if(data!=null){
@@ -90,7 +92,9 @@ export class GlobalAppService {
 }
 
 findUserBySON(ntlm:Ntlm){
-  this.http.post<Boolean>(this.host+"api/auth/findUserBySON",ntlm).toPromise()
+  this.http.post<Boolean>(this.host+"api/auth/findUserBySON",ntlm, {
+    headers:{skip:"true"},
+  }).toPromise()
   .then(data=>{
     if(data){
       console.log(data)

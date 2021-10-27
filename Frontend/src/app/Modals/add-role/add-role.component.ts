@@ -69,6 +69,7 @@ export class AddRoleComponent implements OnInit {
         }
         for(let i=0;i<this.allApps.length;i++){
           if(this.allApps[i].idapplication==this.data.app.idapplication){
+          
             this.allApps[i].roles.push(newRole);
           }
         }
@@ -108,7 +109,8 @@ export class AddRoleComponent implements OnInit {
       text: this.translate.instant(msg.toString()),
       showConfirmButton: false,
     }).then((result) => {
-      window.location.reload();
+     // window.location.reload();
+     this.dialog.closeAll()
     })
  /*    const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '350px',

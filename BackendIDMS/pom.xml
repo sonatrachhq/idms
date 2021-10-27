@@ -13,7 +13,8 @@
 	<artifactId>BackendIDMS</artifactId>
 	<version>2.4.0</version>
 	<name>BackendIDMS</name>
-	<description>Demo project for Spring Boot</description>
+	<description>IDMS Identification management system</description>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -57,6 +58,11 @@
 			<groupId>org.springframework.ldap</groupId>
 			<artifactId>spring-ldap-core</artifactId>
 
+		</dependency>
+			<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	<!-- 	<dependency>
 			<groupId>io.springfox</groupId>

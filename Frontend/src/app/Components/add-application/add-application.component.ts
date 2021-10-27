@@ -191,7 +191,8 @@ apps:UserAppPrivs[]=[];
       text: this.translate.instant(msg.toString()),
       showConfirmButton: false,
     }).then((result) => {
-      window.location.reload();
+     // window.location.reload();
+      this.dialog.closeAll()
     })
    /*  const dialogRef = this.dialog.open(GlobalDialogComponent, {
       width: '350px',

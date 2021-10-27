@@ -11,7 +11,7 @@ import { AuthLoginInfo } from './login-info';
 import { SignUpInfo } from './signup-info';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ skip:"true"})
      /*
      .set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
  
@@ -57,6 +57,6 @@ export class AuthService {
     if(this.url==""){
       this.url=this.tokenStorage.getHost();
     }
-    return this.http.post<AuthLoginInfo>(this.url+'api/auth/checkToken',info);
+    return this.http.post<AuthLoginInfo>(this.url+'api/auth/checkToken',info, httpOptions);
   }
 }

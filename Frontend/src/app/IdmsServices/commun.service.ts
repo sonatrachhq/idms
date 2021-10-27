@@ -70,11 +70,11 @@ public load(): Promise<void> {
  
   }
  
- /*   export function initConfig(config: CommunService): () => Promise<void> {
+    export function initConfig(config: CommunService): () => Promise<void> {
   
     return () => config.load();
  
-  } */
+  } 
  
 
 

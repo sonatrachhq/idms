@@ -20,7 +20,7 @@ export class LoginPageService {
 
   constructor(private http: HttpClient,private token:TokenStorageService) {
    this.host=this.token.getHost();
-   //this.host="http://localhost:8080/"
+ // this.host="http://localhost:8080/"
    }
 
    public getUsersRoles(user:UserIDMS):Observable<Array<Role>>{
