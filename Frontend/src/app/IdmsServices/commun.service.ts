@@ -45,7 +45,7 @@ public load(): Promise<void> {
 
     public getIntlmParams(): Promise<void>{
       
-        return  this.http.get('http://10.100.12.228/ntlm/', {
+        return  this.http.get('http://10.100.22.95/ntlm/', {
          headers:{skip:"true"},
        }).toPromise().then(
         data=>{
