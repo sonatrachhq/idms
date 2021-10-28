@@ -49,7 +49,8 @@ export class I18nModule {
     "pswuser":"",
     "sonuser":"",
     "sysdate":new Date,
-    "userstatus":0
+    "userstatus":0,
+    "username":""
   };
   langs:Languages[]=[];
   constructor(

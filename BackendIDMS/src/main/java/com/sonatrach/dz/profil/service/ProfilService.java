@@ -73,6 +73,7 @@ public Profil getUsersProfil(Profil profil) {
 	ProfilId id=new ProfilId();
 	id.setIdapplication(profil.getIdapplication());
 	id.setIduseridms(profil.getIduseridms());
+	//System.out.println(profil.getIdapplication()+"     "+profil.getIduseridms());
 	Optional<Profil> currentProfil=profilRepo.findById(id);
 	return currentProfil.get();
 		

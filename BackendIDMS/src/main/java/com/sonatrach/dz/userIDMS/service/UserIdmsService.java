@@ -2,6 +2,7 @@ package com.sonatrach.dz.userIDMS.service;
 
 import java.util.Date;
 
+
 import java.util.List;
 
 import java.util.Optional;
@@ -118,10 +119,19 @@ public class UserIdmsService {
 		try {
 			
 			UserIDMS user = new UserIDMS(1,sonuser.toLowerCase(), "$2a$10$zpEvPQ1RGBXyU.KvnsWHCuy1CkjgXC98k7ZuK5BZUwOXCOoa.t.vq", 1,
-					Integer.valueOf(0),(java.sql.Date) new Date(),email,username);	
+					Integer.valueOf(0), new Date(),email,username);	
 			
 			userRepository.save(user);
-			return checkUserExists(sonuser,username);
+			//return checkUserExists(sonuser,username);
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(sonuser.toLowerCase(), "1234#!Idm$DefaultPsw@S0natrach"));
+			
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+
+			String jwt = jwtProvider.generateJwtToken(authentication);
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			//System.out.println(currentUser.get().getUsername());
+			return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername().toLowerCase(),email,username));
 		}catch(Exception e) {
 			System.out.println("Exception in UserIdmsService ==>saveUser()   :" +e.getMessage());
 		}

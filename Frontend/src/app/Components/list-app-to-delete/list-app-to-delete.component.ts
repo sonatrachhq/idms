@@ -45,7 +45,8 @@ export class ListAppToDeleteComponent implements OnInit {
     "pswuser":"",
     "sonuser":this.tokenStorage.getSonuser(),
     "sysdate":new Date,
-    "userstatus":0
+    "userstatus":0,
+    "username":""
   };
   formSettings: MbscFormOptions = {
     theme: 'mobiscroll',

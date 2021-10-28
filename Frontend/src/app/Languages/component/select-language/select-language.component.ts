@@ -27,7 +27,8 @@ export class SelectLanguageComponent {
     "pswuser":"",
     "sonuser":"",
     "sysdate":new Date,
-    "userstatus":1
+    "userstatus":1,
+    "username":""
   }
   constructor(private tokenStorage: TokenStorageService,
     public translate: TranslateService,

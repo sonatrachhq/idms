@@ -35,7 +35,8 @@ export class LoginPageComponent implements OnInit {
     "pswuser":"",
     "sonuser":"",
     "sysdate":new Date,
-    "userstatus":0
+    "userstatus":0,
+    "username":""
   };
   sonUser:String=this.tokenStorage.getSonuser();
   private loginInfo: AuthLoginInfo=new AuthLoginInfo("","");
@@ -269,7 +270,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   createProfil(profil:Profil){
-      this.registerService.saveProfil(profil).subscribe(
+      this.loginPageService.saveProfil(profil).subscribe(
         data => {
           //console.log(data);
           let post:any={

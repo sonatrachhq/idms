@@ -4,6 +4,7 @@ package com.sonatrach.dz;
 
 import java.io.BufferedReader;
 
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.SecureRandom;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -70,6 +72,7 @@ import com.sonatrach.dz.languages.service.LanguageService;
 import com.sonatrach.dz.message.request.LoginForm;
 import com.sonatrach.dz.message.request.SignUpForm;
 import com.sonatrach.dz.message.response.JwtResponse;
+import com.sonatrach.dz.message.response.ResponseMessage;
 import com.sonatrach.dz.objectType.domain.ObjectTypeApp;
 import com.sonatrach.dz.objectType.service.ObjectTypeService;
 import com.sonatrach.dz.objectUsers.domain.ObjectUsers;
@@ -276,7 +279,7 @@ public ResponseEntity<?> signin(@Valid @RequestBody LoginForm loginRequest) {
 			  UserIDMS currentUser=userIdmsService.updateUsersPsw(loginRequest.getSonuser().toLowerCase(),
 					  "$2a$10$zpEvPQ1RGBXyU.KvnsWHCuy1CkjgXC98k7ZuK5BZUwOXCOoa.t.vq"); 
 		  if(currentUser!=null) {
-		 log.info("updateUsersPsw   "+currentUser.getPswuser()); 
+		 //log.info("updateUsersPsw   "+currentUser.getPswuser()); 
 		  return response;
 		   }
 		  
@@ -294,8 +297,8 @@ public ResponseEntity<?> signin(@Valid @RequestBody LoginForm loginRequest) {
 public ResponseEntity<?> authUser(@RequestBody Ntlm ntlm ) {
 	try { 
 		 log.info("ntlm  "+ntlm.toString());
-		 log.info("domain  "+ntlm.getDomain());
-		 log.info("son  "+ntlm.getUsername());
+		 //log.info("domain  "+ntlm.getDomain());
+		 //log.info("son  "+ntlm.getUsername());
 //		 String domain=System.getenv().get("USERDOMAIN");
 //		 String sonUser=System.getenv().get("USERNAME").toLowerCase();
 		String domain=ntlm.getDomain();
@@ -308,10 +311,10 @@ public ResponseEntity<?> authUser(@RequestBody Ntlm ntlm ) {
 				 UserAD userExistsInAD=searchUserInAD(sonUser);
 				
 				 if(userExistsInAD!=null) { //if user exits in AD
-					 //System.out.println("userExistsInAD  "+userExistsInAD.toString());
+					// log.info("userExistsInAD  "+userExistsInAD.getName()+"      "+ userExistsInAD.getEmail());
 					 ResponseEntity<?> userExistsInDB=userIdmsService.checkUserExists(sonUser,userExistsInAD.getName());
 					 if(userExistsInDB!=null) { //if user exits in DB
-						 //System.out.println("userExistsInDB  "+userExistsInDB.toString());
+						 //log.info("userExistsInDB  "+userExistsInDB.toString());
 						 return userExistsInDB;
 					 }else { //if user doesn't exist in DB
 						 ResponseEntity<?>  sonSavedInDB=userIdmsService.saveUser(sonUser, userExistsInAD.getEmail(), userExistsInAD.getName()); //save user in DB
@@ -320,7 +323,7 @@ public ResponseEntity<?> authUser(@RequestBody Ntlm ntlm ) {
 							 return sonSavedInDB;
 						 }else { //problem when saving user in DB
 							 //System.out.println("problem when saving user in DB  ");
-							 return null; //to force user to reload and retry
+							 return ResponseEntity.ok(new JwtResponse("","","","")); //to force user to reload and retry
 						 }
 					 }
 				 }

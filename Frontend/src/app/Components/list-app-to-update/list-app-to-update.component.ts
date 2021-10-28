@@ -43,7 +43,8 @@ export class ListAppToUpdateComponent implements OnInit {
     "pswuser":"",
     "sonuser":this.tokenStorage.getSonuser(),
     "sysdate":new Date,
-    "userstatus":0
+    "userstatus":0,
+    "username":""
   };
   constructor(private tokenStorage: TokenStorageService, 
     private globalService:GlobalAppService,

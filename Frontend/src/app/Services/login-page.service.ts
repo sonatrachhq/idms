@@ -1,3 +1,4 @@
+import { Profil } from 'src/app/Models/Profil';
 import { TokenStorageService } from './../auth/token-storage.service';
 import { UserIDMS } from './../Models/UserIDMS';
 import { UserAppPrivs } from './../Models/UserAppPrivs';
@@ -55,4 +56,15 @@ export class LoginPageService {
      })
    );
   }
+  public saveProfil(profil:Profil): Observable<Profil>{
+    return this.http.post<Profil>(this.host+"api/auth/saveProfil",profil, {
+      headers:{skip:"true"},
+    }).pipe(
+      catchError((err) => {
+         ////console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
+   }
 }

@@ -1,3 +1,4 @@
+import { LoginPageService } from './../../Services/login-page.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { SignUpInfo } from './../../auth/signup-info';
@@ -81,7 +82,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   createProfil(profil:Profil){
-      this.registerService.saveProfil(profil).subscribe(
+      /* this.LoginPageService.saveProfil(profil).subscribe(
         data => {
           //console.log(data);
           
@@ -95,7 +96,7 @@ export class RegisterPageComponent implements OnInit {
          
           
         }
-      )
+      ) */
   }
    //***********************************************Error ******************************************************************************************************************/
    openDialog(msg:String) {

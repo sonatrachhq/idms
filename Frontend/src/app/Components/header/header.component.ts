@@ -36,7 +36,8 @@ export class HeaderComponent implements OnInit {
     "pswuser":"",
     "sonuser":"",
     "sysdate":new Date,
-    "userstatus":1
+    "userstatus":1,
+    "username":""
   }
   username:string="";
   constructor(private tokenStorage: TokenStorageService,
@@ -108,6 +109,7 @@ export class HeaderComponent implements OnInit {
             data => {  
             //  //console.log(data);
              this.currentUser=data;
+             this.username=this.currentUser.username.toString();
             this.getUsersProfil();
            
           },
@@ -234,7 +236,7 @@ export class HeaderComponent implements OnInit {
   logout(){
     this.connected=0;
     this.tokenStorage.signOut();
-  
+    this.communService.load();
     this.router.navigateByUrl("login");
     //window.location.reload();
   }

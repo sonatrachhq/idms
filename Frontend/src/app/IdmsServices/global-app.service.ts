@@ -1,3 +1,4 @@
+import { RegisterPageService } from './../Services/register-page.service';
 import { Ntlm } from './../Models/Ntlm';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginPageService } from './../Services/login-page.service';
@@ -25,12 +26,14 @@ export class GlobalAppService {
     "pswuser":"",
     "sonuser":"",
     "sysdate":new Date,
-    "userstatus":0
+    "userstatus":0,
+    "username":""
   };
 
   constructor(private http: HttpClient,private tokenStorage:TokenStorageService,private router:Router,
     private translate: TranslateService,
-    private loginPageService:LoginPageService) {
+    private loginPageService:LoginPageService,
+    ) {
      
     this.host=this.tokenStorage.getHost();
    }
@@ -73,16 +76,26 @@ export class GlobalAppService {
     .toPromise()
     .then((data)=>{
       if(data!=null){
-        console.log(data)
-        this.tokenStorage.saveToken(data.accessToken);
-        
-        this.tokenStorage.saveTheme(2);
-        this.tokenStorage.saveLang(1);
-        this.tokenStorage.saveEmail(data.email);
-        this.tokenStorage.saveUsername(data.name);
-        this.currentUser.sonuser=data.sonuser;
+        if(data.accessToken!=""){
+          console.log(data)
+          this.tokenStorage.saveToken(data.accessToken);
+          
+          this.tokenStorage.saveTheme(2);
+          this.tokenStorage.saveLang(1);
+          this.tokenStorage.saveEmail(data.email);
+          this.tokenStorage.saveUsername(data.name);
+          this.currentUser.sonuser=data.sonuser;
+         
+            this.getUsersRoles();
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: this.translate.instant("error_alert"),
+            text: this.translate.instant("global_error_msg"),
+            showConfirmButton: false,
+          })
+        }
        
-          this.getUsersRoles();
       }else{
        // this.tokenStorage.signOut();
        this.findUserBySON(ntlm)
@@ -166,11 +179,23 @@ findUserBySON(ntlm:Ntlm){
       /*  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {    
         this.router.navigate(['homePage'] );
         }); */
+        this.getCurrentUser(this.currentUser).subscribe(
+          (data)=>{
+            let profil:Profil={
+              "idapplication":1,
+              "idlanguage":1,
+              "idtheme":2,
+              "iduser":0,
+              "iduseridms":data.iduseridms,
+              "systemdate":new Date
+    
+            }
+            this.createProfil(profil);
+          }
+        )
        
-      this.router.navigate(["homePage"]).then(() => {
-       // window.location.reload();
-        
-      });
+     
+      
 
       },
       (error)=>{
@@ -178,7 +203,27 @@ findUserBySON(ntlm:Ntlm){
       }
     )
   }
- 
+  createProfil(profil:Profil){
+    this.loginPageService.saveProfil(profil).subscribe(
+      data => {
+        //console.log(data);
+       
+        this.router.navigateByUrl("homePage",{skipLocationChange: true})
+      },
+      error => {
+        //console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: this.translate.instant("error_alert"),
+          text: this.translate.instant("global_error_msg"),
+          showConfirmButton: false,
+        })
+         
+       
+        
+      }
+    )
+}
 }
 /*  export function initCheckLogin(config: GlobalAppService): () => Promise<void> {
   

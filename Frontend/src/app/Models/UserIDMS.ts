@@ -6,4 +6,5 @@ export interface UserIDMS{
 	userstatus:number;
     iduser:number;
 	sysdate:Date;
+    username:String;
 }

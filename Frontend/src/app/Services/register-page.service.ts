@@ -21,15 +21,5 @@ export class RegisterPageService {
 
   
 
-   public saveProfil(profil:Profil): Observable<Profil>{
-    return this.http.post<Profil>(this.host+"api/auth/saveProfil",profil, {
-      headers:{skip:"true"},
-    }).pipe(
-      catchError((err) => {
-         ////console.log('error caught in service')
-        console.error(err);
-        return throwError(err);
-      })
-    );
-   }
+  
 }
