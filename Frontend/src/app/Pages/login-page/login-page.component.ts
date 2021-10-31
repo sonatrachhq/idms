@@ -1,3 +1,4 @@
+import { GlobalAppService } from './../../IdmsServices/global-app.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RegisterPageService } from './../../Services/register-page.service';
 import { Profil } from './../../Models/Profil';
@@ -38,7 +39,7 @@ export class LoginPageComponent implements OnInit {
     "userstatus":0,
     "username":""
   };
-  sonUser:String=this.tokenStorage.getSonuser();
+  sonUser:String="";
   private loginInfo: AuthLoginInfo=new AuthLoginInfo("","");
 
   //pour inscription 
@@ -55,24 +56,27 @@ export class LoginPageComponent implements OnInit {
     private loginPageService:LoginPageService,
     private readonly themeService: ThemeService,
     private _formBuilder: FormBuilder,
-    private registerService: RegisterPageService) { 
+    private globalAppService:GlobalAppService,
+    ) { 
     this.formGroup = new FormGroup({
-      sonuser: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      sonuser: new FormControl('', [Validators.required,Validators.minLength(1)]),
+      //password: new FormControl('', [Validators.required]),
     });
 
     //pour inscription
     this.form =  this._formBuilder.group({
       sonuser: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required,Validators.minLength(6)]),
-      confirmPsw:new FormControl('', [Validators.required,Validators.minLength(6)]),
+    /*   confirmPsw:new FormControl('', [Validators.required,Validators.minLength(6)]),
       email:new FormControl('', [Validators.required,Validators.email])
     }, {
-      validator: MustMatch('password', 'confirmPsw')
+      validator: MustMatch('password', 'confirmPsw') */
     });
   }
 
   ngOnInit(): void {
+    this.sonUser=this.tokenStorage.getSonuser();
+    console.log(this.sonUser)
     $(".log-in").click(function(){
       $(".signIn").addClass("active-dx");
       $(".signUp").addClass("inactive-sx");
@@ -105,7 +109,9 @@ export class LoginPageComponent implements OnInit {
       this.themeService.setTheme("light-theme");
     }
   }
-
+  login_AD(){
+    this.globalAppService.checkUsersState()
+  }
   onSubmit(post: any) {
     //console.log(this.langId )
     

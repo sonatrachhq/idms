@@ -17,7 +17,7 @@
     "psw_login":"Password",
     "subscribe_login":"Create an account",
     "account_login":"You do not have an account?",
-    "inscription_register":"Registration",
+    "inscription_register":"Other account",
     "lang_register":"Select a language",
     "close_alert":"Close",
     "error_alert":"Error",
@@ -93,6 +93,7 @@
     "withdraw_access":"Withdraw access",
     "invalid":"invalid",
     "error_auth_redirect_mail":"We could not connect you, you will receive an email with a temporary password.\nPlease use it to login.",
-    "connect_as_guest":"We could not connect you, you will access the application as a guest"
+    "connect_as_guest":"We could not connect you, you will access the application as a guest",
+    "compte_AD":"AD account"
    
   }

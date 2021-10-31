@@ -260,9 +260,10 @@ import { EmailBoxComponent } from './Modals/email-box/email-box.component';
         return () => {
           return appConfigSvc.load().then(()=>{
             console.log(appConfigSvc.getHost())
-             appConfigSvc.getIntlmParams().then(()=>{
+             appConfigSvc.getIntlmParams();
+        /*      .then(()=>{
               return globalAppService.checkUsersState()
-            }) 
+            })  */
            
           });
         };

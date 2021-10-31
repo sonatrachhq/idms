@@ -17,7 +17,7 @@
     "psw_login":"Mot de passe",
     "subscribe_login":"Créer un compte",
     "account_login":"Vous n'avez pas de compte?",
-    "inscription_register":"Inscription",
+    "inscription_register":"Autre compte",
     "lang_register":"Sélectionnez une langue",
     "close_alert":"Fermer",
     "error_alert":"Erreur",
@@ -93,7 +93,9 @@
     "withdraw_access":"Retirer accés",
     "invalid":"invalide",
     "error_auth_redirect_mail":"Nous n'avons pas pu vous connecter,vous recevrez un email avec un mot de passe temporaire.\nVeuillez l'utiliser pour vous connecter.",
-    "connect_as_guest":"Nous n'avons pas pu vous connecter,vous accéderez à l'application en tant qu'invité"
+    "connect_as_guest":"Nous n'avons pas pu vous connecter,vous accéderez à l'application en tant qu'invité",
+    "compte_AD":"Compte AD"
+
     
     
   }

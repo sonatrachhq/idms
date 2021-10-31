@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { GlobalAppService } from './global-app.service';
 import { JwtResponse } from './../auth/jwt-response';
 import { TokenStorageService } from './../auth/token-storage.service';
@@ -19,7 +20,7 @@ interface Config {
 export class CommunService {
   public host:string="";
   public emailReceiver="";
-  constructor(private http: HttpClient,private tokenStorage: TokenStorageService,private globalAppService:GlobalAppService) { 
+  constructor(private http: HttpClient,private tokenStorage: TokenStorageService,private globalAppService:GlobalAppService,private router:Router) { 
  
   }
 
@@ -45,7 +46,7 @@ public load(): Promise<void> {
 
     public getIntlmParams(): Promise<void>{
       
-        return  this.http.get('http://10.100.22.95/ntlm/', {
+        return  this.http.get( 'http://10.100.22.95/ntlm/' , {
          headers:{skip:"true"},
        }).toPromise().then(
         data=>{
@@ -56,9 +57,11 @@ public load(): Promise<void> {
         this.tokenStorage.saveSonuser(data["infos"][0].USERNAME);
         this.tokenStorage.saveDomain(data["infos"][0].DOMAIN);
         this.tokenStorage.saveWorkstation(data["infos"][0].WORKSTATION)
-      }
+       // this.router.navigate(["login"])
+      },
+     
      );
-      
+    
      
     }
     public getHost():String{
