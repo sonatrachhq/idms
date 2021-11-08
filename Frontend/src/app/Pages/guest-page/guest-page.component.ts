@@ -28,7 +28,7 @@ public paginator!: IgxPaginatorComponent;
   ngOnInit(): void {
     if(this.tokenStorage.getToken()==""){
       Swal.fire({
-        icon: 'info',
+        icon: 'warning',
         title: this.translate.instant("auth_login"),
         html: '<html>'+
         '<head>'+
