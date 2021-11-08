@@ -42,7 +42,7 @@ export class GlobalAppService {
 
    public getIntlmParams(): Promise<Object>{
       
-    return  this.http.get( 'http://localhost/ntlm/' , {
+    return  this.http.get( 'http://10.100.2.192/ntlm/' , {
      headers:{skip:"true"},
    }).toPromise();
 
