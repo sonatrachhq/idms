@@ -95,7 +95,7 @@
     "error_auth_redirect_mail":"Nous n'avons pas pu vous connecter,vous recevrez un email avec un mot de passe temporaire.\nVeuillez l'utiliser pour vous connecter.",
     "connect_as_guest":"Nous n'avons pas pu vous connecter,vous accéderez à l'application en tant qu'invité",
     "compte_AD":"Compte AD",
-    "guest_connect":"Vous êtes connectez en tant qu'invité,veuillez cliquer sur l'icone <i class='fa fa-user-circle-o' aria-hidden='true'></i> pour se connecter"
+    "guest_connect":"Vous êtes connectez en tant qu'invité, veuillez cliquer sur l'icone <i class='fa fa-user-circle-o' aria-hidden='true'></i> pour se connecter"
     
     
     

@@ -95,6 +95,6 @@
     "error_auth_redirect_mail":"We could not connect you, you will receive an email with a temporary password.\nPlease use it to login.",
     "connect_as_guest":"We could not connect you, you will access the application as a guest",
     "compte_AD":"AD account",
-    "guest_connect":"You are logged in as a guest,please click on the icon <i class='fa fa-user-circle-o' aria-hidden='true'></i> to connect"
+    "guest_connect":"You are logged in as a guest, please click on the icon <i class='fa fa-user-circle-o' aria-hidden='true'></i> to connect"
    
   }
