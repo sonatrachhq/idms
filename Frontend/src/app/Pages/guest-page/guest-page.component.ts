@@ -39,7 +39,10 @@ public paginator!: IgxPaginatorComponent;
         '</body>'+
         '</html>',
        // text: this.translate.instant("guest_connect"),
-        showConfirmButton: false,
+       confirmButtonColor:"#FF8500",
+       focusConfirm:false,
+      showConfirmButton:true,
+       confirmButtonText: "OK",
       }).then((result) => {
         
         Swal.close()
