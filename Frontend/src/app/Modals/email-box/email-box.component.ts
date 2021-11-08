@@ -43,7 +43,7 @@ export class EmailBoxComponent implements OnInit {
     this.showSpinner=true;
     console.log(form)
     let mailrequest:MailRequest={
-      "msg":form.emailmsg,
+      "msg":form.emailmsg.toString(),
       "from":this.tokenStorage.getEmail(),
       "subject":this.data.obj+"-"+this.data.app,
       "to":this.communService.getEmailReceiver()

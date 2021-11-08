@@ -8,7 +8,7 @@
           font-weight: bold;">
         Acces Management System</span>
        
-        <button mat-icon-button  (click)="drawer.toggle()" [disabled]="connected==0"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button  (click)="drawer.toggle()" [disabled]="!isUserLoggedIn"><mat-icon>menu</mat-icon></button>
       <span class="spacer"></span>
       <app-select-language></app-select-language>
       <app-theme-menu *ngIf="options$ | async as options" [options]="options" (themeChange)="themeChangeHandler($event)">
@@ -19,15 +19,15 @@
       <mat-menu #menu="matMenu">
         <p style="text-align: center;margin-top:6px;font-weight: bold;color: #FF8500;vertical-align: middle;"><mat-icon matSuffix style="vertical-align: middle;" >person</mat-icon>{{username}}</p>
         <mat-divider ></mat-divider>
-        <button mat-menu-item (click)="login()" [disabled]="connected==1">
+        <button mat-menu-item (click)="login()" [disabled]="isUserLoggedIn">
           <mat-icon>input</mat-icon>
           <span>{{'connect_header' | translate}}</span>
         </button>
-        <button mat-menu-item  [disabled]="connected==0">
+        <button mat-menu-item  [disabled]="!isUserLoggedIn">
           <mat-icon>settings</mat-icon>
           <span>{{'param_header' | translate}}</span>
         </button>
-        <button mat-menu-item [disabled]="connected==0" (click)="logout()">
+        <button mat-menu-item [disabled]="!isUserLoggedIn" (click)="logout()">
           <mat-icon>power_settings_new</mat-icon>
           <span>{{'disco_header' | translate}}</span>
         </button>

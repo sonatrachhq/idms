@@ -1,3 +1,4 @@
+import { DataSharingService } from './../../IdmsServices/data-sharing.service';
 import { GlobalAppService } from './../../IdmsServices/global-app.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RegisterPageService } from './../../Services/register-page.service';
@@ -26,6 +27,7 @@ import { MustMatch } from 'src/app/helpers/must-match-validator';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  showSpinner: Boolean = false;
   hide = true;
   formGroup: FormGroup = new FormGroup({});
   langId:number=0;
@@ -57,6 +59,7 @@ export class LoginPageComponent implements OnInit {
     private readonly themeService: ThemeService,
     private _formBuilder: FormBuilder,
     private globalAppService:GlobalAppService,
+    private dataSharingService: DataSharingService,
     ) { 
     this.formGroup = new FormGroup({
       sonuser: new FormControl('', [Validators.required,Validators.minLength(1)]),
@@ -75,7 +78,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sonUser=this.tokenStorage.getSonuser();
+   
     console.log(this.sonUser)
     $(".log-in").click(function(){
       $(".signIn").addClass("active-dx");
@@ -108,9 +111,36 @@ export class LoginPageComponent implements OnInit {
     }else{
       this.themeService.setTheme("light-theme");
     }
+    //this.login_AD();
+    this.globalAppService.getIntlmParams().then(
+      data=>{
+        if(data["infos"][0].USERNAME!="" &&data["infos"][0].DOMAIN!="" &&data["infos"][0].WORKSTATION!=""){
+          console.log("ntlm data",data)
+          /* console.log("data[0]",data["infos"][0])
+           console.log("USERNAME",data["infos"][0].USERNAME)
+           console.log("DOMAIN",data["infos"][0].DOMAIN) */
+           this.tokenStorage.saveSonuser(data["infos"][0].USERNAME);
+           this.tokenStorage.saveDomain(data["infos"][0].DOMAIN);
+           this.tokenStorage.saveWorkstation(data["infos"][0].WORKSTATION)
+          // this.router.navigate(["login"])
+        
+          this.sonUser=this.tokenStorage.getSonuser();
+        }
+      
+    },
+   
+   );
+      
   }
   login_AD(){
-    this.globalAppService.checkUsersState()
+    this.showSpinner=true;
+
+   this.globalAppService.checkUsersState().then(
+    data=>{
+      this.dataSharingService.isUserLoggedIn.next(true);
+      this.showSpinner=false;
+    } 
+  )
   }
   onSubmit(post: any) {
     //console.log(this.langId )
@@ -121,6 +151,7 @@ export class LoginPageComponent implements OnInit {
       data => {  
           console.log(data);
           if(data!=null){
+
             this.tokenStorage.saveToken(data.accessToken);
           this.tokenStorage.saveSonuser(data.sonuser);
           this.tokenStorage.saveTheme(2);

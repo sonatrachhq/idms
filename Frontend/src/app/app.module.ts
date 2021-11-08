@@ -252,7 +252,7 @@ import { EmailBoxComponent } from './Modals/email-box/email-box.component';
     StyleManagerService,
     ThemeService,
     CommunService,
-    {
+   /*  {
       provide: APP_INITIALIZER,
       multi: true,
       deps: [CommunService,GlobalAppService],
@@ -261,16 +261,17 @@ import { EmailBoxComponent } from './Modals/email-box/email-box.component';
           return appConfigSvc.load().then(()=>{
             console.log(appConfigSvc.getHost())
              appConfigSvc.getIntlmParams();
-        /*      .then(()=>{
+              .then(()=>{
               return globalAppService.checkUsersState()
-            })  */
+            })  
            
           });
         };
       }
-    },
+    }, */
   /*   { provide: APP_INITIALIZER, useFactory: initConfig, deps: [CommunService], multi: true },
     { provide: APP_INITIALIZER, useFactory: initCheckLogin, deps: [GlobalAppService], multi: true }, */
+    { provide: APP_INITIALIZER, useFactory: initConfig, deps: [CommunService], multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: ErrorHandler, useClass: GlobalErrorHandlerService }
   ],

@@ -21,10 +21,19 @@ ProfilRepo profilRepo;
 	
 /**********************************setting default profil when creating account*****************************/
 public Profil setDefaultProfil(Profil profil) {
+	ProfilId id=new ProfilId();
+	id.setIdapplication(profil.getIdapplication());
+	id.setIduseridms(profil.getIduseridms());
+	Optional<Profil> currentProfil=profilRepo.findById(id);
+	if(currentProfil.get()!=null) {
+		return currentProfil.get();
+	}else {
+		Profil savedProfil=profilRepo.save(profil);
+		return savedProfil;
+	}
 	
-	Profil savedProfil=profilRepo.save(profil);
 	
-	return savedProfil;
+	
 }
 
 /*******************************update user's language********************************************************/

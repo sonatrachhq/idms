@@ -44,26 +44,7 @@ public load(): Promise<void> {
 
     }
 
-    public getIntlmParams(): Promise<void>{
-      
-        return  this.http.get( 'http://10.100.22.95/ntlm/' , {
-         headers:{skip:"true"},
-       }).toPromise().then(
-        data=>{
-         console.log("ntlm data",data)
-       /* console.log("data[0]",data["infos"][0])
-        console.log("USERNAME",data["infos"][0].USERNAME)
-        console.log("DOMAIN",data["infos"][0].DOMAIN) */
-        this.tokenStorage.saveSonuser(data["infos"][0].USERNAME);
-        this.tokenStorage.saveDomain(data["infos"][0].DOMAIN);
-        this.tokenStorage.saveWorkstation(data["infos"][0].WORKSTATION)
-       // this.router.navigate(["login"])
-      },
-     
-     );
     
-     
-    }
     public getHost():String{
       return this.host;
     }

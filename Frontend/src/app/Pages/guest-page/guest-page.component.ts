@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../../auth/token-storage.service';
 import { IgxFilterOptions, IgxPaginatorComponent } from 'igniteui-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { GuestPageService } from './../../Services/guest-page.service';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserAppPrivs } from 'src/app/Models/UserAppPrivs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-guest-page',
   templateUrl: './guest-page.component.html',
@@ -22,10 +23,32 @@ export class GuestPageComponent implements OnInit {
   public itemsPerPage = [5,10,15,20];
 @ViewChild('paginator', { static: true })
 public paginator!: IgxPaginatorComponent;
-  constructor(private guestPageService:GuestPageService,private _snackBar: MatSnackBar,public translate: TranslateService) { }
+  constructor(private tokenStorage: TokenStorageService,private guestPageService:GuestPageService,private _snackBar: MatSnackBar,public translate: TranslateService) { }
 
   ngOnInit(): void {
+    if(this.tokenStorage.getToken()==""){
+      Swal.fire({
+        icon: 'info',
+        title: this.translate.instant("auth_login"),
+        html: '<html>'+
+        '<head>'+
+        '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">'+
+        '</head>'+
+        '<body>'+
+        this.translate.instant("guest_connect")+
+        '</body>'+
+        '</html>',
+       // text: this.translate.instant("guest_connect"),
+        showConfirmButton: false,
+      }).then((result) => {
+        
+        Swal.close()
+        
+        
+      })
+    }
     this.getAllApps();
+
   }
   getAllApps(){
     this.guestPageService.getVisibleApps().subscribe(

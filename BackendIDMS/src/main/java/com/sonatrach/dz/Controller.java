@@ -153,31 +153,7 @@ private static final Logger log = LoggerFactory.getLogger(Controller.class);
 
 @Autowired
 PasswordEncoder encoder;
-@GetMapping("api/auth/test5")
-public ResponseEntity<?> test5(){
-	try {
-		
-		//Properties p = System.getProperties();
-		//p.list(System.out);
-//		System.out.println(System.getProperty("user.name"));
-//		 System.out.println(System.getenv().get("USERDOMAIN"));
-//		    System.out.println(System.getenv().get("USERNAME"));
-		/* String line;
-	    Process p = Runtime.getRuntime().exec
-	    	    (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-	    BufferedReader input =
-	            new BufferedReader(new InputStreamReader(p.getInputStream()));*/
-	    String psw=encoder.encode("1234#!Idm$DefaultPsw@S0natrach");
-	    log.info("psw ecoder      "+psw);
-		/*
-		 * while ((line = input.readLine()) != null) { System.out.println(line); //<--
-		 * Parse data here. } input.close();
-		 */
-	} catch (Exception err) {
-	    err.printStackTrace();
-	}
-	return userIdmsService.checkUserExists("SON8415","");
-}
+
 
 
 

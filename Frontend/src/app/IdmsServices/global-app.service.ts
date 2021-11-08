@@ -1,3 +1,4 @@
+import { DataSharingService } from './data-sharing.service';
 import { RegisterPageService } from './../Services/register-page.service';
 import { Ntlm } from './../Models/Ntlm';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,6 +32,7 @@ export class GlobalAppService {
   };
 
   constructor(private http: HttpClient,private tokenStorage:TokenStorageService,private router:Router,
+    //private dataSharingService: DataSharingService,
     private translate: TranslateService,
     private loginPageService:LoginPageService,
     ) {
@@ -38,7 +40,14 @@ export class GlobalAppService {
     this.host=this.tokenStorage.getHost();
    }
 
+   public getIntlmParams(): Promise<Object>{
+      
+    return  this.http.get( 'http://localhost/ntlm/' , {
+     headers:{skip:"true"},
+   }).toPromise();
 
+ 
+}
   public getCurrentUser(user:UserIDMS):Observable<UserIDMS>{
     if(this.host==""){
       this.host=this.tokenStorage.getHost();
@@ -207,8 +216,8 @@ findUserBySON(ntlm:Ntlm){
     this.loginPageService.saveProfil(profil).subscribe(
       data => {
         //console.log(data);
-       
-        this.router.navigateByUrl("homePage",{skipLocationChange: true})
+       // this.dataSharingService.isUserLoggedIn.next(true);
+        this.router.navigateByUrl("homePage" /* ,{skipLocationChange: true} */ )
       },
       error => {
         //console.log(error);

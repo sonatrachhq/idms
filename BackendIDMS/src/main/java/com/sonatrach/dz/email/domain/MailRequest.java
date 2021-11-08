@@ -1,9 +1,8 @@
 package com.sonatrach.dz.email.domain;
 
 
-import lombok.Data;
 
-@Data
+
 public class MailRequest {
 	
 	private String msg;
@@ -14,6 +13,10 @@ public class MailRequest {
 	
 
 
+	public MailRequest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public MailRequest(String msg, String to, String from, String subject) {
 		super();
 		this.msg = msg;

@@ -13,7 +13,7 @@
     "auth_login":"Authentification",
     "son_login":"SON Utilisateur",
     "titleAlert_login":"Champ obligatoire",
-    "pswAlert_login":"Le mot de passe doit avoir au moins 6 caractères (les mots de passe ne sont pas identiques)",
+    "pswAlert_login":"Le mot de passe doit avoir au moins 6 caractères (Champ obligatoire)",
     "psw_login":"Mot de passe",
     "subscribe_login":"Créer un compte",
     "account_login":"Vous n'avez pas de compte?",
@@ -94,8 +94,9 @@
     "invalid":"invalide",
     "error_auth_redirect_mail":"Nous n'avons pas pu vous connecter,vous recevrez un email avec un mot de passe temporaire.\nVeuillez l'utiliser pour vous connecter.",
     "connect_as_guest":"Nous n'avons pas pu vous connecter,vous accéderez à l'application en tant qu'invité",
-    "compte_AD":"Compte AD"
-
+    "compte_AD":"Compte AD",
+    "guest_connect":"Vous êtes connectez en tant qu'invité,veuillez cliquer sur l'icone <i class='fa fa-user-circle-o' aria-hidden='true'></i> pour se connecter"
+    
     
     
   }

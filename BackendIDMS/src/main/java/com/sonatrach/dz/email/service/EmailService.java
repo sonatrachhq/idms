@@ -62,6 +62,8 @@ public class EmailService {
 			response.setMessage("Mail Sending failure : "+e.getMessage());
 			response.setStatus(Boolean.FALSE);
 			
+		}catch(Exception e) {
+			System.out.println("sendEmail service execption ==>"+ e);
 		}
 
 		return response;

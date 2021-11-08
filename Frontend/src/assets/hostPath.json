@@ -1,6 +1,6 @@
 {
    
-    "url":"http://10.100.2.192:8080/idms/",
+    "url":"http://localhost:8080/",
     "emailReceiver":"Feriel.Aid@Sonatrach.dz"
   
 }

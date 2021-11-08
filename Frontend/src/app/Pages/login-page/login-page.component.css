@@ -289,8 +289,21 @@ button.form-btn.dx {
 
 
 
-
-
-
-
-
+.disable-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #2d2d2d;
+    opacity: 0.8;
+    z-index: 998;
+    height: 100%;
+    width: 100%;
+  }
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}

@@ -4,12 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class MailResponse {
 	private String message;
 	private boolean status;
+	
+	
+	
+	public MailResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public MailResponse(String message, boolean status) {
+		super();
+		this.message = message;
+		this.status = status;
+	}
+
 	public String getMessage() {
 		return message;
 	}

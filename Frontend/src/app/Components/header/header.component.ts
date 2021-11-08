@@ -1,3 +1,4 @@
+import { DataSharingService } from './../../IdmsServices/data-sharing.service';
 import { AuthLoginInfo } from './../../auth/login-info';
 import { AuthService } from './../../auth/auth.service';
 import { CommunService } from './../../IdmsServices/commun.service';
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
   direction="rtl";
   options$: Observable<Array<Option>> = this.themeService.getThemeOptions();
   connected=0;
+  isUserLoggedIn: boolean;
   themes:Option[]=[];
   isExpired:Boolean=false;
   currentUser:UserIDMS={
@@ -47,7 +49,43 @@ export class HeaderComponent implements OnInit {
     private globalService:GlobalAppService,
     public dialog: MatDialog,
     private communService:CommunService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private dataSharingService: DataSharingService) {
+     
+       // Subscribe here, this will automatically update 
+        // "isUserLoggedIn" whenever a change to the subject is made.
+        this.dataSharingService.isUserLoggedIn.subscribe( value => {
+          this.username=this.tokenStorage.getUsername();
+          this.isUserLoggedIn = value;
+          console.log(" this.isUserLoggedIn   :"+ this.isUserLoggedIn)
+          if (this.tokenStorage.getToken()!="") {
+            
+            let info:AuthLoginInfo={
+              sonuser:this.tokenStorage.getToken(),
+              password:""
+            }
+           /*  this.communService.load().then(
+              (value) => { */
+                
+              this.authService.checkToken(info).subscribe(
+              (data)=>{
+                ////console.log(data)
+                  if(data.password=="true"){
+                      this.getCurrentUser();
+                  }else{
+                    this.login();
+                  }
+              },
+              (error)=>{
+                //console.log(error)
+              }
+            )
+          /* }
+            ) */
+          }else{
+            this.themeService.setTheme("light-theme");
+          }
+      });
         this.options$.subscribe(
           data => {  
             ////console.log(data);
@@ -65,33 +103,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()!="") {
-      this.username=this.tokenStorage.getUsername();
-      let info:AuthLoginInfo={
-        sonuser:this.tokenStorage.getToken(),
-        password:""
-      }
-     /*  this.communService.load().then(
-        (value) => { */
-          
-        this.authService.checkToken(info).subscribe(
-        (data)=>{
-          ////console.log(data)
-            if(data.password=="true"){
-                this.getCurrentUser();
-            }else{
-              this.login();
-            }
-        },
-        (error)=>{
-          //console.log(error)
-        }
-      )
-    /* }
-      ) */
-    }else{
-      this.themeService.setTheme("light-theme");
-    }
+   
     
    
   }
@@ -237,6 +249,7 @@ export class HeaderComponent implements OnInit {
     this.connected=0;
     this.tokenStorage.signOut();
     this.communService.load();
+    this.dataSharingService.isUserLoggedIn.next(false);
     this.router.navigateByUrl("login");
     //window.location.reload();
   }

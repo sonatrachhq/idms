@@ -13,7 +13,7 @@
     "auth_login":"Authentication",
     "son_login":"SON User",
     "titleAlert_login":"Required Field",
-    "pswAlert_login":"Password must have at least 6 characters(passwords are not the same)",
+    "pswAlert_login":"Password must have at least 6 characters(Required Field)",
     "psw_login":"Password",
     "subscribe_login":"Create an account",
     "account_login":"You do not have an account?",
@@ -94,6 +94,7 @@
     "invalid":"invalid",
     "error_auth_redirect_mail":"We could not connect you, you will receive an email with a temporary password.\nPlease use it to login.",
     "connect_as_guest":"We could not connect you, you will access the application as a guest",
-    "compte_AD":"AD account"
+    "compte_AD":"AD account",
+    "guest_connect":"You are logged in as a guest,please click on the icon <i class='fa fa-user-circle-o' aria-hidden='true'></i> to connect"
    
   }
