@@ -71,10 +71,10 @@ export class AffectRoleTabComponent implements OnInit {
   }
   getAllApps(){
     if(this.tokenStorage.getRoles().length!=0){
-      this.apps=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==this.mode);
+      this.apps=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==this.mode && app.roles.length!=0);
      }else{
       this.apps=this.tokenStorage.getAppPrivs().filter(
-        app=>app.iduseridms==this.currentUser.iduseridms && app.applicationmode==this.mode
+        app=>app.iduseridms==this.currentUser.iduseridms && app.applicationmode==this.mode && app.roles.length!=0
       );
      
      }

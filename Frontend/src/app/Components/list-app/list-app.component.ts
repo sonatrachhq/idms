@@ -130,8 +130,8 @@ export class ListAppComponent implements OnInit {
   }
 
   deleteObject(app:Applications){
-    this.objects=this.objects.filter(obj=>obj.idapplication==app.idapplication)
-    console.log(this.objects)
+    this.objects=this.objects.filter(obj=>obj.idapplication==app.idapplication )
+    //console.log(this.objects)
     if(this.objects.length!=0){
       const dialogRef = this.dialog.open(DeleteObjectComponent, {
         width: '650px',
