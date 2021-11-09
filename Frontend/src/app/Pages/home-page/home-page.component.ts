@@ -39,14 +39,14 @@ export class HomePageComponent implements OnInit {
    //console.log(this.tokenStorage.getEmail())
 
     this.allApps=this.tokenStorage.getAppPrivs();
-    this.applications=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==0);
+    this.applications=this.tokenStorage.getAppPrivs().filter(app=>app.applicationmode==0 && app.publicflag==0);
    
     
   }
   updateData(event:any){
     
     let mode:string=event.index;
-    this.applications= this.allApps.filter(app=>app.applicationmode==event.index);
+    this.applications= this.allApps.filter(app=>app.applicationmode==event.index  && app.publicflag==0);
    
     
     //this.apps$=this.homePageService.getAppsByMode(this.allApps,mode.toString());

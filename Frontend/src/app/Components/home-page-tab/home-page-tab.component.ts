@@ -38,7 +38,7 @@ export class HomePageTabComponent implements OnInit {
   }
   public get myapps() {
     ////console.log(this.apps)
-    let myapp=this.applications.filter(app=>app.roles.length!=0 && app.publicflag==0);
+    let myapp=this.applications.filter(app=>app.roles.length!=0 );
     let app = myapp;
     app = this.paginator
       ? myapp.slice(
@@ -51,7 +51,7 @@ export class HomePageTabComponent implements OnInit {
 
   public get otherpps(){
    // //console.log(this.applications)
-    let otherapp=this.applications.filter(app=>app.roles.length==0 && app.publicflag==0);
+    let otherapp=this.applications.filter(app=>app.roles.length==0 );
     let app = otherapp;
     app = this.paginator
       ? otherapp.slice(
@@ -65,6 +65,7 @@ export class HomePageTabComponent implements OnInit {
   public get data(){
     
      let app = this.applications;
+     
      app = this.paginator
        ? this.applications.slice(
            this.paginator.page * this.paginator.perPage,
