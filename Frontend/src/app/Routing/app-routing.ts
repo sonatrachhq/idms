@@ -1,3 +1,4 @@
+import { AdminPageComponent } from './../Pages/admin-page/admin-page.component';
 import { HeaderComponent } from './../Components/header/header.component';
 import { ListAppToUpdateComponent } from './../Components/list-app-to-update/list-app-to-update.component';
 import { UpdateApplicationComponent } from './../Components/update-application/update-application.component';
@@ -21,6 +22,8 @@ const APP_ROUTING : Routes =[
     {path:"objectManagement",component:ObjectManagementComponent},
     {path:"updateApplication",component:UpdateApplicationComponent},
     {path:"listAppToUpdate",component:ListAppToUpdateComponent},
+    {path:"adminPage",component:AdminPageComponent},
+    {path:"header",component:HeaderComponent},
    
    
     

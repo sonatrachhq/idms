@@ -193,9 +193,9 @@ export class AssocObjComponent implements OnInit {
    
    // ////console.log(drop);
 
-    let objUsersToAdd: ObjectUsers[]=[];
+    //let objUsersToAdd: ObjectUsers[]=[];
     let roleObjectsToAdd: RoleObjects[]=[];
-    let objUsersToDrop: ObjectUsers[]=[];
+    //let objUsersToDrop: ObjectUsers[]=[];
     let roleObjectsToDrop: RoleObjects[]=[];
     let state:number;
     if(add.length!=0&&drop.length!=0){
@@ -221,7 +221,7 @@ export class AssocObjComponent implements OnInit {
           "iduser":this.data.currentUser,
           "systemdate":new Date
         }
-        objUsersToAdd.push(objToSave);
+        //objUsersToAdd.push(objToSave);
         roleObjectsToAdd.push(roleToSave);
         obj.idrole=idrole;
         allObjects.forEach(object=>{
@@ -234,7 +234,7 @@ export class AssocObjComponent implements OnInit {
       ////console.log(objUsersToAdd)
       ////console.log(roleObjectsToAdd) */
 
-      this.saveObjUser(objUsersToAdd,state)
+      //this.saveObjUser(objUsersToAdd,state)
       this.saveRoleObj(roleObjectsToAdd,state)
      
      
@@ -254,7 +254,7 @@ export class AssocObjComponent implements OnInit {
           "iduser":this.data.currentUser,
           "systemdate":new Date
         }
-        objUsersToDrop.push(objToSave);
+        //objUsersToDrop.push(objToSave);
         roleObjectsToDrop.push(roleToSave);
       
       
@@ -274,7 +274,7 @@ export class AssocObjComponent implements OnInit {
       ////console.log(roleObjectsToDrop)*/
   
       
-      this.deleteObjUser(objUsersToDrop,state)
+      //this.deleteObjUser(objUsersToDrop,state)
       this.deleteRoleObj(roleObjectsToDrop,state)
       
     }
@@ -471,9 +471,9 @@ selectedObj.forEach(ob => {
 
 ////console.log("to add");
 ////console.log(temp);
-    let objUsersToAdd: ObjectUsers[]=[];
+    //let objUsersToAdd: ObjectUsers[]=[];
     let roleObjectsToAdd: RoleObjects[]=[];
-    let objUsersToDrop: ObjectUsers[]=[];
+   // let objUsersToDrop: ObjectUsers[]=[];
     let roleObjectsToDrop: RoleObjects[]=[];
     let state:number;
     if(temp.length!=0&&drop.length!=0){
@@ -499,7 +499,7 @@ selectedObj.forEach(ob => {
           "iduser":this.data.currentUser,
           "systemdate":new Date
         }
-        objUsersToAdd.push(objToSave);
+        //objUsersToAdd.push(objToSave);
         roleObjectsToAdd.push(roleToSave);
         obj.idrole=idrole;
         allObjects.forEach(object=>{
@@ -512,7 +512,7 @@ selectedObj.forEach(ob => {
       ////console.log(objUsersToAdd)
       ////console.log(roleObjectsToAdd)
 
-      this.saveObjUser(objUsersToAdd,state)
+      //this.saveObjUser(objUsersToAdd,state)
       this.saveRoleObj(roleObjectsToAdd,state)
      
      
@@ -532,7 +532,7 @@ selectedObj.forEach(ob => {
           "iduser":this.data.currentUser,
           "systemdate":new Date
         }
-        objUsersToDrop.push(objToSave);
+       // objUsersToDrop.push(objToSave);
         roleObjectsToDrop.push(roleToSave);
       
       
@@ -552,7 +552,7 @@ selectedObj.forEach(ob => {
       ////console.log(roleObjectsToDrop)*/
   
       
-      this.deleteObjUser(objUsersToDrop,state)
+      //this.deleteObjUser(objUsersToDrop,state)
       this.deleteRoleObj(roleObjectsToDrop,state)
       
     }
@@ -588,7 +588,8 @@ selectedObj.forEach(ob => {
     //////console.log(state)
     this.showSpinner=false
      if(state==0){
-       if(this.objUsersToAdd&&this.objUsersToDrop&&this.roleObjectsToAdd&&this.roleObjectsToDrop){
+       //if(this.objUsersToAdd&&this.objUsersToDrop&&this.roleObjectsToAdd&&this.roleObjectsToDrop){
+        if(this.roleObjectsToAdd&&this.roleObjectsToDrop){
         Swal.fire({
           icon: 'success',
           title: this.translate.instant(title.toString()),
@@ -609,7 +610,8 @@ selectedObj.forEach(ob => {
        }
      }else{
        if(state==1){
-        if(this.objUsersToAdd&&this.roleObjectsToAdd){
+       // if(this.objUsersToAdd&&this.roleObjectsToAdd){
+        if(this.roleObjectsToAdd){
           Swal.fire({
             icon: 'success',
             title: this.translate.instant(title.toString()),
@@ -629,7 +631,8 @@ selectedObj.forEach(ob => {
           });*/
        }
      }else{
-      if(this.objUsersToDrop&&this.roleObjectsToDrop){
+      //if(this.objUsersToDrop&&this.roleObjectsToDrop){
+        if(this.roleObjectsToDrop){
         Swal.fire({
           icon: 'success',
           title: this.translate.instant(title.toString()),

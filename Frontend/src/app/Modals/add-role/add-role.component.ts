@@ -52,39 +52,54 @@ export class AddRoleComponent implements OnInit {
   
   onSubmit(form:any){
     //console.log(form)
-    let role:AppRoles={
-      "descrole":form.descrole,
-      "idapplication":this.data.app.idapplication,
-      "idstatus":1
-    }
-    ////console.log(role)
-    this.appManagementService.saveNewRole(role).subscribe(
-      result => {  
-        let newRole:Role={
-          "descrole":form.descrole,
-          "idrole":result.idrole,
-          "idstatus":1,
-          "privenddate":new Date(),
-          "privstartdate":new Date()
-        }
-        for(let i=0;i<this.allApps.length;i++){
-          if(this.allApps[i].idapplication==this.data.app.idapplication){
-          
-            this.allApps[i].roles.push(newRole);
+    let descRole:string=form.descrole.toString();
+    if(descRole.toLowerCase().includes("admin") ||descRole.toLowerCase().includes("admin fonctionnel")){
+      Swal.fire({
+        icon: 'error',
+        title: this.translate.instant("error_alert"),
+        text: this.translate.instant("err_desc_role"),
+        showConfirmButton: false,
+      }).then((result) => {
+       // window.location.reload();
+       this.dialog.closeAll()
+      })
+
+    }else{
+      let role:AppRoles={
+        "descrole":form.descrole,
+        "idapplication":this.data.app.idapplication,
+        "idstatus":1
+      }
+      ////console.log(role)
+      this.appManagementService.saveNewRole(role).subscribe(
+        result => {  
+          let newRole:Role={
+            "descrole":form.descrole,
+            "idrole":result.idrole,
+            "idstatus":1,
+            "privenddate":new Date(),
+            "privstartdate":new Date()
           }
-        }
-        this.tokenStorage.saveAppPrivs(this.allApps);
-        this.showAlert("add_role","add_role_success");
+          for(let i=0;i<this.allApps.length;i++){
+            if(this.allApps[i].idapplication==this.data.app.idapplication){
+            
+              this.allApps[i].roles.push(newRole);
+            }
+          }
+          this.tokenStorage.saveAppPrivs(this.allApps);
+          this.showAlert("add_role","add_role_success");
+          
+       },
+       error => {
+        //console.log(error);
+        this.openDialogError("global_error_msg");
         
-     },
-     error => {
-      //console.log(error);
-      this.openDialogError("global_error_msg");
-      
-      
-       
-     }
-    )
+        
+         
+       }
+      )
+    }
+    
   }
 
   

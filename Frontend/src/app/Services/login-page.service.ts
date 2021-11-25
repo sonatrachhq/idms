@@ -56,6 +56,17 @@ export class LoginPageService {
      })
    );
   }
+
+  public getAdminAllApps(user:UserIDMS):Observable<Array<UserAppPrivs>>{
+    this.host=this.token.getHost();
+     return this.http.post<Array<UserAppPrivs>>(this.host+"getAdminAllApps",user).pipe(
+      catchError((err) => {
+         ////console.log('error caught in service')
+        console.error(err);
+        return throwError(err);
+      })
+    );
+   }
   public saveProfil(profil:Profil): Observable<Profil>{
     return this.http.post<Profil>(this.host+"api/auth/saveProfil",profil, {
       headers:{skip:"true"},

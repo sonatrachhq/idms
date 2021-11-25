@@ -16,6 +16,21 @@ public class ObjectUsersService {
 	@Autowired
 	ObjectUsersRepo objUserRepo;
 	
+	public List<ObjectUsers> getAllObjectUsers(){
+		try {
+			
+			
+			
+			
+			return objUserRepo.findAll();
+		}catch(Exception e) {
+			System.out.println("Exception  getAllObjectUsers() in ObjectUsersService==>" + e.getMessage());
+		}
+		return null;
+	}
+	
+	
+	
 	public List<ObjectUsers> saveObjUser(List<ObjectUsers> objUsersToAdd){
 		try {
 			for(int i=0;i<objUsersToAdd.size();i++) {

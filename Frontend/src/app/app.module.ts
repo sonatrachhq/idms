@@ -113,6 +113,12 @@ import { AddObjectComponent } from './Modals/add-object/add-object.component';
 import { DeleteObjectComponent } from './Modals/delete-object/delete-object.component';
 import { UpdateObjectComponent } from './Modals/update-object/update-object.component';
 import { EmailBoxComponent } from './Modals/email-box/email-box.component';
+import { AdminPageComponent } from './Pages/admin-page/admin-page.component';
+import { AffectRoleAdminComponent } from './Modals/affect-role-admin/affect-role-admin.component';
+import { AffectRoleTabAdminComponent } from './Components/affect-role-tab-admin/affect-role-tab-admin.component';
+import { AssocObjTabAdminComponent } from './Components/assoc-obj-tab-admin/assoc-obj-tab-admin.component';
+import { AssocObjAdminComponent } from './Modals/assoc-obj-admin/assoc-obj-admin.component';
+import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-admin.component';
 
 
 
@@ -161,6 +167,12 @@ import { EmailBoxComponent } from './Modals/email-box/email-box.component';
     DeleteObjectComponent,
     UpdateObjectComponent,
     EmailBoxComponent,
+    AdminPageComponent,
+    AffectRoleAdminComponent,
+    AffectRoleTabAdminComponent,
+    AssocObjTabAdminComponent,
+    AssocObjAdminComponent,
+    DeleteObjAdminComponent,
   
 
   ],

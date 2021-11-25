@@ -1,3 +1,4 @@
+import { Role } from './../Models/Role';
 import { DataSharingService } from './data-sharing.service';
 import { RegisterPageService } from './../Services/register-page.service';
 import { Ntlm } from './../Models/Ntlm';
@@ -148,8 +149,16 @@ findUserBySON(ntlm:Ntlm){
     this.loginPageService.getUsersRoles(this.currentUser).subscribe(
       (data)=>{
        // console.log(data)
-      
-          this.tokenStorage.saveRoles(data);
+          if(data!=null ){
+            let roles:Role[] = [];
+            for(let i=0;i<data.length;i++){
+              if(data[i].idrole==62 || data[i].idrole==63){
+                  roles.push(data[i]);
+              }
+            }
+            this.tokenStorage.saveRoles(roles);
+          }
+         
         this.getUsersAppPrivs();
       
         

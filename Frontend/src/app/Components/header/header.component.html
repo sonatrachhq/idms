@@ -48,21 +48,26 @@
           {{'menu_home' | translate}}
         </button>
         <mat-divider ></mat-divider>
-        <button mat-menu-item [matMenuTriggerFor]="appMenu" >
+        <button mat-menu-item [matMenuTriggerFor]="appMenu" *ngIf="getPrivs(6)">
           <mat-icon  matSuffix aria-hidden="false" >apps</mat-icon>
           {{'menu_apps' | translate}}
         </button>
-        <mat-divider ></mat-divider>
-        <button mat-menu-item [matMenuTriggerFor]="roleMenu" >
+        <mat-divider  *ngIf="getPrivs(6)"></mat-divider>
+        <button mat-menu-item [matMenuTriggerFor]="roleMenu" *ngIf="getPrivs(107)">
           <mat-icon  matSuffix aria-hidden="false" >accessibility_new</mat-icon>
           {{'menu_roles' | translate}}
         </button>
-        <mat-divider ></mat-divider>
-        <button mat-menu-item [matMenuTriggerFor]="objectMenu" >
+        <mat-divider *ngIf="getPrivs(107)"></mat-divider>
+        <button mat-menu-item [matMenuTriggerFor]="objectMenu" *ngIf="getPrivs(108)">
           <mat-icon  matSuffix aria-hidden="false" >category</mat-icon>
           {{'menu_objects' | translate}}
         </button>
-        <mat-divider ></mat-divider>
+        <mat-divider *ngIf="getPrivs(108)"></mat-divider>
+        <button mat-menu-item [matMenuTriggerFor]="adminMenu" *ngIf="admin==1||getPrivs(109)" >
+          <mat-icon  matSuffix aria-hidden="false" >supervisor_account</mat-icon>
+          {{'menu_admin' | translate}}
+        </button>
+        <mat-divider *ngIf="admin==1||getPrivs(109)" ></mat-divider>
       </mat-nav-list>
     </mat-sidenav>
    
@@ -86,5 +91,12 @@
     <button mat-menu-item  (click)="navToObjectManag(0)"> {{'prod'|translate}}</button>
     <button mat-menu-item (click)="navToObjectManag(1)">{{'pre_prod'|translate}}</button>
     <button mat-menu-item (click)="navToObjectManag(2)">{{'dev'|translate}}</button>
+   
+  </mat-menu>
+
+  <mat-menu #adminMenu="matMenu"  xPosition="after">
+    <button mat-menu-item  (click)="navToAdminPage(0)"> {{'prod'|translate}}</button>
+    <button mat-menu-item (click)="navToAdminPage(1)">{{'pre_prod'|translate}}</button>
+    <button mat-menu-item (click)="navToAdminPage(2)">{{'dev'|translate}}</button>
    
   </mat-menu>

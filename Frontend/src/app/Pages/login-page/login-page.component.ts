@@ -1,3 +1,4 @@
+import { Role } from './../../Models/Role';
 import { DataSharingService } from './../../IdmsServices/data-sharing.service';
 import { GlobalAppService } from './../../IdmsServices/global-app.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -194,7 +195,15 @@ export class LoginPageComponent implements OnInit {
       (data)=>{
         //console.log(data)
       
-          this.tokenStorage.saveRoles(data);
+        if(data!=null ){
+          let roles:Role[] = [];
+          for(let i=0;i<data.length;i++){
+            if(data[i].idrole==62 || data[i].idrole==63){
+                roles.push(data[i]);
+            }
+          }
+          this.tokenStorage.saveRoles(roles);
+        }
         this.getUsersAppPrivs();
       
         

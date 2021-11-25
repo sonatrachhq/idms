@@ -135,6 +135,16 @@ export class AppManagementService {
    );
   }
 
+  public getAllObjectUser():Observable<Array<ObjectUsers>>{
+    return this.http.get<Array<ObjectUsers>>(this.host+"getAllObjectUser").pipe(
+     catchError((err) => {
+        ////console.log('error caught in service')
+       console.error(err);
+       return throwError(err);
+     })
+   );
+  }
+
   public updateApplication(app:Applications):Observable<Applications>{
     return this.http.post<Applications>(this.host+"updateApplication",app).pipe(
      catchError((err) => {

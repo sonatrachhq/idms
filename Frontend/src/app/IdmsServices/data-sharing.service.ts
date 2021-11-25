@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataSharingService {
   public isUserLoggedIn: BehaviorSubject<boolean> ;
+  public shouldReload: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false) ;
   constructor(private tokenStorage: TokenStorageService) { 
     if (this.tokenStorage.getToken()!="") {
       this.isUserLoggedIn =new BehaviorSubject<boolean>(true);
@@ -14,4 +15,5 @@ export class DataSharingService {
       this.isUserLoggedIn =new BehaviorSubject<boolean>(false);
     }
   }
+ 
 }

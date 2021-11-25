@@ -10,8 +10,8 @@
        
       
     </mat-tab>
-    <mat-tab >
-      <ng-template mat-tab-label >
+    <mat-tab  *ngIf="getPrivs(102)">
+      <ng-template mat-tab-label  >
         <mat-icon class="example-tab-icon" aria-hidden="false">update</mat-icon>
         {{'update_app' | translate}}
       </ng-template>
@@ -22,7 +22,7 @@
       
     </mat-tab>
 
-    <mat-tab >
+    <mat-tab  *ngIf="getPrivs(103)">
       <ng-template mat-tab-label >
         <mat-icon class="example-tab-icon">delete</mat-icon>
         {{'delete_app' | translate}}

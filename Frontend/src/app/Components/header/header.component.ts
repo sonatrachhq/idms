@@ -1,3 +1,4 @@
+import { UsersObject } from './../../Models/UsersObject';
 import { DataSharingService } from './../../IdmsServices/data-sharing.service';
 import { AuthLoginInfo } from './../../auth/login-info';
 import { AuthService } from './../../auth/auth.service';
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
   isUserLoggedIn: boolean;
   themes:Option[]=[];
   isExpired:Boolean=false;
+  admin:number=0;
   currentUser:UserIDMS={
     "idlang":0,
     "iduser":0,
@@ -42,6 +44,7 @@ export class HeaderComponent implements OnInit {
     "username":""
   }
   username:string="";
+  allObjects:UsersObject[]=[];
   constructor(private tokenStorage: TokenStorageService,
     private readonly themeService: ThemeService,
     private router: Router,
@@ -51,7 +54,13 @@ export class HeaderComponent implements OnInit {
     private communService:CommunService,
     private authService: AuthService,
     private dataSharingService: DataSharingService) {
-     
+      this.dataSharingService.shouldReload.subscribe( value => {
+        if(value){
+         
+          this.ngOnInit();
+        }
+      }
+      );
        // Subscribe here, this will automatically update 
         // "isUserLoggedIn" whenever a change to the subject is made.
         this.dataSharingService.isUserLoggedIn.subscribe( value => {
@@ -85,6 +94,9 @@ export class HeaderComponent implements OnInit {
           }else{
             this.themeService.setTheme("light-theme");
           }
+          if(this.tokenStorage.getRoles().length!=0){
+            this.admin=1;
+          }
       });
         this.options$.subscribe(
           data => {  
@@ -103,9 +115,29 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+ 
+    this.allObjects=this.tokenStorage.getObjects();
    
-    
-   
+  }
+  getPrivs(id:number):Boolean{
+ 
+    if(this.allObjects.length!=0){
+      for(let i=0;i<this.allObjects.length;i++){
+        if(this.allObjects[i].idapplication==1){
+            for(let j=0;j<this.allObjects[i].objects.length;j++){
+              if(this.allObjects[i].objects[j].idobject==id){
+                return true;
+              }
+            }
+         
+        }
+      }
+      return false;
+    }else{
+      return false;
+    }
+
+ 
   }
 
   getCurrentUser(){
@@ -231,6 +263,21 @@ export class HeaderComponent implements OnInit {
     });
     //this.router.navigate(['roleManagement'],navigationExtras ).then(value=>window.location.reload());
   }
+
+  navToAdminPage(mode:number){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mode":mode
+        
+      }
+  };
+  //console.log(navigationExtras)
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {    
+    this.router.navigate(['adminPage'],navigationExtras );
+    });
+    //this.router.navigate(['roleManagement'],navigationExtras ).then(value=>window.location.reload());
+  }
+
   navToObjectManag(mode:number){
     let navigationExtras: NavigationExtras = {
       queryParams: {

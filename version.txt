@@ -1,3 +1,10 @@
+14.0
+---
+-Add Menu Admin IDMS with sub menus (affect role, associate object and delete object)
+-control desc role (admin/admin fonct not possible)
+-role 62/63==>admin idms
+-update associate object in object management menu (do not save updates in user object table)
+-------------------------------------------------------------------------------------------
 13.0
 ---
 -Modification affect role (having just apps with roles if no roles in idms, having all apps otherwise)

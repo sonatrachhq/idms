@@ -1,7 +1,7 @@
 <mat-tab-group mat-align-tabs="center" style="margin-left: 45px;margin-right: 45px; margin-top: 25px;">
 
   
-    <mat-tab >
+    <mat-tab *ngIf="getPrivs(8)">
       <ng-template mat-tab-label>
         <mat-icon class="example-tab-icon">touch_app</mat-icon>
         {{'add_role' | translate}}
@@ -19,7 +19,7 @@
     
       </mat-tab>
 
-      <mat-tab>
+      <mat-tab *ngIf="getPrivs(101)">
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">delete</mat-icon>
           {{'delete_role' | translate}}

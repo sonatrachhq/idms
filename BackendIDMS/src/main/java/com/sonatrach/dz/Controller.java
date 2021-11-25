@@ -661,6 +661,7 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 
 }
 
+
 @PostMapping({"getUsersAppPrivs"})
 public ArrayList<UserAppPrivs>  getUsersAppPrivs(@RequestBody UserIDMS user) {
 	try {
@@ -678,6 +679,101 @@ public ArrayList<UserAppPrivs>  getUsersAppPrivs(@RequestBody UserIDMS user) {
 	
 	return null;
 }
+
+//@GetMapping("api/auth/test")
+public ArrayList<UserAppPrivs> getAdminApps(Integer userId){
+	
+	SimpleJdbcCall simpleJdbcCall;
+	simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("FIND_ROLES_PRIVS_ADMIN")
+			.returningResultSet("USERSRESULT", BeanPropertyRowMapper.newInstance(ProcResult.class));
+			
+	SqlParameterSource in = new MapSqlParameterSource().addValue("USERID", userId);
+	Map out = simpleJdbcCall.execute(in);
+	List<ProcResult> usersPrivs= (List)out.get("USERSRESULT");
+	ArrayList<UserAppPrivs> listToReturn=new ArrayList();
+	
+
+	//traitement sur les applications
+	for(int i=0;i<usersPrivs.size();i++) {
+		UserAppPrivs jsonResponse=new UserAppPrivs();
+		List<Role> roles = new ArrayList();
+		jsonResponse.setIDAPPLICATION(usersPrivs.get(i).getIDAPPLICATION());
+		jsonResponse.setIDUSERIDMS(usersPrivs.get(i).getIDUSERIDMS());
+		jsonResponse.setAPPLICATIONDESC(usersPrivs.get(i).getAPPLICATIONDESC());
+		jsonResponse.setAPPLICATIONDETAIL(usersPrivs.get(i).getAPPLICATIONDETAIL());
+		jsonResponse.setAPPLICATIONMODE(usersPrivs.get(i).getAPPLICATIONMODE());
+		jsonResponse.setAPPLICATIONTITLE(usersPrivs.get(i).getAPPLICATIONTITLE());
+		jsonResponse.setAPPLICATIONURL(usersPrivs.get(i).getAPPLICATIONURL());
+		jsonResponse.setICONURL(usersPrivs.get(i).getICONURL());
+		jsonResponse.setPUBLICFLAG(usersPrivs.get(i).getPUBLICFLAG());
+		jsonResponse.setINTERIMSTARTDATE(usersPrivs.get(i).getINTERIMSTARTDATE());
+		jsonResponse.setINTERIMENDDATE(usersPrivs.get(i).getINTERIMENDDATE());
+		jsonResponse.setIEFLAG(usersPrivs.get(i).getIEFLAG());
+		Role role=new Role();
+		role.setIDROLE(usersPrivs.get(i).getIDROLE());
+		role.setPRIVENDDATE(usersPrivs.get(i).getPRIVENDDATE());
+		role.setPRIVSTARTDATE(usersPrivs.get(i).getPRIVSTARTDATE());
+		role.setIDSTATUS(usersPrivs.get(i).getIDSTATUS());
+		role.setDESCROLE(usersPrivs.get(i).getDESCROLE());
+		roles.add(role);
+		
+		for(int j=i+1;j<usersPrivs.size();j++) { // tester si il y'a d'autres role sur cette meme application
+			
+			if(usersPrivs.get(i).getIDAPPLICATION().compareTo(usersPrivs.get(j).getIDAPPLICATION())==0 ) {
+					//System.out.println(usersPrivs.get(i).getIDAPPLICATION()+"==>   "+usersPrivs.get(j).getIDAPPLICATION());
+					Role otherRole=new Role();
+					otherRole.setIDROLE(usersPrivs.get(j).getIDROLE());
+					otherRole.setPRIVENDDATE(usersPrivs.get(j).getPRIVENDDATE());
+					otherRole.setPRIVSTARTDATE(usersPrivs.get(j).getPRIVSTARTDATE());
+					otherRole.setIDSTATUS(usersPrivs.get(j).getIDSTATUS());
+					otherRole.setDESCROLE(usersPrivs.get(j).getDESCROLE());
+					
+						roles.add(otherRole);
+						//suppression de cette instance afin d'eviter la redandonce 
+						usersPrivs.remove(j);
+						j--;
+						 
+				}
+				
+				
+				
+			}
+			jsonResponse.setROLES(roles);
+			listToReturn.add(jsonResponse);
+			//suppression de cette instance afin d'eviter la redandonce 
+			usersPrivs.remove(i);
+			 i--;
+			 
+		
+		}
+
+
+	
+	return listToReturn;
+}
+
+
+
+@PostMapping({"getAdminAllApps"})
+public ArrayList<UserAppPrivs>  getAdminAllApps(@RequestBody UserIDMS user) {
+	try {
+		
+		ArrayList<UserAppPrivs> listToReturn=new ArrayList();
+		user=userIdmsService.findUserBySon(user);
+		
+		listToReturn = getAdminApps(user.getIduseridms());
+		
+		
+		return listToReturn;
+	}catch(Exception e) {
+		log.error("Exception getAdminAllApps in controller==>" + e.getMessage());
+	}
+	
+	return null;
+}
+
+
+
 /********************************************Get user's objects when login*******************************************/
 
 //@GetMapping( "/api/auth/test" )
@@ -1051,6 +1147,16 @@ public List<RoleObjects> deleteRoleObjects(@RequestBody List<RoleObjects> roleOb
 		return roleObjService.deleteRoleObjects(roleObjcts);
 	}catch(Exception e) {
 		log.error("Exception  deleteRoleObjects() ==>RoleObjectsService   :{deleteRoleObjects==>controller}  :" +e.getMessage());
+	}
+	return null;
+}
+//get all object users
+@GetMapping({"getAllObjectUser"})
+public List<ObjectUsers> getAllObjectUser(){
+	try {
+		return objUserService.getAllObjectUsers();
+	}catch(Exception e) {
+		log.error("Exception  getAllObjectUser() ==>ObjectUsersService   :{getAllObjectUser==>controller}  :" +e.getMessage());
 	}
 	return null;
 }
