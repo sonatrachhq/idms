@@ -446,7 +446,7 @@ public int findDoublons(List<UserAppPrivs> usersPrivs,Integer idapp){
 
 	
 	for(int i=0;i<usersPrivs.size();i++) {
-		if(usersPrivs.get(i).getIDAPPLICATION()==idapp) {
+		if(usersPrivs.get(i).getIDAPPLICATION().equals(idapp)) {
 			return i;
 		}
 	}
@@ -512,7 +512,7 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 		
 		for(int j=i+1;j<mesApps.size();j++) { // tester si il y'a d'autres role sur cette meme application
 			
-			if(mesApps.get(i).getIDAPPLICATION()==mesApps.get(j).getIDAPPLICATION() ) {
+			if(mesApps.get(i).getIDAPPLICATION().equals(mesApps.get(j).getIDAPPLICATION()) ) {
 				
 					Role otherRole=new Role();
 					otherRole.setIDROLE(mesApps.get(j).getIDROLE());
@@ -542,6 +542,7 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 
 	//traitement sur autres applications
 	for(int i=0;i<autresApps.size();i++) {
+		
 		UserAppPrivs jsonResponse=new UserAppPrivs();
 		List<Role> roles = new ArrayList();
 		jsonResponse.setIDAPPLICATION(autresApps.get(i).getIDAPPLICATION());
@@ -560,7 +561,8 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 		
 		for(int j=i+1;j<autresApps.size();j++) { // tester si il y'a d'autres role sur cette meme application
 			
-			if(autresApps.get(i).getIDAPPLICATION()==autresApps.get(j).getIDAPPLICATION() ) {
+			if(autresApps.get(i).getIDAPPLICATION().equals(autresApps.get(j).getIDAPPLICATION()) ) {
+				
 				//suppression de cette instance afin d'eviter la redandonce 
 				autresApps.remove(j);
 				j--;
@@ -578,7 +580,10 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 			 
 		
 		}
-
+		/*
+		 * for(UserAppPrivs n : otherApps) System.out.println(n.getIDAPPLICATION());
+		 */
+	
 	//ajuter mes app a la liste finale
 	listToReturn.addAll(myApps);
 	
@@ -620,7 +625,7 @@ public ArrayList<UserAppPrivs> getResult(Integer userId){
 				roles.add(role);
 				for(int j=i+1;j<interimPrivs.size();j++) {
 					Role otherRole=new Role();
-					if(interimPrivs.get(i).getIDAPPLICATION()==interimPrivs.get(j).getIDAPPLICATION() ) {// tester si il y'a d'autres role sur cette meme application
+					if(interimPrivs.get(i).getIDAPPLICATION().equals(interimPrivs.get(j).getIDAPPLICATION()) ) {// tester si il y'a d'autres role sur cette meme application
 						
 							otherRole.setIDROLE(interimPrivs.get(j).getIDROLE());
 							otherRole.setPRIVENDDATE(interimPrivs.get(j).getPRIVENDDATE());
@@ -827,7 +832,7 @@ public ArrayList<UsersObject> getObjects(Integer userId){
 		
 		for(int j=i+1;j<usersObjects.size();j++) {
 			
-			if(usersObjects.get(i).getIDAPPLICATION()==usersObjects.get(j).getIDAPPLICATION()) {
+			if(usersObjects.get(i).getIDAPPLICATION().equals(usersObjects.get(j).getIDAPPLICATION())) {
 				
 				ObjectType otherOb=new ObjectType(usersObjects.get(j).getIDOBJECT(),
 						usersObjects.get(j).getIDOBJECTTYPE(),
@@ -869,7 +874,7 @@ public ArrayList<UsersObject> getObjects(Integer userId){
 		
 		for(int j=i+1;j<interimObjects.size();j++) {
 			
-			if(interimObjects.get(i).getIDAPPLICATION()==interimObjects.get(j).getIDAPPLICATION()) {
+			if(interimObjects.get(i).getIDAPPLICATION().equals(interimObjects.get(j).getIDAPPLICATION())) {
 				
 				ObjectType otherOb=new ObjectType(interimObjects.get(j).getIDOBJECT(),
 						interimObjects.get(j).getIDOBJECTTYPE(),
@@ -893,7 +898,7 @@ public ArrayList<UsersObject> getObjects(Integer userId){
 		//avoir tt les roles d'une meme appli dans une seule instance (user's objects ou bien interim)
 		for(int i=0;i<listToReturn.size();i++) {
 			for(int j=i+1;j<listToReturn.size();j++) {
-				if(listToReturn.get(i).getIDAPPLICATION()==listToReturn.get(j).getIDAPPLICATION()) {
+				if(listToReturn.get(i).getIDAPPLICATION().equals(listToReturn.get(j).getIDAPPLICATION())) {
 					listToReturn.get(i).getObjects().addAll(listToReturn.get(j).getObjects());
 					
 					listToReturn.remove(j);
@@ -934,7 +939,7 @@ public List<UserAppPrivs> getAppsByMode(@RequestBody List<UserAppPrivs> apps, @R
 		ArrayList<UserAppPrivs> filteredApps=new ArrayList();
 		Integer appMode=Integer.valueOf(mode);
 		for(int i=0;i<apps.size();i++) {
-			if(apps.get(i).getAPPLICATIONMODE()==appMode) {
+			if(apps.get(i).getAPPLICATIONMODE().equals(appMode)) {
 				filteredApps.add(apps.get(i));
 			}
 		}

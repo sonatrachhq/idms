@@ -33,7 +33,7 @@ export class HomePageTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.appSize=Math.max(this.applications.filter(app=>app.roles.length!=0).length,this.applications.filter(app=>app.roles.length==0).length);
-    //console.log(this.appSize)
+   
  
   }
   public get myapps() {
@@ -51,7 +51,7 @@ export class HomePageTabComponent implements OnInit {
 
   public get otherpps(){
    // //console.log(this.applications)
-    let otherapp=this.applications.filter(app=>app.roles.length==0 );
+    let otherapp=this.applications.filter(app=>app.roles.length==0 && app.publicflag==0);
     let app = otherapp;
     app = this.paginator
       ? otherapp.slice(
@@ -65,13 +65,15 @@ export class HomePageTabComponent implements OnInit {
   public get data(){
     
      let app = this.applications;
-     
+     this.appSize=Math.max(this.applications.filter(app=>app.roles.length!=0).length,this.applications.filter(app=>app.roles.length==0).length);
+  
      app = this.paginator
        ? this.applications.slice(
            this.paginator.page * this.paginator.perPage,
            this.paginator.page * this.paginator.perPage + this.paginator.perPage
          )
        : app;
+       
      return app;
    }
   openRoleSelect(app:UserAppPrivs) {
