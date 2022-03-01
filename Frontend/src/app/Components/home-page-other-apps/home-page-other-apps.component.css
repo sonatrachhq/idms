@@ -23,7 +23,7 @@
     display: flex;
     flex-flow: column nowrap;
     background: var(--igx-list-background);
-    height: 70%;
+    height: 80%;
     overflow: hidden;
     z-index: 0;
     border-radius: var(--igx-list-border-radius);
