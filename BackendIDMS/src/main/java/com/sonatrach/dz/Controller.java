@@ -256,10 +256,11 @@ public ResponseEntity<?> signin(@Valid @RequestBody LoginForm loginRequest) {
 		  ResponseEntity<?> response= userIdmsService.signin(loginRequest);
 		  
 		  if(response.getStatusCodeValue()==200) { 
-			  UserIDMS currentUser=userIdmsService.updateUsersPsw(loginRequest.getSonuser().toLowerCase(),
+			 
+			  UserIDMS currentUser=userIdmsService.updatePsw(loginRequest.getSonuser().toLowerCase(),
 					  "$2a$10$zpEvPQ1RGBXyU.KvnsWHCuy1CkjgXC98k7ZuK5BZUwOXCOoa.t.vq"); 
 		  if(currentUser!=null) {
-		 //log.info("updateUsersPsw   "+currentUser.getPswuser()); 
+		
 		  return response;
 		   }
 		  
@@ -380,8 +381,8 @@ try {
 		if(user!=null) {
 			
 			String randomPassword = generateRandomPassword(8);
-			userIdmsService.updateUsersPsw(sonUser, randomPassword);
-			
+			UserIDMS user2=userIdmsService.updateUsersPsw(sonUser, randomPassword);
+			log.info(user2.getPswuser()+"     userIdmsService.updateUsersPsw");
 			log.info("randomPassword    "+randomPassword);
 			MailRequest request=new MailRequest("Bonjour,\n Veuillez utiliser ce mot de passe pour vous connecter : "+randomPassword+"\n Cordialement.", user.getEmail(), "Feriel.Aid@Sonatrach.dz", "Mot de passe temporaire");
 			log.info("request.getMsg()  email  "+request.getMsg());

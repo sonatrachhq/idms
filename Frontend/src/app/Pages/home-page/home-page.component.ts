@@ -1,3 +1,5 @@
+import { Route } from '@angular/compiler/src/core';
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserAppPrivs } from './../../Models/UserAppPrivs';
@@ -25,12 +27,12 @@ import { IgxFilterOptions, IgxPaginatorComponent } from 'igniteui-angular';
 })
 export class HomePageComponent implements OnInit {
 
-  
+  public searchApp: string;
   modes=["prod","pre_prod","dev"];
   applications:UserAppPrivs[]=[];
   allApps:UserAppPrivs[]=[];
  
-  constructor(private tokenStorage: TokenStorageService,private homePageService:HomePageService,public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
+  constructor(private router:Router ,private tokenStorage: TokenStorageService,private homePageService:HomePageService,public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
   
   }
 
@@ -44,18 +46,37 @@ export class HomePageComponent implements OnInit {
    
     
   }
-  updateData(event:any){
+  public get myapps() {
+    ////console.log(this.apps)
+    let myapp=this.applications.filter(app=>app.roles.length!=0 );
     
-    let mode:string=event.index;
-    this.applications= this.allApps.filter(app=>app.applicationmode==event.index  /* && app.publicflag==0 */);
-   
-    
-    //this.apps$=this.homePageService.getAppsByMode(this.allApps,mode.toString());
-    
+    return myapp;
   }
 
+  public get otherpps(){
+   // //console.log(this.applications)
+    let otherapp=this.applications.filter(app=>app.roles.length==0 && app.publicflag==0);
+    
+    return otherapp;
+  }
 
+  updateData(event:any){
+    let currentUrl = this.router.url;
+    let mode:string=event.index;
+    this.applications= this.allApps.filter(app=>app.applicationmode==event.index  /* && app.publicflag==0 */);
+    this.otherpps;
+    this.myapps;
+   // this.searchApp="updated "+event.index
+ 
+  }
+
+  get filterApps() {
+   
+    const fo = new IgxFilterOptions();
+    fo.key = 'applicationtitle';
+    fo.inputValue = this.searchApp;
+    return fo;
+  }
  
 }
-
 

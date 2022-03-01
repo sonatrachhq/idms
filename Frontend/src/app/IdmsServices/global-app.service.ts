@@ -224,6 +224,7 @@ findUserBySON(ntlm:Ntlm){
   createProfil(profil:Profil){
     this.loginPageService.saveProfil(profil).subscribe(
       data => {
+        
         //console.log(data);
        // this.dataSharingService.isUserLoggedIn.next(true);
         this.router.navigateByUrl("homePage" /* ,{skipLocationChange: true} */ )

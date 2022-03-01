@@ -100,12 +100,43 @@
 
 <router-outlet></router-outlet>
  <mat-tab-group mat-align-tabs="center" style="margin-left: 45px;margin-right: 45px; margin-top: 25px;"
-  (selectedTabChange)=" updateData($event)">
+  (selectedTabChange)=" updateData($event)" >
   <mat-tab *ngFor="let mode of modes; let i = index">
     <ng-template mat-tab-label>
       {{modes[i]|translate}}
     </ng-template>
-   <app-home-page-tab [app]="applications"></app-home-page-tab>
+   <!--  <app-home-page-tab [app]="applications" ></app-home-page-tab>  -->
+    <igx-input-group type="search" class="search">
+    <igx-prefix>
+      <igx-icon>search</igx-icon>
+    </igx-prefix>
+    <input #search igxInput placeholder="Search application" [(ngModel)]="searchApp">
+    <igx-suffix *ngIf="search.value.length > 0" (click)="searchApp = null">
+      <igx-icon>clear</igx-icon>
+    </igx-suffix>
+  </igx-input-group>
+  <div style="display: flex; justify-content: space-around; ">
+    <p style="margin-top: 8px;font-weight: bold;font-size: 24;">{{'my_apps'| translate}}</p>
+    <p style="margin-top: 8px;font-weight: bold;font-size: 24;">{{'other_apps'| translate}}</p>
+  </div>
+  
+  
+  <div style="display: flex;margin-bottom: 8px; ">
+    <div class="list-sample" style=" width: 50%; ">
+  
+    <app-home-page-my-apps  [app]="myapps" [searchApp]="searchApp"></app-home-page-my-apps>
+  </div>
+  
+    <div style="width:20px"></div>
+  
+    <div class="list-sample" style=" width: 50%;">
+      <app-home-page-other-apps  [app]="otherpps" [searchApp]="searchApp"></app-home-page-other-apps>
+  
+      
+    </div>
+  
+  </div> 
+
 </mat-tab>
 
 </mat-tab-group> 

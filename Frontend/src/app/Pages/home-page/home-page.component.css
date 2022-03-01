@@ -1,62 +1,14 @@
-mat-grid-tile {
-    background: #D6D5D3;
-  }
-  .mat-grid-tile .mat-figure {
-    justify-content: flex-start!important ;
-    align-items: flex-start !important;
-   
- }
- :host >>> .mat-figure{
-     margin-top: 10px!important;
-    align-items: start !important;
-    
-   
-  }
-
-  .cardList {
-    
-    width: 800px;
-    margin: 10px;
-    flex: 1 1 auto;
-    background-color: #BEBDBC;
-    
-  
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  
-    
-  }
-  /* Column Gap */
-  .cardList > * {
-    box-sizing: border-box;
-  }
-  .list-sample {
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-      
-  }
-  igx-icon {
-    cursor: pointer;
-  }
-  .search {
-    margin-bottom: 16px;
-    margin-top: 26px;
-  }
-  
-  .igx-list__item-content, .igx-list__item-content:active {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 0 !important;
-    border-radius: var(--igx-list-item-border-radius);
-    background: inherit;
-    z-index: 2;
-  }
-  .center {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
+.igx-list, .igx-list__empty, .igx-list--compact, .igx-list--cosy {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--igx-list-background);
+  height: 80%;
+  overflow: hidden;
+  z-index: 0;
+  border-radius: var(--igx-list-border-radius);
+}
+.search {
+  margin-bottom: 16px;
+  margin-top: 26px;
 }

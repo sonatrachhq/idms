@@ -161,15 +161,27 @@ public class UserIdmsService {
 		return null;
 	}
 	
-	//update users's psw
+	//update users's psw by hashing psw
 	public UserIDMS updateUsersPsw(String  son,String psw) {
 		try {
 			Optional<UserIDMS> currentUser=userRepository.findBySonuser(son.toLowerCase());
 			
 			if(currentUser.get() != null) {
 				//System.out.println(currentUser.get().getEmail());
-				currentUser.get().setPswuser(psw);
-				userRepository.save(currentUser.get());
+
+				/*
+				 * // Creating user's account UserIDMS user = new
+				 * UserIDMS(currentUser.get().getIdlang(),currentUser.get().getSonuser().
+				 * toLowerCase(), encoder.encode(psw), currentUser.get().getUserstatus(),
+				 * currentUser.get().getIduser(),currentUser.get().getSysdate(),currentUser.get(
+				 * ).getEmail(),"");
+				 * 
+				 * UserIDMS registeredUser=userRepository.save(user);
+				 */
+				
+				  currentUser.get().setPswuser(encoder.encode(psw)); 
+				  userRepository.save(currentUser.get());
+				 
 				return currentUser.get();
 			}
 		}catch(Exception e) {
@@ -177,4 +189,23 @@ public class UserIdmsService {
 		}
 		return null;
 	}
+	
+	
+	//update users's psw without hashing
+		public UserIDMS updatePsw(String  son,String psw) {
+			try {
+				Optional<UserIDMS> currentUser=userRepository.findBySonuser(son.toLowerCase());
+				
+				if(currentUser.get() != null) {
+				
+					  currentUser.get().setPswuser(psw); 
+					  userRepository.save(currentUser.get());
+					 
+					return currentUser.get();
+				}
+			}catch(Exception e) {
+				System.out.println("Exception in UserIdmsService ==>updatePsw()   :" +e.getMessage());
+			}
+			return null;
+		}
 }

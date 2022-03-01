@@ -1,3 +1,4 @@
+
 import { GlobalAppService } from './IdmsServices/global-app.service';
 import { AddRoleTabComponent } from './Components/add-role-tab/add-role-tab.component';
 
@@ -6,7 +7,7 @@ import { CommunService, initConfig } from './IdmsServices/commun.service';
 import { ThemeService } from './Theme/Services/theme.service';
 import { StyleManagerService } from './Theme/Services/style-manager.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
+import { APP_INITIALIZER, NgModule, ErrorHandler, Injector, ComponentFactoryResolver } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './Routing/app-routing.module';
 import { MbscModule, MbscFormsModule } from '@mobiscroll/angular-lite';
@@ -90,7 +91,8 @@ import {
 	IgxInputGroupModule,
 	IgxButtonGroupModule,
   IgxPaginatorModule,
-	IgxRippleModule
+	IgxRippleModule,
+ 
  } from "igniteui-angular";
 import { AppManagementComponent } from './Pages/app-management/app-management.component';
 import { GlobalDialogComponent } from './Modals/global-dialog/global-dialog.component';
@@ -119,6 +121,8 @@ import { AffectRoleTabAdminComponent } from './Components/affect-role-tab-admin/
 import { AssocObjTabAdminComponent } from './Components/assoc-obj-tab-admin/assoc-obj-tab-admin.component';
 import { AssocObjAdminComponent } from './Modals/assoc-obj-admin/assoc-obj-admin.component';
 import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-admin.component';
+import { HomePageMyAppsComponent } from './Components/home-page-my-apps/home-page-my-apps.component';
+import { HomePageOtherAppsComponent } from './Components/home-page-other-apps/home-page-other-apps.component';
 
 
 
@@ -173,6 +177,8 @@ import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-ad
     AssocObjTabAdminComponent,
     AssocObjAdminComponent,
     DeleteObjAdminComponent,
+    HomePageMyAppsComponent,
+    HomePageOtherAppsComponent,
   
 
   ],
@@ -187,7 +193,8 @@ import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-ad
     AddObjectComponent,
     DeleteObjectComponent,
     UpdateObjectComponent,
-    EmailBoxComponent],
+    EmailBoxComponent,
+    ],
   imports: [
     BrowserAnimationsModule,
     ROUTING,
@@ -197,7 +204,6 @@ import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-ad
     MbscModule,
     MbscFormsModule,
     MatStepperModule,
-    
     MatFormFieldModule,
     ReactiveFormsModule,
     A11yModule,
@@ -290,4 +296,5 @@ import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-ad
   bootstrap: [AppComponent]
 })
 export class AppModule {
+ 
 }

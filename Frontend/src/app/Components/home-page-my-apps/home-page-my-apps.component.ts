@@ -1,4 +1,3 @@
-import { ActivatedRoute } from '@angular/router';
 import { EmailBoxComponent } from './../../Modals/email-box/email-box.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,68 +6,53 @@ import { IgxFilterOptions, IgxPaginatorComponent } from 'igniteui-angular';
 import { CopyLinkComponent } from './../../Modals/copy-link/copy-link.component';
 import { RoleSelectComponent } from 'src/app/Modals/role-select/role-select.component';
 import { UserAppPrivs } from './../../Models/UserAppPrivs';
-import { Component, OnInit, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { max } from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-home-page-tab',
-  templateUrl: './home-page-tab.component.html',
-  styleUrls: ['./home-page-tab.component.css'],
- 
+  selector: 'app-home-page-my-apps',
+  templateUrl: './home-page-my-apps.component.html',
+  styleUrls: ['./home-page-my-apps.component.css']
 })
-export class HomePageTabComponent implements OnInit {
-  public searchApp: string;
+export class HomePageMyAppsComponent implements OnInit {
   @Input('app') applications:UserAppPrivs[];
- //@Input('app') testtt:string
- 
+  @Input('searchApp') searchApp:string;
   tooltipMsg="btn_detail_flip_card";
   public density = 'comfortable';
-  public itemsPerPage = [5,16,26,36];
+  public itemsPerPage = [5,10,15,20];
   @ViewChild('paginator', { static: true })
   public paginator!: IgxPaginatorComponent;
   columns: number = 1;
   position:string="below";
-  appSize:number=0;
-  mode:string
+  test:UserAppPrivs;
 
-  constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService,private route: ActivatedRoute) { 
+  constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
     
   }
 
   ngOnInit(): void {
-   // this.appSize=Math.max(this.applications.filter(app=>app.roles.length!=0).length,this.applications.filter(app=>app.roles.length==0).length);
-    this.route.queryParams.subscribe(Params=>{this.mode=Params["mode"];
-    console.log("Params[mode]")
-    console.log(Params["mode"])})
+    console.log("Calling ....HomePageMyAppsComponent")
+  }
+  ngOnDestroy(): void {
+    this.applications=[];
+    
+  }
+  public get data(){
+   
+    let app = this.applications;
+    
  
-  }
-  /* public get myapps() {
-    ////console.log(this.apps)
-    let myapp=this.applications.filter(app=>app.roles.length!=0 );
-    
-    return myapp;
-  }
+    app = this.paginator
+      ? this.applications.slice(
+          this.paginator.page * this.paginator.perPage,
+          this.paginator.page * this.paginator.perPage + this.paginator.perPage
+        )
+      : app;
 
-  public get otherpps(){
-   // //console.log(this.applications)
-    let otherapp=this.applications.filter(app=>app.roles.length==0 && app.publicflag==0);
-    
-    return otherapp;
+    return app;
   }
- */
-/*   public get data(){
-    
-     let app = this.applications;
-     
-     app = this.paginator
-       ? this.applications.slice(
-           this.paginator.page * this.paginator.perPage,
-           this.paginator.page * this.paginator.perPage + this.paginator.perPage
-         )
-       : app;
-       
-     return app;
-   } */
   openRoleSelect(app:UserAppPrivs) {
     if(app.roles.length>1){
       const dialogRef = this.dialog.open(RoleSelectComponent, {

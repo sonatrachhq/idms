@@ -1,3 +1,4 @@
+import { HomePageTabComponent } from './../Components/home-page-tab/home-page-tab.component';
 import { AdminPageComponent } from './../Pages/admin-page/admin-page.component';
 import { HeaderComponent } from './../Components/header/header.component';
 import { ListAppToUpdateComponent } from './../Components/list-app-to-update/list-app-to-update.component';
@@ -24,7 +25,7 @@ const APP_ROUTING : Routes =[
     {path:"listAppToUpdate",component:ListAppToUpdateComponent},
     {path:"adminPage",component:AdminPageComponent},
     {path:"header",component:HeaderComponent},
-   
+
    
     
 ]

@@ -1,3 +1,9 @@
+16.0
+---
+Régler les bugs suivants :
+-Home page : modification du paginator ( un pour chaque list my apps/ others)
+-Mot de passe temporaire (update user idms service backend hash psw before saving in DB)
+-------------------------------------------------------------------------------------------
 15.0
 ---
 Régler les bugs suivants :
