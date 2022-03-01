@@ -116,7 +116,7 @@ export class LoginPageComponent implements OnInit {
     this.globalAppService.getIntlmParams().then(
       data=>{
         if(data["infos"][0].USERNAME!="" &&data["infos"][0].DOMAIN!="" &&data["infos"][0].WORKSTATION!=""){
-          console.log("ntlm data",data)
+          //console.log("ntlm data",data)
           /* console.log("data[0]",data["infos"][0])
            console.log("USERNAME",data["infos"][0].USERNAME)
            console.log("DOMAIN",data["infos"][0].DOMAIN) */
@@ -150,7 +150,7 @@ export class LoginPageComponent implements OnInit {
     this.loginInfo.password=post.password;
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {  
-          console.log(data);
+          //console.log(data);
           if(data!=null){
 
             this.tokenStorage.saveToken(data.accessToken);

@@ -54,7 +54,7 @@ export class AddObjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.allObjects = this.tokenStorage.getObjects().filter(ob => ob.idapplication == this.data.app.idapplication);
-    console.log(this.router.url)
+    //console.log(this.router.url)
     let app:Applications={
       "idapplication":this.data.app.idapplication,
       "applicationdesc":"",
@@ -91,7 +91,7 @@ export class AddObjectComponent implements OnInit {
     
 
   
-    console.log(this.allObjc)
+    //console.log(this.allObjc)
     this.appManagementService.getAllObjTypes().subscribe(
       data => {  
         this.allObjType=data;
@@ -106,7 +106,7 @@ export class AddObjectComponent implements OnInit {
     )
   }
   onSubmit(form:any){
-    console.log(form)
+    //console.log(form)
     this.appObj.descobject=form.descobject;
     this.appObj.idapplication=this.data.app.idapplication;
     this.appObj.idobjecttype=form.idobjecttype.idobjecttype;

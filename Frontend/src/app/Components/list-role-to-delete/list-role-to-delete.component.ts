@@ -102,7 +102,7 @@ export class ListRoleToDeleteComponent implements OnInit {
 
   opendeleteRoleModal(app:Applications){
     this.allApps=this.tokenStorage.getAppPrivs().filter(appl=>appl.idapplication==app.idapplication)
-    console.log(this.allApps)
+    //console.log(this.allApps)
     if(this.allApps[0].roles.length!=0){
     const dialogRef = this.dialog.open(DeleteRoleComponent, {
       width: '650px',

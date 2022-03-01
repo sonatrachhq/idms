@@ -41,7 +41,7 @@ export class EmailBoxComponent implements OnInit {
   }
   onSubmit(form:any){
     this.showSpinner=true;
-    console.log(form)
+    //console.log(form)
     let mailrequest:MailRequest={
       "msg":form.emailmsg.toString(),
       "from":this.tokenStorage.getEmail(),
@@ -49,11 +49,11 @@ export class EmailBoxComponent implements OnInit {
       "to":this.communService.getEmailReceiver()
 
     }
-    console.log(mailrequest)
+    //console.log(mailrequest)
 
     this.homeService.sendEmail(mailrequest).subscribe(
       data => {  
-        console.log(data)
+        //console.log(data)
         this.showSpinner=false
         if(data.status){
           this.showAlert("send_email","send_email_success");

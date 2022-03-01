@@ -78,8 +78,8 @@ export class GlobalAppService {
       "username":this.tokenStorage.getSonuser(),
       "workstation":this.tokenStorage.geWorkstation()
     }
-    console.log("checkUsersState")
-    console.log(ntlm)
+    //console.log("checkUsersState")
+    //console.log(ntlm)
     return this.http.post<JwtResponse>(this.host+"api/auth/authUser",ntlm, {
       headers:{skip:"true"},
     })
@@ -87,7 +87,7 @@ export class GlobalAppService {
     .then((data)=>{
       if(data!=null){
         if(data.accessToken!=""){
-          console.log(data)
+          //console.log(data)
           this.tokenStorage.saveToken(data.accessToken);
           
           this.tokenStorage.saveTheme(2);
@@ -120,7 +120,7 @@ findUserBySON(ntlm:Ntlm){
   }).toPromise()
   .then(data=>{
     if(data){
-      console.log(data)
+      //console.log(data)
       Swal.fire({
         icon: 'error',
         title: this.translate.instant("auth_login"),

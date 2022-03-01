@@ -164,7 +164,7 @@ export class AssocObjAdminComponent implements OnInit {
   }
   onSubmit(form) {
    
-      console.log(this.idsobject.value)
+      //console.log(this.idsobject.value)
        let listObjts: ObjectType[] = this.idsobject.value;
        listObjts.forEach(obj=>{
         let objToSave:ObjectUsers={
@@ -181,7 +181,7 @@ export class AssocObjAdminComponent implements OnInit {
           }
         })
       })
-      console.log( this.objUsersToSave)
+      //console.log( this.objUsersToSave)
       this.tokenStorage.saveObjects(this.allObjects)
       this.saveObjUser(this.objUsersToSave)
       

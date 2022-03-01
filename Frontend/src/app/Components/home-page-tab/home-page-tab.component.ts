@@ -37,10 +37,7 @@ export class HomePageTabComponent implements OnInit {
 
   ngOnInit(): void {
    // this.appSize=Math.max(this.applications.filter(app=>app.roles.length!=0).length,this.applications.filter(app=>app.roles.length==0).length);
-    this.route.queryParams.subscribe(Params=>{this.mode=Params["mode"];
-    console.log("Params[mode]")
-    console.log(Params["mode"])})
- 
+  
   }
   /* public get myapps() {
     ////console.log(this.apps)

@@ -34,7 +34,7 @@ export class HomePageOtherAppsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Calling ....HomePageOtherAppsComponent")
+    //console.log("Calling ....HomePageOtherAppsComponent")
   }
   public get data(){
     

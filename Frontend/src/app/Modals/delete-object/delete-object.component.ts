@@ -48,7 +48,7 @@ export class DeleteObjectComponent implements OnInit {
     //console.log(this.allObjc)
   }
   onSubmit() {
-    console.log(this.idsobject.value)
+    //console.log(this.idsobject.value)
     for(let i=0;i<this.idsobject.value.length;i++){
       let obj:AppObjects={
         "idobject":this.idsobject.value[i].idobject,

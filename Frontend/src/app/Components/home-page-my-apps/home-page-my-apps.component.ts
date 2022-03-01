@@ -33,7 +33,7 @@ export class HomePageMyAppsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Calling ....HomePageMyAppsComponent")
+   // console.log("Calling ....HomePageMyAppsComponent")
   }
   ngOnDestroy(): void {
     this.applications=[];

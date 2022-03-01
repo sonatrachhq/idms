@@ -175,7 +175,7 @@ export class ListAppToDeleteComponent implements OnInit {
       if (result.isConfirmed) {
         this.appManagementService.deleteApplication(this.app).subscribe(
           data => {  
-            console.log(data)
+            //console.log(data)
             for(let i=0;i<this.apps.length;i++){
                 if(this.apps[i].idapplication==this.app.idapplication){
                     this.apps.splice(i,1);

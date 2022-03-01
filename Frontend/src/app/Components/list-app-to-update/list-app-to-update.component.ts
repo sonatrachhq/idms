@@ -114,7 +114,7 @@ export class ListAppToUpdateComponent implements OnInit {
         
       }
   };
-  console.log(navigationExtras)
+  //console.log(navigationExtras)
     this.router.navigate(['updateApplication'],navigationExtras );
   }
 

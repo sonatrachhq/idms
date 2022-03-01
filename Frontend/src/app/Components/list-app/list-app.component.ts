@@ -65,7 +65,7 @@ export class ListAppComponent implements OnInit {
 
   ngOnInit(): void {
     this.objects=this.tokenStorage.getObjects();
-    console.log(this.objects)
+    //console.log(this.objects)
     this.globalService.getCurrentUser(this.currentUser).subscribe(
       data => {  
        

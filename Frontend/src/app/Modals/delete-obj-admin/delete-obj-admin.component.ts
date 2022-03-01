@@ -140,7 +140,7 @@ export class DeleteObjAdminComponent implements OnInit {
 
    // console.log(objUser.length)
     let allObjUser = this.allObjectUsers.filter(object => object.iduseridms == selectedUser);
-    console.log(allObjUser)
+    //console.log(allObjUser)
     if (allObjUser.length == 0) {
       this.allObj = []
     } else {
@@ -154,7 +154,7 @@ export class DeleteObjAdminComponent implements OnInit {
       )
 
       this.allObj = objUser;
-      console.log(this.allObj)
+      //console.log(this.allObj)
 
     }
 
@@ -162,7 +162,7 @@ export class DeleteObjAdminComponent implements OnInit {
 
   onSubmit(form) {
 
-    console.log(this.idsobject.value)
+    //console.log(this.idsobject.value)
     let listObjts: ObjectType[] = this.idsobject.value;
     listObjts.forEach(obj => {
       let objToDrop: ObjectUsers = {

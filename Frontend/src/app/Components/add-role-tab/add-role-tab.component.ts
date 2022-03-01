@@ -76,7 +76,7 @@ export class AddRoleTabComponent implements OnInit {
      
      }
 
-     console.log( this.apps)
+    // console.log( this.apps)
   }
   public get data() {
     let application = this.apps;

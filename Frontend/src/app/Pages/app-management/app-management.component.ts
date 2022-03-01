@@ -34,7 +34,8 @@ export class AppManagementComponent implements OnInit {
    this.allObjects=this.tokenStorage.getObjects();
    ////console.log(this.allObjects)
    this.route.queryParams.subscribe(Params=>{this.mode=Params["mode"];
-   console.log(Params["mode"])})
+   //console.log(Params["mode"])
+  })
 
   }
 

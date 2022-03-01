@@ -113,7 +113,7 @@ apps:UserAppPrivs[]=[];
   }
 
   ngOnInit(): void {
-    console.log(this.app)
+    //console.log(this.app)
     this.formGroup.get('applicationdesc').setValue(this.app.applicationdesc)
     this.formGroup.get('applicationtitle').setValue(this.app.applicationtitle)
     this.formGroup.get('applicationdetail').setValue(this.app.applicationdetail)
@@ -153,10 +153,8 @@ apps:UserAppPrivs[]=[];
   
   
   onSubmit(form:any){
-    console.log(form)
-    if(form.applicationurl==" " ){
-      console.log("yeydg")
-    }
+    //console.log(form)
+  
     let app:Applications={
       "idapplication":this.app.idapplication,
       "applicationdesc":form.applicationdesc,
@@ -174,7 +172,7 @@ apps:UserAppPrivs[]=[];
 
     }
   
-console.log(app)
+//console.log(app)
       this.appManagementService.updateApplication(app).subscribe(
       data => {  
         //console.log(data);
@@ -195,7 +193,7 @@ console.log(app)
             }
             
           });
-          console.log(this.apps)
+          //console.log(this.apps)
          this.tokenStorage.saveAppPrivs(this.apps);
           this.showAlert("update_app","update_app_success");
         

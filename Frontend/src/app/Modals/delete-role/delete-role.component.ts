@@ -67,12 +67,12 @@ export class DeleteRoleComponent implements OnInit {
 
 
   onSubmit(form: any) {
-    console.log(form)
+    //console.log(form)
     this.role.descrole = form.idrole.descrole;
     this.role.idapplication = this.data.app.idapplication;
     this.role.idrole = form.idrole.idrole;
     this.role.idstatus = 1;
-    console.log(this.role)
+    //console.log(this.role)
     this.showConfirm("delete_role_qts");
   }
 
