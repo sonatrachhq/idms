@@ -153,6 +153,7 @@ export class HeaderComponent implements OnInit {
             data => {  
             //  //console.log(data);
              this.currentUser=data;
+             this.tokenStorage.saveUsername(this.currentUser.username.toString());
              this.username=this.currentUser.username.toString();
             this.getUsersProfil();
            

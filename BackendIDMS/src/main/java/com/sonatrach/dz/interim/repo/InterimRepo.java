@@ -1,6 +1,7 @@
 package com.sonatrach.dz.interim.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 
 import com.sonatrach.dz.interim.domain.Interim;

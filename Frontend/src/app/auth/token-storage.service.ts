@@ -15,6 +15,7 @@ const EMAIL_KEY = 'EmailKey';
 const USERNAME_KEY = 'UsernameKey';
 const DOMAIN_KEY='DomainKey';
 const WORKSTATION_KEY='WorkstationKey'
+const USERID_KEY='UserIdKey'
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +27,7 @@ export class TokenStorageService {
 
   signOut() {
     window.sessionStorage.clear();
+   
   }
 
   public saveToken(token: string) {
@@ -36,6 +38,16 @@ export class TokenStorageService {
   public getToken(): string {
     let token=sessionStorage.getItem(TOKEN_KEY);
     return token !==null? token :"";
+  }
+
+  public saveUserId(userId: string) {
+    window.sessionStorage.removeItem(USERID_KEY);
+    window.sessionStorage.setItem(USERID_KEY, userId);
+  }
+
+  public getUserId(): string {
+    let userId=sessionStorage.getItem(USERID_KEY);
+    return userId !==null? userId :"";
   }
 
   public saveEmail(email: string) {

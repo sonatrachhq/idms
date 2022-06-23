@@ -126,12 +126,13 @@ export class LoginPageComponent implements OnInit {
           // this.router.navigate(["login"])
         
           this.sonUser=this.tokenStorage.getSonuser();
+        
         }
       
     },
    
    );
-      
+   
   }
   login_AD(){
     this.showSpinner=true;
@@ -234,11 +235,17 @@ export class LoginPageComponent implements OnInit {
   }
 
   getUsersObjects(){
+    this.globalAppService.getCurrentUser(this.currentUser).subscribe(
+      value=>{console.log(value)
+        this.tokenStorage.saveUserId(value.iduseridms.toString())
+      }
+    )
     this.loginPageService.getUsersObjects(this.currentUser).subscribe(
       (data)=>{
        //console.log(data)
          
        this.tokenStorage.saveObjects(data);
+       
       /*  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {    
         this.router.navigate(['homePage'] );
         }); */

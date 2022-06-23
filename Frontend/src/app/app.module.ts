@@ -123,6 +123,7 @@ import { AssocObjAdminComponent } from './Modals/assoc-obj-admin/assoc-obj-admin
 import { DeleteObjAdminComponent } from './Modals/delete-obj-admin/delete-obj-admin.component';
 import { HomePageMyAppsComponent } from './Components/home-page-my-apps/home-page-my-apps.component';
 import { HomePageOtherAppsComponent } from './Components/home-page-other-apps/home-page-other-apps.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -270,6 +271,7 @@ import { HomePageOtherAppsComponent } from './Components/home-page-other-apps/ho
     StyleManagerService,
     ThemeService,
     CommunService,
+    CookieService,
    /*  {
       provide: APP_INITIALIZER,
       multi: true,

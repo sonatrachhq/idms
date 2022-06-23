@@ -29,13 +29,14 @@ public class AppPrivsService {
 	InterimService interimService;
 	
 	
-	public List<Role> getIdmsRoles(UserIDMS user){
+	public List<Role> getIdmsRoles(UserIDMS user,Integer idapp){
 		
 		try {
-			List<AppRoles> rolesIdms=appRolesRepo.findByApp(1);
+			List<AppRoles> rolesIdms=appRolesRepo.findByApp(idapp);
 			List<AppPrivs> privs=appPrivsRepo.findByUser(user.getIduseridms());
-			Interim interim=interimService.findInetrimRoles(user.getIduseridms(), 1);
-			
+			Interim interim=interimService.findInetrimRoles(user.getIduseridms(), idapp);
+//			for(AppPrivs n : privs) System.out.println(n.getIduseridms()+"  "+n.getIdrole());
+//			for(AppRoles n : rolesIdms) System.out.println(n.getIdapplication()+"  "+n.getIdrole());
 			List<AppPrivs> privsInterim= new ArrayList();
 			if(interim !=null) {
 			privsInterim=appPrivsRepo.findByUser(interim.getIduseridms());
@@ -52,7 +53,8 @@ public class AppPrivsService {
 			List<Role> roles=new ArrayList();
 			for(int i=0;i<privs.size();i++) {
 				for(int j=0;j<rolesIdms.size();j++) {
-					if(privs.get(i).getIdrole()==rolesIdms.get(j).getIdrole()) {
+					if(privs.get(i).getIdrole().equals(rolesIdms.get(j).getIdrole())) {
+						
 						Role role=new Role(privs.get(i).getIdrole(),privs.get(i).getIdstatus(),rolesIdms.get(j).getDescrole(),privs.get(i).getPrivstartdate(),privs.get(i).getPrivenddate());
 						roles.add(role);
 					}
@@ -61,7 +63,7 @@ public class AppPrivsService {
 			//add interim privs
 			for(int i=0;i<privsInterim.size();i++) {
 				for(int j=0;j<rolesIdms.size();j++) {
-					if(privsInterim.get(i).getIdrole()==rolesIdms.get(j).getIdrole()) {
+					if(privsInterim.get(i).getIdrole().equals(rolesIdms.get(j).getIdrole())) {
 						Role role=new Role(privsInterim.get(i).getIdrole(),privsInterim.get(i).getIdstatus(),rolesIdms.get(j).getDescrole(),privsInterim.get(i).getPrivstartdate(),privsInterim.get(i).getPrivenddate());
 						
 						roles.add(role);

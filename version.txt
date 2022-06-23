@@ -1,3 +1,7 @@
+17.0
+---
+-Modifications (role select modal and home-page-my-apps comp) add cookies to access dba services
+-------------------------------------------------------------------------------------------
 16.0
 ---
 Régler les bugs suivants :

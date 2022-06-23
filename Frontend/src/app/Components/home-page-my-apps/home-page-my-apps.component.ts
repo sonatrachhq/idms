@@ -11,6 +11,8 @@ import { max } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { CookieService } from 'ngx-cookie-service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Component({
   selector: 'app-home-page-my-apps',
   templateUrl: './home-page-my-apps.component.html',
@@ -28,7 +30,8 @@ export class HomePageMyAppsComponent implements OnInit {
   position:string="below";
   test:UserAppPrivs;
 
-  constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService) { 
+  constructor(public dialog: MatDialog,private _snackBar: MatSnackBar,public translate: TranslateService,private cookieService: CookieService,
+    private tokenStorage:TokenStorageService ) { 
     
   }
 
@@ -66,7 +69,14 @@ export class HomePageMyAppsComponent implements OnInit {
       });
     }else{
       if(app.ieflag==1){
-        window.open(app.applicationurl.toString(), "_blank");
+        //console.log(app.applicationurl.toString())
+        window.open(app.applicationurl.toString(), "_Blank");
+         this.cookieService.set( 'sonUser', this.tokenStorage.getSonuser());
+         this.cookieService.set( 'roleid', app.roles[0].idrole.toString());
+         this.cookieService.set( 'token', this.tokenStorage.getToken());
+         this.cookieService.set('userId',this.tokenStorage.getUserId());
+         this.cookieService.set('username',this.tokenStorage.getUsername())
+
       }else{
         const dialogRef = this.dialog.open(CopyLinkComponent, {
           width: '380px',

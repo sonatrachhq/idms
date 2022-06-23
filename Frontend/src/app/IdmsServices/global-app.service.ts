@@ -23,7 +23,7 @@ export class GlobalAppService {
   private host:String;
   currentUser:UserIDMS={
     "idlang":0,
-    "iduser":0,
+    "iduser":1,//id app idms to get roles just for idms roles and use it in dbaservices to get roles for dbaservices
     "iduseridms":0,
     "pswuser":"",
     "sonuser":"",
@@ -208,6 +208,9 @@ findUserBySON(ntlm:Ntlm){
               "systemdate":new Date
     
             }
+        
+            this.tokenStorage.saveUserId(data.iduseridms.toString());
+          
             this.createProfil(profil);
           }
         )
